@@ -14,11 +14,14 @@
     --gold:#D9B382;
   }
   *{box-sizing:border-box;}
+  html {
+    overflow-x: hidden;
+  }
   body{
     margin:0;
     font-family: Arial, Helvetica, sans-serif;
     color:var(--ink);
-    background-color:#14120F;
+    background-color:#000000;
   }
 
   /* ===== NAVBAR ===== */
@@ -28,12 +31,10 @@
     justify-content:space-between;
     padding:18px 40px;
     border-bottom:3px solid var(--red);
-    
-    /* Glass effect */
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: rgba(20, 18, 15, 0.6);
+    background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
   }
@@ -138,9 +139,7 @@
     top: 0;
     height: 100vh;
     width: 45%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+    overflow: visible;
   }
   
   .rocket-content {
@@ -149,8 +148,8 @@
     flex-direction: column;
   }
 
-  .scroll-step {
-    min-height: 120vh;
+  .content-block {
+    height: 100vh; /* Fixed 100vh guarantees precise sync with N blocks */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -158,7 +157,7 @@
     transition: opacity 0.5s ease;
   }
   
-  .scroll-step.active {
+  .content-block.active {
     opacity: 1;
   }
 
@@ -227,31 +226,27 @@
     max-width:430px;
   }
   
-  .hero-visual{
-    width: 280px; 
-    height: 280px;
-    flex-shrink:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position: relative;
-  }
+  /* .hero-visual container is removed, styling applies directly to canvas and sticky container */
   
   #rocket-canvas {
+    display: block;
     width: 100%;
     height: 100%;
     /* cover-fit so it matches the box constraints without distortion */
     object-fit: cover;
-    transform: scale(1.5); 
+    background-color: transparent;
   }
   
   #loading-state {
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 10;
     font-size: 14px;
     font-weight: bold;
     color: var(--gold);
-    background: rgba(20, 18, 15, 0.8);
+    background: rgba(0, 0, 0, 0.8);
     padding: 8px 16px;
     border-radius: 20px;
   }
@@ -344,7 +339,7 @@
     <div class="rocket-content">
       
       <!-- HERO SECTION (Step 1) -->
-      <div class="scroll-step active" id="step-1">
+      <div class="content-block active" id="step-1">
         <p class="ghost-label" style="margin-bottom:-20px;">Hero</p>
         <section class="hero">
           <div class="hero-content">
@@ -361,7 +356,7 @@
       </div>
 
       <!-- ABOUT SECTION (Step 2) -->
-      <div class="scroll-step" id="step-2">
+      <div class="content-block" id="step-2">
         <p class="ghost-label">About E-Club</p>
         <section class="about" id="about">
           <div class="eyebrow">ABOUT E-CLUB</div>
@@ -371,7 +366,7 @@
       </div>
 
       <!-- MISSION & VISION SECTION (Step 3) -->
-      <div class="scroll-step" id="step-3">
+      <div class="content-block" id="step-3">
         <p class="ghost-label">Mission &amp; Vision</p>
         <section class="about" id="mission">
           <div class="eyebrow">MISSION &amp; VISION</div>
@@ -384,15 +379,16 @@
 
     <!-- STICKY VISUAL -->
     <div class="rocket-sticky">
-      <div class="hero-visual">
-        <div id="loading-state">Loading 0%</div>
-        <canvas id="rocket-canvas" width="1280" height="720"></canvas>
-      </div>
+      <div id="loading-state">Loading 0%</div>
+      <canvas id="rocket-canvas" width="1280" height="720"></canvas>
     </div>
   </section>
 
   <!-- DEBUG READOUT -->
   <div id="debug-readout">Progress: 0.00% | Frame: 1</div>
+
+  <!-- A trailing blank section just to ensure you can actually scroll past the rocket-scroll block -->
+  <div style="height: 100vh; background: #000000;"></div>
 
   <script>
     // Configuration
@@ -405,6 +401,7 @@
     const canvas = document.getElementById('rocket-canvas');
     const ctx = canvas.getContext('2d');
     const loadingState = document.getElementById('loading-state');
+    const rocketSticky = document.querySelector('.rocket-sticky');
     
     // Scale for high DPI displays
     const dpr = window.devicePixelRatio || 1;
@@ -456,7 +453,8 @@
     }
 
     const rocketScroll = document.querySelector('.rocket-scroll');
-    const scrollSteps = document.querySelectorAll('.scroll-step');
+    const contentBlocks = document.querySelectorAll('.content-block');
+    const N = contentBlocks.length;
     let ticking = false;
 
     window.addEventListener('scroll', () => {
@@ -481,22 +479,40 @@
 
           if (imagesLoaded === frameCount) {
              updateCanvas(frameIndex);
+             
+             // Exit phase: fly off to the right when progress > 0.92
+             if (scrollFraction > 0.92) {
+               const exitProgress = (scrollFraction - 0.92) / 0.08;
+               const translateX = exitProgress * 150; // move up to 150% of own width
+               canvas.style.transform = `translateX(${translateX}%)`;
+             } else {
+               canvas.style.transform = `translateX(0%)`;
+             }
+             
+             // Fallback: fully hide panel to prevent visual bugs when scrolled past section
+             if (scrollFraction >= 1) {
+               rocketSticky.style.opacity = '0';
+               rocketSticky.style.pointerEvents = 'none';
+             } else {
+               rocketSticky.style.opacity = '1';
+               rocketSticky.style.pointerEvents = 'auto';
+             }
           }
           
-          // Handle step opacity fading
-          scrollSteps.forEach(step => {
-            const stepRect = step.getBoundingClientRect();
-            // Calculate distance from vertical center of viewport
-            const stepCenter = stepRect.top + (stepRect.height / 2);
-            const windowCenter = window.innerHeight / 2;
+          // Handle block opacity fading strictly mapped to [i/N, (i+1)/N]
+          contentBlocks.forEach((block, i) => {
+            const start = i / N;
+            const end = (i + 1) / N;
             
-            const dist = Math.abs(stepCenter - windowCenter);
-            const threshold = window.innerHeight * 0.4; // Fade threshold
-            
-            if (dist < threshold) {
-              step.classList.add('active');
+            if (scrollFraction >= start && scrollFraction <= end) {
+              block.classList.add('active');
             } else {
-              step.classList.remove('active');
+              // Ensure the last block stays active strictly at the very end 1.0 threshold
+              if (scrollFraction === 1 && i === N - 1) {
+                block.classList.add('active');
+              } else {
+                block.classList.remove('active');
+              }
             }
           });
           
