@@ -44,6 +44,12 @@
     <!-- YOUR WEBSITE DIRECTLY GOES HERE -->
   </main>
 
+  <script>
+    // Automatically navigate to Home Page when intro animation finishes
+    window.onIntroComplete = function() {
+      window.location.href = '../home_page/index.html';
+    };
+  </script>
   <script src="script.js"></script>
 </body>
 </html>
