@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Club | Entrepreneurship Club</title>
+<style>
+  :root{
+    --red:#e0294a;
+    --purple:#4a2e8f;
+    --ink:#F3ECDD;
+    --muted:#B8A98C;
+    --line:#ececec;
+    --gold:#D9B382;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    color:var(--ink);
+    background-color:#14120F;
+  }
+
+  /* ===== NAVBAR ===== */
+  .navbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 40px;
+    border-bottom:3px solid var(--red);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(20, 18, 15, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .nav-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .logo-mark{
+    width:34px;
+    height:34px;
+    flex-shrink:0;
+  }
+  .brand-text{
+    line-height:1.15;
+  }
+  .brand-text .line1{
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:0.3px;
+  }
+  .brand-text .line2{
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:0.3px;
+    color:var(--red);
+  }
+  .nav-links{
+    display:flex;
+    gap:34px;
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  .nav-links a{
+    text-decoration:none;
+    color:var(--ink);
+    font-size:14.5px;
+    font-weight:700;
+    transition: color 0.2s ease;
+  }
+  .nav-links a:hover{
+    color:var(--gold);
+  }
+  .nav-right{
+    display:flex;
+    align-items:center;
+    gap:18px;
+  }
+  .uni-name{
+    font-size:13px;
+    font-weight:800;
+    line-height:1.2;
+    text-align:left;
+  }
+  .uni-name span{
+    display:block;
+    font-size:10.5px;
+    font-weight:400;
+    color:var(--muted);
+  }
+  .naac{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:12px;
+    font-weight:700;
+  }
+  .naac-dot{
+    width:16px;
+    height:16px;
+    border-radius:50%;
+    background:var(--red);
+    display:inline-block;
+  }
+  .pierc{
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:0.5px;
+  }
+  .checkbox{
+    width:22px;
+    height:22px;
+    border:1px solid var(--gold);
+    border-radius:4px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13px;
+    color:var(--gold);
+  }
+
+  /* ===== SCROLL ANIMATION CSS ===== */
+  .rocket-scroll {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .rocket-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 45%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  .rocket-content {
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .scroll-step {
+    min-height: 120vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 0.2;
+    transition: opacity 0.5s ease;
+  }
+  
+  .scroll-step.active {
+    opacity: 1;
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    padding:0 40px;
+    gap:40px;
+  }
+  .hero-content{
+    max-width:520px;
+  }
+  .eyebrow{
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:0.4px;
+    color:var(--red);
+    margin-bottom:18px;
+  }
+  .headline{
+    font-size:56px;
+    font-weight:900;
+    line-height:1.08;
+    margin:0 0 22px;
+    letter-spacing:-1px;
+  }
+  .subtext{
+    font-size:15.5px;
+    line-height:1.6;
+    color:#D8CDB8;
+    max-width:430px;
+    margin:0 0 28px;
+  }
+  .hero-buttons{
+    display:flex;
+    gap:14px;
+    margin-bottom:22px;
+  }
+  .btn{
+    font-size:14px;
+    font-weight:700;
+    padding:14px 26px;
+    border-radius:4px;
+    cursor:pointer;
+    text-decoration:none;
+    display:inline-block;
+  }
+  .btn-primary{
+    background:var(--red);
+    color:#fff;
+    border:1px solid var(--red);
+  }
+  .btn-secondary{
+    background:transparent;
+    color:var(--gold);
+    border:1px solid var(--gold);
+  }
+  .design-note{
+    background:rgba(224,41,74,0.12);
+    color:var(--red);
+    font-size:12px;
+    padding:10px 14px;
+    border-radius:2px;
+    max-width:430px;
+  }
+  
+  .hero-visual{
+    width: 280px; 
+    height: 280px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position: relative;
+  }
+  
+  #rocket-canvas {
+    width: 100%;
+    height: 100%;
+    /* cover-fit so it matches the box constraints without distortion */
+    object-fit: cover;
+    transform: scale(1.5); 
+  }
+  
+  #loading-state {
+    position: absolute;
+    z-index: 10;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--gold);
+    background: rgba(20, 18, 15, 0.8);
+    padding: 8px 16px;
+    border-radius: 20px;
+  }
+
+  #debug-readout {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    padding: 10px 15px;
+    font-family: monospace;
+    font-size: 13px;
+    z-index: 9999;
+    border-radius: 4px;
+    border: 1px solid var(--gold);
+  }
+
+  /* ===== SECTION LABEL (ghost text) ===== */
+  .ghost-label{
+    font-size:26px;
+    color:#2A2418;
+    font-weight:400;
+    padding:0 40px 20px;
+    margin:0;
+  }
+
+  /* ===== ABOUT ===== */
+  .about{
+    padding:0 40px;
+    max-width:600px;
+  }
+  .about .eyebrow{
+    margin-bottom:16px;
+  }
+  .about h2{
+    font-size:32px;
+    font-weight:900;
+    margin:0 0 20px;
+    letter-spacing:-0.5px;
+  }
+  .about p{
+    font-size:15px;
+    line-height:1.7;
+    color:#D8CDB8;
+    margin:0;
+  }
+</style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-left">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 34 L34 22 L30 40 Z" fill="#c41f3e"/>
+        <path d="M14 42 L32 38 L26 52 Z" fill="#e0294a"/>
+        <path d="M32 22 C48 20 62 32 62 48 C62 62 50 72 38 68 C28 65 22 56 24 46 C26 36 32 22 32 22 Z" fill="#e0294a"/>
+        <circle cx="46" cy="48" r="9" fill="#ffffff"/>
+        <circle cx="46" cy="48" r="5" fill="#4a2e8f"/>
+        <path d="M58 62 L74 58 L64 74 Z" fill="#4a2e8f"/>
+      </svg>
+      <div class="brand-text">
+        <div class="line1">ENTREPRENEURSHIP</div>
+        <div class="line2">CLUB</div>
+      </div>
+    </div>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#event">Event</a></li>
+        <li><a href="#membership">Membership</a></li>
+        <li><a href="#resources">Resources</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-right">
+      <div class="uni-name">Parul<span>University</span></div>
+      <div class="naac"><span class="naac-dot"></span>NAAC A++</div>
+      <div class="pierc">PIERC</div>
+      <div class="checkbox">✓</div>
+    </div>
+  </header>
+
+  <!-- SCROLL ANIMATION WRAPPER -->
+  <section class="rocket-scroll">
+    <div class="rocket-content">
+      
+      <!-- HERO SECTION (Step 1) -->
+      <div class="scroll-step active" id="step-1">
+        <p class="ghost-label" style="margin-bottom:-20px;">Hero</p>
+        <section class="hero">
+          <div class="hero-content">
+            <div class="eyebrow">E-CLUB · ENTREPRENEURSHIP CLUB</div>
+            <h1 class="headline">Think. Build.<br>Innovate.</h1>
+            <p class="subtext">E-Club is where students connect, ideas grow, and entrepreneurship begins. Explore startups, meet mentors, and take your first step from idea to venture.</p>
+            <div class="hero-buttons">
+              <a href="#" class="btn btn-primary">Join E-Club</a>
+              <a href="#" class="btn btn-secondary">Submit Your Idea</a>
+            </div>
+            <div class="design-note">On load: the rocket in the navbar flies left → right along a looping path, revealing</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ABOUT SECTION (Step 2) -->
+      <div class="scroll-step" id="step-2">
+        <p class="ghost-label">About E-Club</p>
+        <section class="about" id="about">
+          <div class="eyebrow">ABOUT E-CLUB</div>
+          <h2>Where curiosity turns into a venture</h2>
+          <p>E-Club is Parul University's student entrepreneurship community. We help students explore innovation, leadership, and startups — moving from a first idea to a first pitch, project, or venture, alongside mentors, workshops, and peers who build with you.</p>
+        </section>
+      </div>
+
+      <!-- MISSION & VISION SECTION (Step 3) -->
+      <div class="scroll-step" id="step-3">
+        <p class="ghost-label">Mission &amp; Vision</p>
+        <section class="about" id="mission">
+          <div class="eyebrow">MISSION &amp; VISION</div>
+          <h2>Building the future, together</h2>
+          <p>Our mission is to foster a culture of innovation and problem-solving. We envision a community where every student has the resources, mentorship, and network to turn their boldest ideas into successful ventures.</p>
+        </section>
+      </div>
+      
+    </div>
+
+    <!-- STICKY VISUAL -->
+    <div class="rocket-sticky">
+      <div class="hero-visual">
+        <div id="loading-state">Loading 0%</div>
+        <canvas id="rocket-canvas" width="1280" height="720"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEBUG READOUT -->
+  <div id="debug-readout">Progress: 0.00% | Frame: 1</div>
+
+  <script>
+    // Configuration
+    const DEBUG = true; // Toggle this flag to show/hide debug readout
+    const debugReadout = document.getElementById('debug-readout');
+    if (!DEBUG) {
+      debugReadout.style.display = 'none';
+    }
+
+    const canvas = document.getElementById('rocket-canvas');
+    const ctx = canvas.getContext('2d');
+    const loadingState = document.getElementById('loading-state');
+    
+    // Scale for high DPI displays
+    const dpr = window.devicePixelRatio || 1;
+    // Logical size vs actual size to ensure crispness
+    canvas.width = 1280 * dpr;
+    canvas.height = 720 * dpr;
+    ctx.scale(dpr, dpr);
+
+    const frameCount = 300;
+    // Updated path as requested
+    const currentFrame = index => `frames_webp_300/frame_${index.toString().padStart(4, '0')}.webp`;
+    
+    const images = [];
+    let imagesLoaded = 0;
+    let lastDrawnIndex = -1;
+
+    // Preload images
+    for (let i = 1; i <= frameCount; i++) {
+      const img = new Image();
+      img.src = currentFrame(i);
+      img.onload = () => {
+        imagesLoaded++;
+        const pct = Math.floor((imagesLoaded / frameCount) * 100);
+        loadingState.innerText = `Loading ${pct}%`;
+        
+        if (imagesLoaded === frameCount) {
+          loadingState.style.display = 'none';
+          // Draw first frame when all are loaded
+          requestAnimationFrame(() => updateCanvas(1));
+        }
+      };
+      // fallback in case of missing images so we don't hang forever
+      img.onerror = () => {
+        imagesLoaded++;
+        if (imagesLoaded === frameCount) {
+          loadingState.style.display = 'none';
+        }
+      };
+      images.push(img);
+    }
+
+    function updateCanvas(index) {
+      if (index === lastDrawnIndex || !images[index - 1] || !images[index - 1].complete) return;
+      
+      // Clear and draw
+      ctx.clearRect(0, 0, 1280, 720);
+      ctx.drawImage(images[index - 1], 0, 0, 1280, 720);
+      lastDrawnIndex = index;
+    }
+
+    const rocketScroll = document.querySelector('.rocket-scroll');
+    const scrollSteps = document.querySelectorAll('.scroll-step');
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          // Calculate scroll progress for the canvas animation
+          const scrollRect = rocketScroll.getBoundingClientRect();
+          const scrollTop = -scrollRect.top;
+          const maxScroll = scrollRect.height - window.innerHeight;
+          
+          let scrollFraction = Math.max(0, Math.min(1, scrollTop / maxScroll));
+          
+          // Map to frame index (1–300) using Math.round as requested
+          const frameIndex = Math.min(
+            frameCount,
+            Math.max(1, Math.round(scrollFraction * 299) + 1)
+          );
+          
+          if (DEBUG) {
+            debugReadout.innerText = `Progress: ${(scrollFraction * 100).toFixed(2)}% | Frame: ${frameIndex}`;
+          }
+
+          if (imagesLoaded === frameCount) {
+             updateCanvas(frameIndex);
+          }
+          
+          // Handle step opacity fading
+          scrollSteps.forEach(step => {
+            const stepRect = step.getBoundingClientRect();
+            // Calculate distance from vertical center of viewport
+            const stepCenter = stepRect.top + (stepRect.height / 2);
+            const windowCenter = window.innerHeight / 2;
+            
+            const dist = Math.abs(stepCenter - windowCenter);
+            const threshold = window.innerHeight * 0.4; // Fade threshold
+            
+            if (dist < threshold) {
+              step.classList.add('active');
+            } else {
+              step.classList.remove('active');
+            }
+          });
+          
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+    
+    // Initial trigger
+    window.dispatchEvent(new Event('scroll'));
+  </script>
+</body>
+</html>
