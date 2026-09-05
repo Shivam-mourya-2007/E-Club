@@ -1,8 +1,9 @@
 /* =========================================================
-   PARUL UNIVERSITY E-CLUB - CINEMATIC INTRO STYLES
+   PARUL UNIVERSITY E-CLUB - CINEMATIC EXPERIENCE & HOME PAGE
    ========================================================= */
 
 :root {
+  /* Brand Palettes */
   --bg-primary: #000000;
   --bg-secondary: #0a0a0a;
   --gold-primary: #D4AF37;
@@ -10,11 +11,20 @@
   --gold-dark: #8C6F2D;
   --gold-gradient: linear-gradient(135deg, #FFF1CA 0%, #D4AF37 50%, #8C6F2D 100%);
   --gold-glow: rgba(212, 175, 55, 0.35);
+
+  --red: #e0294a;
+  --red-glow: rgba(224, 41, 74, 0.3);
+  --purple: #4a2e8f;
+  --ink: #F3ECDD;
+  --muted: #B8A98C;
   --text-primary: #EDE8DF;
   --text-muted: #8E887E;
+
+  /* Typography */
   --font-heading: 'Cinzel', serif;
   --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 *, *::before, *::after {
@@ -23,15 +33,26 @@
   padding: 0;
 }
 
-html, body {
+html {
+  overflow-x: clip;
+  scroll-behavior: smooth;
+  background-color: #000000;
+}
+
+body {
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   background-color: #000000;
   color: var(--text-primary);
   font-family: var(--font-body);
-  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body.intro-active {
+  overflow: hidden !important;
+  height: 100vh !important;
+  touch-action: none;
 }
 
 /* =========================================================
@@ -121,8 +142,8 @@ html, body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  z-index: 10;
-  transition: opacity 1s var(--ease-smooth), transform 1s var(--ease-smooth);
+  z-index: 100;
+  transition: opacity 1.4s var(--ease-cinematic), transform 1.4s var(--ease-cinematic);
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
@@ -130,7 +151,7 @@ html, body {
 .intro-stage.fade-out {
   opacity: 0;
   pointer-events: none;
-  transform: scale(1.04);
+  transform: scale(1.05);
 }
 
 #introCanvas {
@@ -146,12 +167,13 @@ html, body {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(circle at center, transparent 60%, rgba(0, 0, 0, 0.7) 100%);
+  background: radial-gradient(circle at center, transparent 55%, rgba(0, 0, 0, 0.75) 100%);
   mix-blend-mode: multiply;
 }
 
+
 /* =========================================================
-   POST-ANIMATION WEBSITE CONTAINER (PURE BLACK SCREEN)
+   POST-ANIMATION WEBSITE CONTAINER (SLOW CINEMATIC OPEN)
    ========================================================= */
 .website-container {
   position: relative;
@@ -159,177 +181,448 @@ html, body {
   min-height: 100dvh;
   width: 100%;
   background-color: #000000;
-  z-index: 5;
-  opacity: 1;
-  transition: opacity 0.8s ease;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.6s var(--ease-cinematic);
 }
 
 .website-container.hidden {
   display: none;
-  opacity: 0;
+}
+
+.website-container.visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* =========================================================
-   DETAILED MOBILE & RESPONSIVE MEDIA QUERIES
+   NAVBAR
+   ========================================================= */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 32px;
+  margin: 16px 24px 0;
+  border-radius: 999px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+  position: sticky;
+  top: 16px;
+  z-index: 1000;
+  background: rgba(18, 16, 14, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  transition: transform 0.8s var(--ease-cinematic), opacity 0.8s ease;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar-logo {
+  height: 44px;
+  width: auto;
+  max-width: 180px;
+  display: block;
+  object-fit: contain;
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 2px 10px rgba(224, 41, 74, 0.3));
+  transition: transform 0.25s ease;
+}
+
+.navbar-logo:hover {
+  transform: scale(1.03);
+}
+
+.logo-mark {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 8px var(--red-glow));
+  transition: transform 0.25s ease;
+}
+
+.logo-mark:hover {
+  transform: scale(1.08);
+}
+
+.brand-text {
+  line-height: 1.15;
+}
+
+.brand-text .line1 {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  color: var(--ink);
+}
+
+.brand-text .line2 {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  color: var(--red);
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+
+.nav-links a:hover {
+  color: var(--gold-light);
+  text-shadow: 0 0 12px var(--gold-glow);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.uni-name {
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.uni-name span {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.naac {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.naac-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--red);
+  display: inline-block;
+  box-shadow: 0 0 8px var(--red-glow);
+}
+
+.pierc {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: var(--gold-light);
+}
+
+.checkbox {
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--gold-primary);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: var(--gold-primary);
+}
+
+/* =========================================================
+   SCROLL ANIMATION WRAPPER & ROCKET CANVAS
+   ========================================================= */
+.rocket-scroll {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+}
+
+.rocket-sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 45%;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rocket-content {
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-block {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0.2;
+  transition: opacity 0.5s ease;
+}
+
+.content-block.active {
+  opacity: 1;
+}
+
+#rocket-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: transparent;
+}
+
+.loading-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--gold-light);
+  background: rgba(14, 12, 10, 0.85);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  padding: 8px 18px;
+  border-radius: 30px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.loading-badge.active {
+  opacity: 1;
+}
+
+/* =========================================================
+   HERO SECTION
+   ========================================================= */
+.hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 0 48px;
+  gap: 40px;
+}
+
+.hero-content {
+  max-width: 540px;
+}
+
+.eyebrow {
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--red);
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+
+.headline {
+  font-size: 58px;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  line-height: 1.08;
+  margin: 0 0 22px;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #FFFFFF 0%, #EDE8DF 60%, #D4AF37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtext {
+  font-size: 16px;
+  line-height: 1.65;
+  color: #D8CDB8;
+  max-width: 450px;
+  margin: 0 0 32px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.btn {
+  font-size: 14px;
+  font-weight: 700;
+  padding: 14px 28px;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.btn-primary {
+  background: var(--red);
+  color: #fff;
+  border: 1px solid var(--red);
+  box-shadow: 0 4px 18px var(--red-glow);
+}
+
+.btn-primary:hover {
+  background: #f13456;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(224, 41, 74, 0.45);
+}
+
+.btn-secondary {
+  background: rgba(212, 175, 55, 0.08);
+  color: var(--gold-light);
+  border: 1px solid rgba(212, 175, 55, 0.5);
+}
+
+.btn-secondary:hover {
+  background: rgba(212, 175, 55, 0.2);
+  border-color: var(--gold-primary);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--gold-glow);
+}
+
+.design-note {
+  background: rgba(224, 41, 74, 0.1);
+  border-left: 2px solid var(--red);
+  color: #F07085;
+  font-size: 12px;
+  padding: 10px 14px;
+  border-radius: 2px;
+  max-width: 440px;
+}
+
+/* =========================================================
+   SECTION LABELS & ABOUT / MISSION
+   ========================================================= */
+.ghost-label {
+  font-family: var(--font-heading);
+  font-size: 26px;
+  color: rgba(212, 175, 55, 0.2);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 0 48px 20px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.about {
+  padding: 0 48px;
+  max-width: 620px;
+}
+
+.about .eyebrow {
+  margin-bottom: 16px;
+}
+
+.about h2 {
+  font-family: var(--font-heading);
+  font-size: 34px;
+  font-weight: 700;
+  margin: 0 0 20px;
+  letter-spacing: -0.5px;
+  color: #FFF;
+}
+
+.about p {
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: #D8CDB8;
+  margin: 0;
+}
+
+.post-scroll-spacer {
+  height: 100vh;
+  background: #000000;
+}
+
+/* =========================================================
+   RESPONSIVE DESIGN & MOBILE OPTIMIZATIONS
    ========================================================= */
 
-/* 1. TABLETS & LARGE MOBILE PHONES (<= 768px) */
-@media screen and (max-width: 768px) {
-  .loader-title {
-    font-size: 0.8rem;
-    letter-spacing: 0.22em;
+/* 1. TABLETS & SMALL DESKTOPS (<= 992px) */
+@media screen and (max-width: 992px) {
+  .navbar {
+    padding: 10px 20px;
+    margin: 12px 16px 0;
   }
 
-  .loader-status {
-    font-size: 0.7rem;
-    letter-spacing: 0.12em;
+  .nav-links {
+    gap: 20px;
   }
 
-  .gold-ring-wrapper {
-    width: 96px;
-    height: 96px;
-    margin-bottom: 20px;
+  .hero, .about, .ghost-label {
+    padding: 0 24px;
   }
 
-  .load-percent {
-    font-size: 1.05rem;
-  }
-
-  .cinematic-vignette {
-    /* Slightly lighter vignette on tablet viewports */
-    background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.75) 100%);
+  .headline {
+    font-size: 42px;
   }
 }
 
-/* 2. STANDARD SMARTPHONES (<= 480px) */
-@media screen and (max-width: 480px) {
-  html, body {
-    /* Prevent mobile rubber-banding / pull-to-refresh bounce during intro */
-    overscroll-behavior: none;
-    -webkit-overflow-scrolling: touch;
+/* 2. SMARTPHONES (<= 600px) */
+@media screen and (max-width: 600px) {
+
+  .navbar {
+    margin: 8px 10px 0;
+    padding: 8px 14px;
+    border-radius: 16px;
   }
 
-  .preloader {
-    padding: 20px;
-    /* Safe-area insets for notched screens (iPhone Dynamic Island / Notch) */
-    padding-top: calc(20px + env(safe-area-inset-top));
-    padding-bottom: calc(20px + env(safe-area-inset-bottom));
-    padding-left: calc(20px + env(safe-area-inset-left));
-    padding-right: calc(20px + env(safe-area-inset-right));
+  .nav-links {
+    display: none; /* Mobile navigation simplified */
   }
 
-  .loader-content {
+  .headline {
+    font-size: 34px;
+  }
+
+  .subtext {
+    font-size: 14.5px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn {
+    text-align: center;
     width: 100%;
-    max-width: 320px;
-    padding: 0 10px;
   }
 
-  .gold-ring-wrapper {
-    width: 86px;
-    height: 86px;
-    margin-bottom: 18px;
-  }
-
-  .load-percent {
-    font-size: 0.95rem;
-    letter-spacing: 0.02em;
-  }
-
-  .loader-title {
-    font-size: 0.72rem;
-    letter-spacing: 0.16em;
-    line-height: 1.45;
-    margin-bottom: 6px;
-    word-break: break-word;
-    text-wrap: balance;
-  }
-
-  .loader-status {
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
-  }
-
-  /* Optimized portrait vignette for vertical phone displays */
-  .cinematic-vignette {
-    background: radial-gradient(ellipse 75% 65% at center, transparent 40%, rgba(0, 0, 0, 0.82) 100%);
-  }
-
-  /* Full mobile viewport & notch support for post-intro container */
-  .website-container {
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
-    padding-left: env(safe-area-inset-left);
-    padding-right: env(safe-area-inset-right);
+  .about h2 {
+    font-size: 26px;
   }
 }
 
-/* 3. ULTRA-COMPACT SMARTPHONES (<= 360px - e.g. iPhone SE, Galaxy Fold cover) */
-@media screen and (max-width: 360px) {
-  .gold-ring-wrapper {
-    width: 74px;
-    height: 74px;
-    margin-bottom: 14px;
-  }
-
-  .load-percent {
-    font-size: 0.85rem;
-  }
-
-  .loader-title {
-    font-size: 0.64rem;
-    letter-spacing: 0.12em;
-  }
-
-  .loader-status {
-    font-size: 0.6rem;
-  }
-}
-
-/* 4. MOBILE LANDSCAPE ORIENTATION (Short heights <= 500px) */
-@media screen and (orientation: landscape) and (max-height: 500px) {
-  .loader-content {
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
-    text-align: left;
-    max-width: 480px;
-  }
-
-  .gold-ring-wrapper {
-    width: 72px;
-    height: 72px;
-    margin-bottom: 0;
-    flex-shrink: 0;
-  }
-
-  .load-percent {
-    font-size: 0.85rem;
-  }
-
-  .loader-title {
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    margin-bottom: 4px;
-  }
-
-  .loader-status {
-    font-size: 0.65rem;
-  }
-
-  .cinematic-vignette {
-    background: radial-gradient(circle at center, transparent 65%, rgba(0, 0, 0, 0.7) 100%);
-  }
-}
-
-/* 5. HIGH-DENSITY RETINA DISPLAYS */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  #introCanvas {
-    image-rendering: -webkit-optimize-contrast;
-  }
-}
-
-/* 6. REDUCED MOTION PREFERENCE (Accessibility) */
+/* 3. REDUCED MOTION */
 @media (prefers-reduced-motion: reduce) {
   .preloader,
   .intro-stage,
