@@ -35,21 +35,95 @@
     
     <!-- Cinematic Vignette & Ambient Overlays -->
     <div class="cinematic-vignette"></div>
-
   </section>
 
   <!-- Container for the website after the animation ends -->
-  <!-- Screen transitions to solid black here. You can add your website directly inside! -->
+  <!-- Screen transitions slowly and smoothly to the Home Page -->
   <main id="website-container" class="website-container hidden">
-    <!-- YOUR WEBSITE DIRECTLY GOES HERE -->
+    
+    <!-- NAVBAR -->
+    <header class="navbar">
+      <div class="nav-left">
+        <img src="Web_img_resources/eclub_emblem.png" alt="Entrepreneurship Club Logo" class="logo-mark">
+        <div class="brand-text">
+          <div class="line1">ENTREPRENEURSHIP</div>
+          <div class="line2">CLUB</div>
+        </div>
+      </div>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#event">Event</a></li>
+          <li><a href="#membership">Membership</a></li>
+          <li><a href="#resources">Resources</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-right">
+        <div class="uni-name">Parul<span>University</span></div>
+        <div class="naac"><span class="naac-dot"></span>NAAC A++</div>
+        <div class="pierc">PIERC</div>
+        <div class="checkbox">✓</div>
+      </div>
+    </header>
+
+    <!-- SCROLL ANIMATION WRAPPER -->
+    <section class="rocket-scroll" id="home">
+      <div class="rocket-content">
+        
+        <!-- HERO SECTION (Step 1) -->
+        <div class="content-block active" id="step-1">
+          <p class="ghost-label" style="margin-bottom:-20px;">Hero</p>
+          <section class="hero">
+            <div class="hero-content">
+              <div class="eyebrow">E-CLUB · ENTREPRENEURSHIP CLUB</div>
+              <h1 class="headline">Think. Build.<br>Innovate.</h1>
+              <p class="subtext">E-Club is where students connect, ideas grow, and entrepreneurship begins. Explore startups, meet mentors, and take your first step from idea to venture.</p>
+              <div class="hero-buttons">
+                <a href="#about" class="btn btn-primary">Join E-Club</a>
+                <a href="#mission" class="btn btn-secondary">Submit Your Idea</a>
+              </div>
+              <div class="design-note">On scroll: interactive 3D rocket journey across club milestones and mission</div>
+            </div>
+          </section>
+        </div>
+
+        <!-- ABOUT SECTION (Step 2) -->
+        <div class="content-block" id="step-2">
+          <p class="ghost-label">About E-Club</p>
+          <section class="about" id="about">
+            <div class="eyebrow">ABOUT E-CLUB</div>
+            <h2>Where curiosity turns into a venture</h2>
+            <p>E-Club is Parul University's student entrepreneurship community. We help students explore innovation, leadership, and startups — moving from a first idea to a first pitch, project, or venture, alongside mentors, workshops, and peers who build with you.</p>
+          </section>
+        </div>
+
+        <!-- MISSION & VISION SECTION (Step 3) -->
+        <div class="content-block" id="step-3">
+          <p class="ghost-label">Mission &amp; Vision</p>
+          <section class="about" id="mission">
+            <div class="eyebrow">MISSION &amp; VISION</div>
+            <h2>Building the future, together</h2>
+            <p>Our mission is to foster a culture of innovation and problem-solving. We envision a community where every student has the resources, mentorship, and network to turn their boldest ideas into successful ventures.</p>
+          </section>
+        </div>
+        
+      </div>
+
+      <!-- STICKY VISUAL -->
+      <div class="rocket-sticky">
+        <div id="loading-state" class="loading-badge">Loading...</div>
+        <canvas id="rocket-canvas" width="1280" height="720"></canvas>
+      </div>
+    </section>
+
+    <!-- Post-scroll spacing -->
+    <div class="post-scroll-spacer"></div>
   </main>
 
-  <script>
-    // Automatically navigate to Home Page when intro animation finishes
-    window.onIntroComplete = function() {
-      window.location.href = '../home_page/index.html';
-    };
-  </script>
   <script src="script.js"></script>
 </body>
 </html>
