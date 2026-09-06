@@ -367,91 +367,121 @@ button, input, select, textarea {
   flex-shrink: 0;
 }
 
-/* Parul Brand (Official Vector Logo) */
-.parul-brand {
+/* Parul University & NAAC Grade A++ Lockup (Clean - No Crest Symbol) */
+.parul-naac-lockup {
   display: flex;
   align-items: center;
+  gap: 14px;
   text-decoration: none;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  line-height: 1;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  user-select: none;
 }
 
-.parul-brand:hover {
-  transform: translateY(-1px);
+.parul-naac-lockup:hover {
   opacity: 0.85;
-}
-
-.parul-official-logo {
-  height: 32px;
-  width: auto;
-  max-width: 140px;
-  object-fit: contain;
-  display: block;
-}
-
-/* NAAC Official Grade A++ Badge */
-.naac-badge-group {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-.naac-badge-group:hover {
   transform: translateY(-1px);
-  opacity: 0.85;
 }
 
-.naac-official-emblem {
-  height: 28px;
-  width: 28px;
-  object-fit: contain;
-  display: block;
-  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.08));
-}
-
-.naac-text-col {
+.pu-text-block {
   display: flex;
   flex-direction: column;
-  line-height: 1.05;
+  line-height: 1.08;
+}
+
+.pu-name {
+  font-family: var(--font-heading);
+  font-size: 15.5px;
+  font-weight: 900;
+  color: #0F172A;
+  letter-spacing: -0.2px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.pu-reg {
+  font-size: 7px;
+  font-weight: 700;
+  color: #64748B;
+  margin-left: 1.5px;
+  top: -2px;
+  position: relative;
+}
+
+.pu-sub {
+  font-family: var(--font-heading);
+  font-size: 12px;
+  font-weight: 500;
+  color: #475569;
+  letter-spacing: 0.1px;
+}
+
+.pu-v-sep {
+  width: 1px;
+  height: 26px;
+  background: #CBD5E1;
+  flex-shrink: 0;
+}
+
+.naac-block {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.naac-titles {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
   text-align: right;
 }
 
-.naac-main {
+.naac-title-top {
   font-family: var(--font-heading);
-  font-size: 11px;
+  font-size: 13.5px;
   font-weight: 900;
   color: #0F172A;
   letter-spacing: 0.4px;
 }
 
-.naac-sub {
-  font-size: 7.5px;
+.naac-title-sub {
+  font-family: var(--font-heading);
+  font-size: 9px;
   font-weight: 700;
   color: #64748B;
+  letter-spacing: 0.4px;
+  margin-top: 2px;
 }
 
-.naac-grade-badge {
+.naac-grade-circle-wrap {
   display: flex;
   align-items: center;
-  gap: 1px;
-  background: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  padding: 3px 6px;
-  border-radius: 4px;
+  gap: 2px;
 }
 
-.naac-circle {
+.naac-red-circle {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #DC2626;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-heading);
-  font-size: 11px;
+  font-size: 12.5px;
   font-weight: 900;
-  color: #059669;
+  line-height: 1;
+  box-shadow: 0 1.5px 4px rgba(220, 38, 38, 0.35);
 }
 
-.naac-pluses {
-  font-size: 10px;
+.naac-black-pluses {
+  font-family: var(--font-heading);
+  font-size: 15px;
   font-weight: 900;
-  color: #059669;
+  color: #0F172A;
+  line-height: 1;
+  letter-spacing: -0.5px;
 }
 
 /* PIERC */
