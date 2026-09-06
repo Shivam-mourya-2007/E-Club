@@ -275,6 +275,13 @@
     white-space: nowrap;
   }
 
+  a.parul-brand,
+  a.pierc-brand,
+  a.naac-badge-group {
+    cursor: pointer;
+    text-decoration: none;
+  }
+
   /* ===== SCROLL ANIMATION CSS ===== */
   .rocket-scroll {
     position: relative;
