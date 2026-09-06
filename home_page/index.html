@@ -4,15 +4,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>E-Club | Entrepreneurship Club</title>
+  <title>E-Club | Ignite Your Venture</title>
+  <meta name="description" content="E-Club is an elite university entrepreneurship ecosystem and startup accelerator empowering student founders with mentorship, seed capital, and venture scaling.">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
+
   <script>
-    // Immediate check to prevent flash of preloader/intro on page refresh
     if (sessionStorage.getItem('eclub_intro_seen')) {
       document.documentElement.classList.add('intro-skipped');
     }
@@ -24,955 +26,766 @@
   <!-- Preloader Screen -->
   <div id="preloader" class="preloader">
     <div class="loader-content">
-      <div class="gold-ring-wrapper">
+      <div class="loader-emblem-wrap">
+        <img src="Web_img_resources/eclub_emblem.png" alt="E-Club Emblem" class="loader-emblem">
+      </div>
+      <div class="progress-ring-wrapper">
         <svg class="progress-ring" viewBox="0 0 110 110" width="100%" height="100%">
-          <circle class="progress-ring-track" stroke="rgba(218, 175, 110, 0.15)" stroke-width="3" fill="transparent"
-            r="48" cx="55" cy="55" />
-          <circle id="progressRingCircle" class="progress-ring-fill" stroke="#D4AF37" stroke-width="3"
-            stroke-dasharray="301.59" stroke-dashoffset="301.59" stroke-linecap="round" fill="transparent" r="48"
-            cx="55" cy="55" />
+          <circle class="progress-ring-track" stroke="rgba(79, 70, 229, 0.12)" stroke-width="3" fill="transparent" r="48" cx="55" cy="55" />
+          <circle id="progressRingCircle" class="progress-ring-fill" stroke="#4F46E5" stroke-width="3" stroke-dasharray="301.59" stroke-dashoffset="301.59" stroke-linecap="round" fill="transparent" r="48" cx="55" cy="55" />
         </svg>
         <span id="loadPercent" class="load-percent">0%</span>
       </div>
-      <p class="loader-title">PARUL UNIVERSITY E-CLUB</p>
-      <p class="loader-status" id="loaderStatus">Loading experience...</p>
+      <p class="loader-title">E-CLUB STARTUP HUB</p>
+      <p class="loader-status" id="loaderStatus">Initializing venture telemetry...</p>
     </div>
   </div>
 
-  <!-- Fullscreen Video Animation Stage -->
-  <section id="intro-stage" class="intro-stage">
-    <canvas id="introCanvas"></canvas>
-    <div class="cinematic-vignette"></div>
-    <button id="skipIntroBtn" class="skip-intro-btn" type="button">Skip Intro ➔</button>
-  </section>
-
-  <!-- Container for the website after the animation ends or on refresh -->
-  <main id="website-container" class="website-container">
-
-    <!-- NAVBAR -->
-    <header class="navbar">
-      <div class="nav-left">
-        <img src="Web_img_resources/eclub_emblem.png" alt="Entrepreneurship Club Logo" class="logo-mark">
+  <!-- NAVBAR (Clean Light Sticky Glass) -->
+  <header class="navbar" id="mainNavbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-brand">
+        <img src="Web_img_resources/eclub_emblem.png" alt="E-Club Logo" class="brand-logo">
         <div class="brand-text">
-          <div class="line1">ENTREPRENEURSHIP</div>
-          <div class="line2">CLUB</div>
+          <span class="brand-name">E-CLUB</span>
+          <span class="brand-sub">FOUNDER ACCELERATOR</span>
         </div>
-      </div>
+      </a>
 
-      <nav>
+      <nav class="nav-menu" id="navMenu">
         <ul class="nav-links">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#event">Events</a></li>
-          <li><a href="#team">Team</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-          <li><a href="#faq">FAQ</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="#membership" id="navMembershipBtn">Membership</a></li>
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#ecosystem" class="nav-link">Ecosystem</a></li>
+          <li><a href="#startups" class="nav-link">Startups</a></li>
+          <li><a href="#events" class="nav-link">Events</a></li>
+          <li><a href="#wings" class="nav-link">Wings</a></li>
+          <li><a href="#gallery" class="nav-link">Gallery</a></li>
+          <li><a href="#faq" class="nav-link">FAQ</a></li>
         </ul>
       </nav>
 
-      <div class="nav-right">
-        <!-- Parul University Official Link -->
-        <a href="https://www.paruluniversity.ac.in/" target="_blank" rel="noopener noreferrer" class="parul-brand">
-          <div class="parul-title">Parul<sup class="reg-mark">&reg;</sup></div>
-          <div class="parul-subtitle">University</div>
-        </a>
-
-        <div class="nav-v-divider"></div>
-
-        <!-- NAAC GRADE A++ Link -->
-        <a href="https://www.paruluniversity.ac.in/" target="_blank" rel="noopener noreferrer" class="naac-badge-group">
-          <div class="naac-text-col">
-            <span class="naac-main">NAAC</span>
-            <span class="naac-sub">GRADE</span>
-          </div>
-          <div class="naac-grade-badge">
-            <span class="naac-circle">A</span>
-            <span class="naac-pluses">++</span>
-          </div>
-        </a>
-
-        <div class="nav-v-divider"></div>
-
-        <!-- PIERC Link -->
-        <a href="https://www.pierc.org/" target="_blank" rel="noopener noreferrer" class="pierc-brand">
-          <div class="pierc-letters">
-            <span class="p-letter">P<span class="p-dot"></span></span>
-            <span class="i-letter"><span class="i-ring"></span>I</span>
-            <span class="e-letter">E</span>
-            <span class="r-letter">R</span>
-            <span class="c-letter">C</span>
-          </div>
-          <div class="pierc-subtext">
-            <span>Parul Innovation &amp;</span>
-            <span>Entrepreneurship</span>
-            <span>Research Centre</span>
-          </div>
-        </a>
+      <div class="nav-actions">
+        <a href="#membership" class="btn btn-primary btn-pill nav-cta">Join E-Club ➔</a>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <!-- SCROLL ANIMATION WRAPPER -->
-    <section class="rocket-scroll" id="home">
-      <div class="rocket-content">
+  <!-- MAIN WRAPPER -->
+  <main class="page-wrapper">
 
-        <!-- HERO SECTION (Step 1) -->
-        <div class="content-block active" id="step-1">
-          <section class="hero">
-            <div class="hero-content">
-              <div class="eyebrow">E-CLUB · ENTREPRENEURSHIP CLUB</div>
-              <h1 class="headline">Think. Build.<br>Innovate.</h1>
-              <p class="subtext">E-Club is where students connect, ideas grow, and entrepreneurship begins. Explore
-                startups, meet mentors, and take your first step from idea to venture.</p>
-              <div class="hero-buttons">
-                <a href="#membership" class="btn btn-primary" id="heroJoinBtn">Join E-Club</a>
-                <a href="#idea" class="btn btn-secondary" id="heroIdeaBtn">Submit Your Idea</a>
+    <!-- HERO & SEAMLESS ROCKET SCROLL STAGE -->
+    <section id="home" class="hero-scroll-container">
+      <div class="hero-sticky-stage" id="heroStickyStage">
+        
+        <!-- Full-Viewport Canvas (Zero Letterbox, Smooth Edge Feathering) -->
+        <canvas id="rocket-canvas" class="rocket-canvas"></canvas>
+        <div class="canvas-ambient-vignette"></div>
+        <div class="canvas-bottom-fade"></div>
+
+        <!-- Overlaid Viewport Hero Content -->
+        <div class="hero-overlay-content">
+          <div class="hero-meta-badge">
+            <span class="pulse-dot"></span>
+            <span class="badge-text">COHORT 2024–25 APPLICATIONS OPEN</span>
+          </div>
+
+          <h1 class="hero-title">
+            Ignite Your Venture. <br>
+            <span class="gradient-text">Build The Future.</span>
+          </h1>
+
+          <p class="hero-subtext">
+            The premier university launchpad and student accelerator. We provide early-stage capital, ruthless product mentorship, and direct venture capital pipelines to scale your idea from campus to market leader.
+          </p>
+
+          <div class="hero-ctas">
+            <a href="#membership" class="btn btn-primary btn-pill">Launch Your Startup ➔</a>
+            <a href="#ecosystem" class="btn btn-outline btn-pill">Explore Ecosystem</a>
+          </div>
+
+          <!-- Floating Glassmorphic Telemetry Cards -->
+          <div class="telemetry-bar">
+            <div class="telemetry-card float-card-1">
+              <div class="telemetry-icon-wrap">🚀</div>
+              <div class="telemetry-data">
+                <span class="telemetry-num">300+</span>
+                <span class="telemetry-label">Startups Incubated</span>
               </div>
-              <div class="design-note">Explore the journey of student innovation and entrepreneurship</div>
             </div>
-          </section>
+
+            <div class="telemetry-card float-card-2">
+              <div class="telemetry-icon-wrap">💼</div>
+              <div class="telemetry-data">
+                <span class="telemetry-num">₹5Cr+</span>
+                <span class="telemetry-label">Seed Fund Raised</span>
+              </div>
+            </div>
+
+            <div class="telemetry-card float-card-3">
+              <div class="telemetry-icon-wrap">🌐</div>
+              <div class="telemetry-data">
+                <span class="telemetry-num">50+</span>
+                <span class="telemetry-label">Elite VC Mentors</span>
+              </div>
+            </div>
+
+            <div class="telemetry-card float-card-4">
+              <div class="telemetry-icon-wrap">📈</div>
+              <div class="telemetry-data">
+                <span class="telemetry-num">98%</span>
+                <span class="telemetry-label">Venture Survival</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- ABOUT SECTION (Step 2) -->
-        <div class="content-block" id="step-2">
-          <section class="about" id="about">
-            <div class="eyebrow">ABOUT E-CLUB</div>
-            <h2>Where curiosity turns into a venture</h2>
-            <p>E-Club is Parul University's student entrepreneurship community. We help students explore innovation,
-              leadership, and startups — moving from a first idea to a first pitch, project, or venture, alongside
-              mentors, workshops, and peers who build with you.</p>
-          </section>
+        <!-- Live Mission Flight Step Indicators -->
+        <div class="flight-telemetry-hud" id="flightHud">
+          <div class="hud-phase active" data-phase="1">
+            <span class="phase-indicator"></span>
+            <span class="phase-name">01. IGNITION</span>
+          </div>
+          <div class="hud-phase" data-phase="2">
+            <span class="phase-indicator"></span>
+            <span class="phase-name">02. VELOCITY</span>
+          </div>
+          <div class="hud-phase" data-phase="3">
+            <span class="phase-indicator"></span>
+            <span class="phase-name">03. ORBIT</span>
+          </div>
         </div>
 
-        <!-- MISSION & VISION SECTION (Step 3) -->
-        <div class="content-block" id="step-3">
-          <section class="about" id="mission">
-            <div class="eyebrow">MISSION &amp; VISION</div>
-            <h2>Building the future, together</h2>
-            <p>Our mission is to foster a culture of innovation and problem-solving. We envision a community where every
-              student has the resources, mentorship, and network to turn their boldest ideas into successful ventures.
+        <!-- Scroll Indicator -->
+        <div class="scroll-hint" id="scrollHint">
+          <span class="scroll-mouse"></span>
+          <span class="scroll-label">Scroll to Launch</span>
+        </div>
+
+      </div>
+
+      <!-- Extended Scroll Track that drives the 300 Rocket Frames -->
+      <div class="scroll-driver-track" id="scrollTrack">
+        <div class="track-checkpoint checkpoint-1"></div>
+        <div class="track-checkpoint checkpoint-2"></div>
+        <div class="track-checkpoint checkpoint-3"></div>
+      </div>
+    </section>
+
+    <!-- SECTION: ECOSYSTEM PILLARS (Clean Light #FFFFFF) -->
+    <section id="ecosystem" class="section section-light">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">VENTURE ACCELERATOR</span>
+          <h2 class="section-title">Everything You Need to Build & Scale</h2>
+          <p class="section-desc">
+            We reject passive lectures. E-Club is an active engineering hub and investment pipeline giving you the unfair advantage.
+          </p>
+        </div>
+
+        <div class="pillars-grid">
+          <div class="pillar-card reveal-card">
+            <div class="pillar-icon bg-indigo-soft">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <h3 class="pillar-title">Learn & Validate</h3>
+            <p class="pillar-desc">
+              Customer discovery, rapid prototyping, and business model stress-tests guided by founders who have built $10M+ businesses.
             </p>
-          </section>
-        </div>
+            <ul class="pillar-features">
+              <li>Founder Sprints</li>
+              <li>Product-Market Fit Audits</li>
+              <li>Unit Economics Clinics</li>
+            </ul>
+          </div>
 
-      </div>
+          <div class="pillar-card reveal-card" style="transition-delay: 0.1s;">
+            <div class="pillar-icon bg-cyan-soft">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <h3 class="pillar-title">Skill-up & Build</h3>
+            <p class="pillar-desc">
+              Direct access to rapid prototyping equipment, high-tier cloud credits (AWS, GCP, Azure), and engineering co-founders.
+            </p>
+            <ul class="pillar-features">
+              <li>$100k+ Cloud Grants</li>
+              <li>AI / Hardware Sandbox</li>
+              <li>Dev & Design Co-op</li>
+            </ul>
+          </div>
 
-      <!-- STICKY VISUAL -->
-      <div class="rocket-sticky">
-        <div id="loading-state">Loading 0%</div>
-        <canvas id="rocket-canvas" width="1280" height="720"></canvas>
-      </div>
-    </section>
+          <div class="pillar-card reveal-card" style="transition-delay: 0.2s;">
+            <div class="pillar-icon bg-purple-soft">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            </div>
+            <h3 class="pillar-title">Network & Syndicate</h3>
+            <p class="pillar-desc">
+              Unfiltered access to a network of 50+ tier-1 angel investors, startup legal counsels, and alumni executives worldwide.
+            </p>
+            <ul class="pillar-features">
+              <li>Private Investor Mixers</li>
+              <li>1-on-1 Office Hours</li>
+              <li>Alumni VC Syndicate</li>
+            </ul>
+          </div>
 
-    <!-- DEBUG READOUT -->
-    <div id="debug-readout" style="display: none;">Progress: 0.00% | Frame: 1</div>
-
-    <!-- =========================================================
-         WHY JOIN US SECTION
-         ========================================================= -->
-    <section class="section-block why-join-section" id="why-join">
-      <div class="content-container">
-        <div class="section-heading-group">
-          <div class="section-eyebrow">WHY JOIN US</div>
-          <h2 class="section-main-title">Everything you need to start building</h2>
-        </div>
-        <div class="benefits-grid">
-          <div class="benefit-card">
-            <span class="benefit-card-text">Learn entrepreneurship</span>
-          </div>
-          <div class="benefit-card">
-            <span class="benefit-card-text">Develop practical skills</span>
-          </div>
-          <div class="benefit-card">
-            <span class="benefit-card-text">Network with founders and mentors</span>
-          </div>
-          <div class="benefit-card">
-            <span class="benefit-card-text">Participate in events</span>
-          </div>
-          <div class="benefit-card">
-            <span class="benefit-card-text">Work on innovative ideas</span>
-          </div>
-          <div class="benefit-card">
-            <span class="benefit-card-text">Get mentorship</span>
-          </div>
-          <div class="benefit-card">
-            <span class="benefit-card-text">Explore incubation opportunities</span>
-          </div>
-          <div class="benefit-card">
-            <span class="benefit-card-text">Develop leadership and teamwork skills</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================
-         EVENTS & ACTIVITIES SECTION
-         ========================================================= -->
-    <section class="section-block events-activities-section" id="event">
-      <div class="content-container">
-        <div class="section-heading-group">
-          <div class="section-eyebrow">EVENTS &amp; ACTIVITIES</div>
-          <h2 class="section-main-title">Built around doing, not just discussing</h2>
-        </div>
-        <div class="events-grid">
-          <article class="event-card">
-            <span class="event-badge">EVENT</span>
-            <h3 class="event-title">Workshops</h3>
-            <p class="event-desc">Hands-on sessions on ideation, validation, and building your first product.</p>
-            <a href="#membership" class="event-register-link">
-              <span>Register</span>
-              <span class="link-arrow">&rarr;</span>
-            </a>
-          </article>
-          <article class="event-card">
-            <span class="event-badge">EVENT</span>
-            <h3 class="event-title">Hackathons</h3>
-            <p class="event-desc">Team up, build fast, and pitch a working prototype in 24-48 hours.</p>
-            <a href="#membership" class="event-register-link">
-              <span>Register</span>
-              <span class="link-arrow">&rarr;</span>
-            </a>
-          </article>
-          <article class="event-card">
-            <span class="event-badge">EVENT</span>
-            <h3 class="event-title">Founder Talks</h3>
-            <p class="event-desc">Hear directly from founders about the calls that made or broke their startups.</p>
-            <a href="#membership" class="event-register-link">
-              <span>Register</span>
-              <span class="link-arrow">&rarr;</span>
-            </a>
-          </article>
-          <article class="event-card">
-            <span class="event-badge">EVENT</span>
-            <h3 class="event-title">Pitching Sessions</h3>
-            <p class="event-desc">Practice your pitch and get direct feedback from mentors and peers.</p>
-            <a href="#membership" class="event-register-link">
-              <span>Register</span>
-              <span class="link-arrow">&rarr;</span>
-            </a>
-          </article>
-          <article class="event-card">
-            <span class="event-badge">EVENT</span>
-            <h3 class="event-title">Networking Events</h3>
-            <p class="event-desc">Meet founders, mentors, and other student entrepreneurs across campus.</p>
-            <a href="#membership" class="event-register-link">
-              <span>Register</span>
-              <span class="link-arrow">&rarr;</span>
-            </a>
-          </article>
-          <article class="event-card">
-            <span class="event-badge">EVENT</span>
-            <h3 class="event-title">Startup Visits</h3>
-            <p class="event-desc">Step inside real startups to see how early-stage teams actually operate.</p>
-            <a href="#membership" class="event-register-link">
-              <span>Register</span>
-              <span class="link-arrow">&rarr;</span>
-            </a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================
-         OUR TEAM SECTION
-         ========================================================= -->
-    <section class="section-block team-section" id="team">
-      <div class="content-container">
-        <div class="section-heading-group">
-          <div class="section-eyebrow">OUR TEAM</div>
-          <h2 class="section-main-title">Six teams, one mission</h2>
-        </div>
-        <div class="team-grid">
-          <div class="team-card">
-            <span class="team-dot"></span>
-            <h3 class="team-role-title">Chairperson</h3>
-            <p class="team-role-desc">Overall leadership, strategic direction, and coordination for E-Club.</p>
-          </div>
-          <div class="team-card">
-            <span class="team-dot"></span>
-            <h3 class="team-role-title">Outreach</h3>
-            <p class="team-role-desc">Partnerships, mentors, founders, and external collaborations.</p>
-          </div>
-          <div class="team-card">
-            <span class="team-dot"></span>
-            <h3 class="team-role-title">Technical</h3>
-            <p class="team-role-desc">The website, digital platforms, forms, and technical systems.</p>
-          </div>
-          <div class="team-card">
-            <span class="team-dot"></span>
-            <h3 class="team-role-title">Management</h3>
-            <p class="team-role-desc">Event planning, logistics, task management, and execution.</p>
-          </div>
-          <div class="team-card">
-            <span class="team-dot"></span>
-            <h3 class="team-role-title">Documentation</h3>
-            <p class="team-role-desc">Reports, meeting records, event documentation, and certificates.</p>
-          </div>
-          <div class="team-card">
-            <span class="team-dot"></span>
-            <h3 class="team-role-title">Social Media</h3>
-            <p class="team-role-desc">Promotions, announcements, event coverage, and digital engagement.</p>
+          <div class="pillar-card reveal-card" style="transition-delay: 0.3s;">
+            <div class="pillar-icon bg-emerald-soft">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <h3 class="pillar-title">Capital & Demo Day</h3>
+            <p class="pillar-desc">
+              Fast-track non-dilutive prototype grants up to ₹25 Lakhs, angel syndication, and an invite-only Annual Demo Day.
+            </p>
+            <ul class="pillar-features">
+              <li>Prototype Micro-Grants</li>
+              <li>Institutional Pitch Deck Prep</li>
+              <li>Demo Day Term Sheets</li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- =========================================================
-         TESTIMONIALS SECTION
-         ========================================================= -->
-    <section class="section-block testimonials-section" id="testimonials">
-      <div class="content-container">
-        <div class="section-heading-group">
-          <div class="section-eyebrow">TESTIMONIALS</div>
-          <h2 class="section-main-title">What members say</h2>
+    <!-- SECTION: STARTUP SHOWCASE -->
+    <section id="startups" class="section section-slate">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">PORTFOLIO TRACTION</span>
+          <h2 class="section-title">Built by Student Innovators</h2>
+          <p class="section-desc">
+            Discover companies incubated right here inside E-Club that are now disrupting industries and raising institutional capital.
+          </p>
         </div>
-        <div class="testimonials-grid">
-          <article class="testimonial-card">
-            <div class="testimonial-quote-icon">&ldquo;</div>
-            <p class="testimonial-text">E-Club helped me turn my idea into a practical project and gave me the confidence to take the next step.</p>
-            <div class="testimonial-author">
-              <span class="testimonial-dot"></span>
-              <span class="testimonial-role">Member, Computer Science</span>
-            </div>
-          </article>
-          <article class="testimonial-card">
-            <div class="testimonial-quote-icon">&ldquo;</div>
-            <p class="testimonial-text">The mentorship and pitching sessions taught me more in a semester than I expected to learn in a year.</p>
-            <div class="testimonial-author">
-              <span class="testimonial-dot"></span>
-              <span class="testimonial-role">Founder, Campus Startup</span>
-            </div>
-          </article>
-          <article class="testimonial-card">
-            <div class="testimonial-quote-icon">&ldquo;</div>
-            <p class="testimonial-text">I found my co-founder and my first three teammates through an E-Club networking night.</p>
-            <div class="testimonial-author">
-              <span class="testimonial-dot"></span>
-              <span class="testimonial-role">Member, Design Team</span>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
 
-    <!-- =========================================================
-         GALLERY SECTION
-         ========================================================= -->
-    <section class="section-block gallery-section" id="gallery">
-      <div class="content-container">
-        <div class="section-heading-group">
-          <div class="section-eyebrow">GALLERY</div>
-          <h2 class="section-main-title">Moments from E-Club</h2>
-        </div>
-        <div class="gallery-grid">
-          <div class="gallery-tile tile-workshops">
-            <div class="tile-backdrop"></div>
-            <div class="tile-content">
-              <span class="tile-tag">SESSIONS</span>
-              <h3 class="tile-title">Workshops</h3>
-              <p class="tile-desc">Interactive skill-building, prototyping, and startup validation sessions.</p>
-            </div>
-          </div>
-          <div class="gallery-tile tile-hackathons">
-            <div class="tile-backdrop"></div>
-            <div class="tile-content">
-              <span class="tile-tag">HACKATHON</span>
-              <h3 class="tile-title">Hackathons</h3>
-              <p class="tile-desc">24-48 hour intensive build sprints turning ideas into working prototypes.</p>
-            </div>
-          </div>
-          <div class="gallery-tile tile-founders">
-            <div class="tile-backdrop"></div>
-            <div class="tile-content">
-              <span class="tile-tag">KEYNOTE</span>
-              <h3 class="tile-title">Founder Sessions</h3>
-              <p class="tile-desc">Candid talks and wisdom from unicorn founders and visionary leaders.</p>
-            </div>
-          </div>
-          <div class="gallery-tile tile-competitions">
-            <div class="tile-backdrop"></div>
-            <div class="tile-content">
-              <span class="tile-tag">CHALLENGE</span>
-              <h3 class="tile-title">Competitions</h3>
-              <p class="tile-desc">High-stakes pitching battles and business plan expos with cash grants.</p>
-            </div>
-          </div>
-          <div class="gallery-tile tile-activities">
-            <div class="tile-backdrop"></div>
-            <div class="tile-content">
-              <span class="tile-tag">CULTURE</span>
-              <h3 class="tile-title">Team Activities</h3>
-              <p class="tile-desc">Collaborative brainstorms, campus pop-ups, and founder retreats.</p>
-            </div>
-          </div>
-          <div class="gallery-tile tile-awards">
-            <div class="tile-backdrop"></div>
-            <div class="tile-content">
-              <span class="tile-tag">HONORS</span>
-              <h3 class="tile-title">Awards</h3>
-              <p class="tile-desc">Celebrating student venture achievements, trophies, and incubation grants.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================
-         FAQ SECTION
-         ========================================================= -->
-    <section class="section-block faq-section" id="faq">
-      <div class="content-container">
-        <div class="section-heading-group">
-          <div class="section-eyebrow">FAQ</div>
-          <h2 class="section-main-title">Common questions</h2>
-        </div>
-        <div class="faq-list">
-          <div class="faq-item">
-            <button type="button" class="faq-question" aria-expanded="false">
-              <span>What is E-Club?</span>
-              <span class="faq-icon" aria-hidden="true"></span>
-            </button>
-            <div class="faq-answer">
-              <p>E-Club (Entrepreneurship Club) is Parul University&rsquo;s student-led innovation and venture community operating under PIERC (Parul Innovation &amp; Entrepreneurship Research Centre). We guide students through ideation, team building, skill development, and launching startups.</p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button type="button" class="faq-question" aria-expanded="false">
-              <span>Who can join?</span>
-              <span class="faq-icon" aria-hidden="true"></span>
-            </button>
-            <div class="faq-answer">
-              <p>Any registered student from any department, degree, or year at Parul University can join. Whether you study Engineering, Business Administration, Computer Applications, Design, Applied Sciences, or Pharmacy, you are welcome!</p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button type="button" class="faq-question" aria-expanded="false">
-              <span>Do I need an idea to join?</span>
-              <span class="faq-icon" aria-hidden="true"></span>
-            </button>
-            <div class="faq-answer">
-              <p>Not at all! You do not need a pre-existing idea or startup to be a member. E-Club is designed to help you discover opportunities, acquire practical entrepreneurial skills, collaborate on team projects, and find co-founders.</p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button type="button" class="faq-question" aria-expanded="false">
-              <span>Can I submit my startup idea?</span>
-              <span class="faq-icon" aria-hidden="true"></span>
-            </button>
-            <div class="faq-answer">
-              <p>Yes, absolutely! Use our &ldquo;Submit Your Idea&rdquo; portal right on this website. Your proposal will be reviewed by the E-Club screening committee and PIERC mentors for structured feedback, guidance, and incubation screening.</p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button type="button" class="faq-question" aria-expanded="false">
-              <span>What support can I receive?</span>
-              <span class="faq-icon" aria-hidden="true"></span>
-            </button>
-            <div class="faq-answer">
-              <p>Selected projects and members receive dedicated 1-on-1 mentorship, pitch deck reviews, prototyping lab access, seed funding guidance, intellectual property support, and incubation facilities through PIERC.</p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button type="button" class="faq-question" aria-expanded="false">
-              <span>What events does E-Club organize?</span>
-              <span class="faq-icon" aria-hidden="true"></span>
-            </button>
-            <div class="faq-answer">
-              <p>We organize hands-on technical &amp; business workshops, 24-48 hour hackathons, Founder Talks with seasoned venture builders, pitching sessions with angel investors, and industrial visits to active startups.</p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button type="button" class="faq-question" aria-expanded="false">
-              <span>Can students from different departments join?</span>
-              <span class="faq-icon" aria-hidden="true"></span>
-            </button>
-            <div class="faq-answer">
-              <p>Yes! Cross-disciplinary collaboration is the backbone of real-world ventures. We actively bring together technical builders, creative designers, business strategists, and operations leaders to form balanced startup teams.</p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button type="button" class="faq-question" aria-expanded="false">
-              <span>How can I contact E-Club?</span>
-              <span class="faq-icon" aria-hidden="true"></span>
-            </button>
-            <div class="faq-answer">
-              <p>You can reach our team directly via email at <a href="mailto:eclub@paruluniversity.ac.in" class="faq-link">eclub@paruluniversity.ac.in</a>, connect with us at the PIERC building on campus, or message us on our official social media channels.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================
-         FINAL CTA SECTION
-         ========================================================= -->
-    <section class="section-block final-cta-section" id="final-cta">
-      <div class="content-container">
-        <div class="final-cta-card">
-          <div class="cta-glow-backdrop"></div>
-          <div class="final-cta-content">
-            <div class="section-eyebrow">GET INVOLVED</div>
-            <h2 class="final-cta-title">Have an Idea? Let&rsquo;s Build It Together.</h2>
-            <p class="final-cta-desc">Join E-Club, meet ambitious people, develop your skills, and take your first step toward building something meaningful.</p>
-            <div class="final-cta-buttons">
-              <a href="#membership" class="btn btn-primary btn-cta-main">Join E-Club</a>
-              <a href="#idea" class="btn btn-secondary btn-cta-alt">Submit Your Idea</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================
-         FOOTER
-         ========================================================= -->
-    <footer class="site-footer" id="contact">
-      <div class="content-container">
-        <div class="footer-top">
-          <!-- Brand Column -->
-          <div class="footer-col footer-brand-col">
-            <div class="footer-brand">
-              <img src="Web_img_resources/eclub_emblem.png" alt="E-Club Logo" class="footer-logo">
-              <div class="footer-brand-text">
-                <span class="footer-brand-l1">ENTREPRENEURSHIP</span>
-                <span class="footer-brand-l2">CLUB</span>
+        <div class="startups-grid">
+          <!-- Startup 1 -->
+          <div class="startup-card reveal-card">
+            <div class="startup-header">
+              <div class="startup-avatar">🌾</div>
+              <div>
+                <h3 class="startup-name">AgriSync</h3>
+                <span class="startup-stage badge-seed">Seed Round Raised</span>
               </div>
             </div>
-            <p class="footer-mission-text">Parul University&rsquo;s student entrepreneurship ecosystem empowering innovators to turn bold ideas into impactful ventures.</p>
-            <div class="footer-parul-tag">Parul Innovation &amp; Entrepreneurship Research Centre (PIERC)</div>
-          </div>
-
-          <!-- Quick Links -->
-          <div class="footer-col">
-            <h4 class="footer-heading">Quick Links</h4>
-            <ul class="footer-nav">
-              <li><a href="#home">Home</a></li>
-              <li><a href="#about">About E-Club</a></li>
-              <li><a href="#event">Events &amp; Activities</a></li>
-              <li><a href="#team">Our Team</a></li>
-              <li><a href="#testimonials">Testimonials</a></li>
-              <li><a href="#gallery">Gallery</a></li>
-              <li><a href="#faq">FAQ</a></li>
-            </ul>
-          </div>
-
-          <!-- Portals & Actions -->
-          <div class="footer-col">
-            <h4 class="footer-heading">Get Involved</h4>
-            <ul class="footer-nav">
-              <li><a href="#membership">Join E-Club</a></li>
-              <li><a href="#idea">Submit Your Idea</a></li>
-              <li><a href="https://www.pierc.org/" target="_blank" rel="noopener noreferrer">PIERC Incubation</a></li>
-              <li><a href="https://www.paruluniversity.ac.in/" target="_blank" rel="noopener noreferrer">Parul University</a></li>
-              <li><a href="#rules" id="openRulesBtn">Rules &amp; Guidelines</a></li>
-              <li><a href="#privacy" id="openPrivacyBtn">Privacy Policy</a></li>
-            </ul>
-          </div>
-
-          <!-- Contact & Socials -->
-          <div class="footer-col">
-            <h4 class="footer-heading">Connect With Us</h4>
-            <div class="footer-contact-item">
-              <span class="contact-label">Email:</span>
-              <a href="mailto:eclub@paruluniversity.ac.in" class="contact-value">eclub@paruluniversity.ac.in</a>
+            <p class="startup-bio">
+              AI-driven precision irrigation and yield forecasting platform for smart horticulture farms across western India.
+            </p>
+            <div class="startup-metrics">
+              <div class="metric-item">
+                <span class="metric-val">₹80 Lakhs</span>
+                <span class="metric-key">Funding Raised</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-val">12,500+</span>
+                <span class="metric-key">Farmers Active</span>
+              </div>
             </div>
-            <div class="footer-contact-item">
-              <span class="contact-label">Location:</span>
-              <span class="contact-value">PIERC Building, Parul University Campus, Vadodara, Gujarat 391760</span>
-            </div>
-            <div class="footer-social-links">
-              <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.64 1.64 0 1 0-.01-3.28 1.64 1.64 0 0 0 .01 3.28m1.4 9.74v-8.37H5.06v8.37h2.8z"/></svg>
-              </a>
-              <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
-              </a>
-              <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="YouTube">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-              </a>
+            <div class="startup-tags">
+              <span class="tag">AgriTech</span>
+              <span class="tag">AI / IoT</span>
+              <span class="tag">E-Club '23</span>
             </div>
           </div>
-        </div>
 
-        <div class="footer-bottom">
-          <div class="footer-copy">&copy; 2026 E-Club &middot; Parul Innovation &amp; Entrepreneurship Research Centre. All Rights Reserved.</div>
-          <div class="footer-legal-links">
-            <a href="#rules" class="legal-link" id="linkRulesBottom">Rules &amp; Guidelines</a>
-            <span class="legal-sep">&bull;</span>
-            <a href="#privacy" class="legal-link" id="linkPrivacyBottom">Privacy Policy</a>
+          <!-- Startup 2 -->
+          <div class="startup-card reveal-card" style="transition-delay: 0.1s;">
+            <div class="startup-header">
+              <div class="startup-avatar">⚡</div>
+              <div>
+                <h3 class="startup-name">Circulo Mobility</h3>
+                <span class="startup-stage badge-series">Pre-Series A</span>
+              </div>
+            </div>
+            <p class="startup-bio">
+              Swappable smart battery infrastructure and micro-EV fleet network for campus logistics and last-mile delivery.
+            </p>
+            <div class="startup-metrics">
+              <div class="metric-item">
+                <span class="metric-val">₹1.4 Cr</span>
+                <span class="metric-key">Angel Syndicate</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-val">250+ Fleet</span>
+                <span class="metric-key">Active Vehicles</span>
+              </div>
+            </div>
+            <div class="startup-tags">
+              <span class="tag">CleanTech</span>
+              <span class="tag">EV Mobility</span>
+              <span class="tag">E-Club '22</span>
+            </div>
+          </div>
+
+          <!-- Startup 3 -->
+          <div class="startup-card reveal-card" style="transition-delay: 0.2s;">
+            <div class="startup-header">
+              <div class="startup-avatar">🩺</div>
+              <div>
+                <h3 class="startup-name">PulseAI Health</h3>
+                <span class="startup-stage badge-grant">Patent Pending</span>
+              </div>
+            </div>
+            <p class="startup-bio">
+              Computer vision and acoustic biomarker screening system detecting early pulmonary disease from smartphone audio.
+            </p>
+            <div class="startup-metrics">
+              <div class="metric-item">
+                <span class="metric-val">14 Hospital</span>
+                <span class="metric-key">Active Pilots</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-val">96.4%</span>
+                <span class="metric-key">Clinical Accuracy</span>
+              </div>
+            </div>
+            <div class="startup-tags">
+              <span class="tag">HealthTech</span>
+              <span class="tag">DeepTech</span>
+              <span class="tag">E-Club '24</span>
+            </div>
+          </div>
+
+          <!-- Startup 4 -->
+          <div class="startup-card reveal-card" style="transition-delay: 0.3s;">
+            <div class="startup-header">
+              <div class="startup-avatar">💳</div>
+              <div>
+                <h3 class="startup-name">FinEdge Neo</h3>
+                <span class="startup-stage badge-seed">Seed Stage</span>
+              </div>
+            </div>
+            <p class="startup-bio">
+              Automated pocket money budgeting, smart micro-investing, and credit builder app tailored for university students.
+            </p>
+            <div class="startup-metrics">
+              <div class="metric-item">
+                <span class="metric-val">45,000+</span>
+                <span class="metric-key">Student Users</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-val">₹12 Cr</span>
+                <span class="metric-key">Annual GMV</span>
+              </div>
+            </div>
+            <div class="startup-tags">
+              <span class="tag">FinTech</span>
+              <span class="tag">Consumer App</span>
+              <span class="tag">E-Club '24</span>
+            </div>
           </div>
         </div>
       </div>
-    </footer>
+    </section>
+
+    <!-- SECTION: UPCOMING EVENTS & PITCH BATTLES -->
+    <section id="events" class="section section-light">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">CALENDAR & CHALLENGES</span>
+          <h2 class="section-title">Upcoming Pitch Nights & Summits</h2>
+          <p class="section-desc">
+            Test your idea under the spotlight, win non-dilutive prize pools, and pitch live to top angel investors.
+          </p>
+        </div>
+
+        <!-- Featured Countdown Banner -->
+        <div class="featured-event-banner reveal-card">
+          <div class="featured-badge">FLAGSHIP ANNUAL SUMMIT</div>
+          <div class="featured-grid">
+            <div class="featured-info">
+              <h3 class="featured-title">E-Summit '25: The Grand Demo Day</h3>
+              <p class="featured-desc">
+                50 finalist startups pitch to a jury of top Indian VCs, angel networks, and prominent founders. Featuring ₹10 Lakhs in non-equity prize capital.
+              </p>
+              <div class="event-meta-row">
+                <span>📍 Main Auditorium & Live Stream</span>
+                <span>📅 November 14–15, 2025</span>
+              </div>
+            </div>
+
+            <div class="featured-countdown-wrap">
+              <span class="countdown-label">COUNTDOWN TO DEMO DAY</span>
+              <div class="countdown-boxes" id="demoCountdown">
+                <div class="count-box"><span id="cdDays">42</span><label>Days</label></div>
+                <div class="count-box"><span id="cdHours">16</span><label>Hours</label></div>
+                <div class="count-box"><span id="cdMins">34</span><label>Mins</label></div>
+                <div class="count-box"><span id="cdSecs">12</span><label>Secs</label></div>
+              </div>
+              <a href="#membership" class="btn btn-primary btn-pill cta-block">Register for Demo Day ➔</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Events Cards Grid -->
+        <div class="events-grid">
+          <div class="event-card reveal-card">
+            <div class="event-date-badge">
+              <span class="event-month">OCT</span>
+              <span class="event-day">18</span>
+            </div>
+            <div class="event-details">
+              <span class="event-type badge-type">Competition</span>
+              <h4 class="event-heading">National Pitch Battle '25</h4>
+              <p class="event-text">3-minute lightning pitches in front of angel syndicate partners. ₹2,00,000 cash grant.</p>
+              <a href="#membership" class="event-link">Reserve Pitch Slot ➔</a>
+            </div>
+          </div>
+
+          <div class="event-card reveal-card" style="transition-delay: 0.1s;">
+            <div class="event-date-badge">
+              <span class="event-month">NOV</span>
+              <span class="event-day">02</span>
+            </div>
+            <div class="event-details">
+              <span class="event-type badge-type">Hackathon</span>
+              <h4 class="event-heading">48-Hour AI Venture Sprint</h4>
+              <p class="event-text">Build and ship a functional SaaS or AI MVP over a weekend with mentor support.</p>
+              <a href="#membership" class="event-link">Join Hackathon ➔</a>
+            </div>
+          </div>
+
+          <div class="event-card reveal-card" style="transition-delay: 0.2s;">
+            <div class="event-date-badge">
+              <span class="event-month">DEC</span>
+              <span class="event-day">08</span>
+            </div>
+            <div class="event-details">
+              <span class="event-type badge-type">Fireside</span>
+              <h4 class="event-heading">Founders Unplugged: Series A Story</h4>
+              <p class="event-text">Candid fireside chat on term sheets, investor rejections, and scaling past 10k users.</p>
+              <a href="#membership" class="event-link">RSVP for Free ➔</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: OUR 6 WINGS -->
+    <section id="wings" class="section section-slate">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">ECOSYSTEM ARCHITECTURE</span>
+          <h2 class="section-title">The 6 Core Incubation Wings</h2>
+          <p class="section-desc">
+            A structured support engine designed so no founder has to figure out legal, tech, or capital alone.
+          </p>
+        </div>
+
+        <div class="wings-grid">
+          <div class="wing-card reveal-card">
+            <span class="wing-number">01</span>
+            <h3 class="wing-title">Tech & Product Lab</h3>
+            <p class="wing-desc">Cloud credits, architecture design reviews, and rapid prototyping hardware for high-complexity software and IoT.</p>
+          </div>
+
+          <div class="wing-card reveal-card" style="transition-delay: 0.1s;">
+            <span class="wing-number">02</span>
+            <h3 class="wing-title">VC & Corporate Syndicate</h3>
+            <p class="wing-desc">Direct investor relationships, term-sheet negotiation mentorship, and corporate pilot placements.</p>
+          </div>
+
+          <div class="wing-card reveal-card" style="transition-delay: 0.2s;">
+            <span class="wing-number">03</span>
+            <h3 class="wing-title">Legal & IP Protection</h3>
+            <p class="wing-desc">Company incorporation, founder vesting agreements, trademark filings, and patent advisory support.</p>
+          </div>
+
+          <div class="wing-card reveal-card" style="transition-delay: 0.3s;">
+            <span class="wing-number">04</span>
+            <h3 class="wing-title">Brand & Growth Studio</h3>
+            <p class="wing-desc">Go-to-market strategies, viral user acquisition loops, and high-impact storytelling for demo days.</p>
+          </div>
+
+          <div class="wing-card reveal-card" style="transition-delay: 0.4s;">
+            <span class="wing-number">05</span>
+            <h3 class="wing-title">Founder Sprints & Events</h3>
+            <p class="wing-desc">Curating national pitch battles, high-velocity hackathons, and high-stakes bootcamps for student founders.</p>
+          </div>
+
+          <div class="wing-card reveal-card" style="transition-delay: 0.5s;">
+            <span class="wing-number">06</span>
+            <h3 class="wing-title">Global Alumni Network</h3>
+            <p class="wing-desc">Connecting current student founders with alumni leading companies across Bangalore, Singapore, and Silicon Valley.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: APPLICATION / MEMBERSHIP FORM -->
+    <section id="membership" class="section section-light">
+      <div class="container">
+        <div class="form-wrapper-card reveal-card">
+          <div class="form-header-col">
+            <span class="section-tag">JOIN THE COHORT</span>
+            <h2 class="form-title">Launch Your Venture With E-Club</h2>
+            <p class="form-subtitle">
+              Whether you have a breakthrough paper, a weekend prototype, or just relentless ambition—apply to join the E-Club accelerator cohort.
+            </p>
+            <div class="form-perks">
+              <div class="perk-item">
+                <span class="perk-check">✓</span>
+                <span>Access to ₹25 Lakhs Prototype Seed Grants</span>
+              </div>
+              <div class="perk-item">
+                <span class="perk-check">✓</span>
+                <span>1-on-1 Mentorship from Active Founders</span>
+              </div>
+              <div class="perk-item">
+                <span class="perk-check">✓</span>
+                <span>$100,000+ AWS & GCP Founder Cloud Credits</span>
+              </div>
+              <div class="perk-item">
+                <span class="perk-check">✓</span>
+                <span>Fast-Track Spot on Grand Demo Day '25</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-input-col">
+            <form id="eclubApplicationForm" class="eclub-form" novalidate>
+              <div class="form-group-row">
+                <div class="form-group">
+                  <label for="fullName">Full Name <span class="req">*</span></label>
+                  <input type="text" id="fullName" name="fullName" placeholder="e.g. Anurag Sharma" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="collegeEmail">College Email <span class="req">*</span></label>
+                  <input type="email" id="collegeEmail" name="collegeEmail" placeholder="student@university.edu" required>
+                </div>
+              </div>
+
+              <div class="form-group-row">
+                <div class="form-group">
+                  <label for="studentId">Student ID / Roll No <span class="req">*</span></label>
+                  <input type="text" id="studentId" name="studentId" placeholder="e.g. 210303105001" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="startupStage">Current Venture Stage <span class="req">*</span></label>
+                  <select id="startupStage" name="startupStage" required>
+                    <option value="" disabled selected>Select Stage</option>
+                    <option value="ideation">Ideation / Problem Discovery</option>
+                    <option value="mvp">Building MVP / Prototype</option>
+                    <option value="traction">Early Traction / Pilot Users</option>
+                    <option value="revenue">Generating Revenue / Scaling</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="ventureSector">Venture Sector / Industry <span class="req">*</span></label>
+                <select id="ventureSector" name="ventureSector" required>
+                  <option value="" disabled selected>Select Industry</option>
+                  <option value="ai">Artificial Intelligence / Machine Learning</option>
+                  <option value="fintech">FinTech & Web3</option>
+                  <option value="cleantech">CleanTech, EV & Sustainability</option>
+                  <option value="healthtech">HealthTech & BioTech</option>
+                  <option value="saas">B2B SaaS & Developer Tools</option>
+                  <option value="consumer">Consumer App / E-Commerce</option>
+                  <option value="other">Other Frontier Tech</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="pitchSummary">What are you building? (In 2–3 sentences) <span class="req">*</span></label>
+                <textarea id="pitchSummary" name="pitchSummary" rows="3" placeholder="Describe the problem, your solution, and any progress made so far..." required></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="pitchDeckUrl">Pitch Deck or Demo Video Link (Optional)</label>
+                <input type="url" id="pitchDeckUrl" name="pitchDeckUrl" placeholder="https://drive.google.com/your-pitch-deck">
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-pill btn-full" id="submitFormBtn">
+                Submit Cohort Application ➔
+              </button>
+
+              <div class="form-feedback" id="formFeedback"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: GLIMPSES / GALLERY -->
+    <section id="gallery" class="section section-slate">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">SUMMITS & HACKATHONS</span>
+          <h2 class="section-title">Glimpses of E-Club in Action</h2>
+          <p class="section-desc">
+            Energy, intensity, and breakthrough ideas. Take a look at recent pitch battles and demo days.
+          </p>
+        </div>
+
+        <div class="gallery-grid">
+          <div class="gallery-item reveal-card">
+            <div class="gallery-preview gal-grad-1">
+              <span class="gallery-tag">E-SUMMIT STAGE</span>
+            </div>
+            <div class="gallery-meta">
+              <h4>Grand Pitch Arena</h4>
+              <p>Top 10 student founders presenting to institutional venture funds.</p>
+            </div>
+          </div>
+
+          <div class="gallery-item reveal-card" style="transition-delay: 0.1s;">
+            <div class="gallery-preview gal-grad-2">
+              <span class="gallery-tag">48HR HACKATHON</span>
+            </div>
+            <div class="gallery-meta">
+              <h4>Midnight Sprint</h4>
+              <p>Over 300 developers building AI prototypes through the night.</p>
+            </div>
+          </div>
+
+          <div class="gallery-item reveal-card" style="transition-delay: 0.2s;">
+            <div class="gallery-preview gal-grad-3">
+              <span class="gallery-tag">INVESTOR CONNECT</span>
+            </div>
+            <div class="gallery-meta">
+              <h4>Closed-Door Term Sheets</h4>
+              <p>Founders locking in angel commitments during private networking mixers.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: FAQ ACCORDION -->
+    <section id="faq" class="section section-light">
+      <div class="container container-sm">
+        <div class="section-header">
+          <span class="section-tag">FREQUENTLY ASKED QUESTIONS</span>
+          <h2 class="section-title">Got Questions? We’ve Got Answers.</h2>
+        </div>
+
+        <div class="accordion-list">
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span>Who is eligible to join E-Club and apply for incubation?</span>
+              <span class="faq-toggle">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Any current student or recent graduate across all branches and programs is eligible to apply. Whether you are in Engineering, Business, Design, or Sciences, you are welcome to pitch an idea or join as an executive wing member.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span>Do I need an already built prototype or working product to apply?</span>
+              <span class="faq-toggle">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>No! We welcome founders at the Ideation stage. Our "Learn & Validate" track helps you validate your hypothesis, interview early users, and find engineering co-founders before writing a single line of production code.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span>How does the seed grant and prototype funding work?</span>
+              <span class="faq-toggle">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>We provide non-dilutive prototype grants up to ₹25 Lakhs through internal funding rounds and government innovation partner grants. Dilutive venture capital is raised during our Demo Day directly from accredited angel investors and VC syndicates.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span>Can I join the E-Club executive team if I don't have a startup idea yet?</span>
+              <span class="faq-toggle">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>Absolutely. You can apply to work in our 6 Incubation Wings (Product Lab, Brand Studio, Event Architecture, or VC Syndicate) to gain first-hand venture experience before launching your own company.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span>What is the time commitment required?</span>
+              <span class="faq-toggle">+</span>
+            </button>
+            <div class="faq-answer">
+              <p>For incubation cohort teams, we expect at least 6–8 focused hours per week dedicated to customer interviews, sprint deliverables, and weekly mentor check-ins.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
   </main>
 
-  <!-- MEMBERSHIP APPLICATION MODAL -->
-  <div id="membershipModal" class="membership-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true"
-    aria-labelledby="membershipModalTitle">
-    <div class="membership-modal-backdrop" id="membershipModalBackdrop"></div>
-    <div class="membership-modal-glow-wrapper">
-      <div class="membership-border-card-box">
-        <div class="membership-modal-card">
-          <button type="button" class="membership-modal-close" id="closeMembershipModal"
-            aria-label="Close form">&times;</button>
-
-          <!-- Brand & Header -->
-          <div class="membership-header">
-            <div class="membership-brand">
-              <img src="Web_img_resources/eclub_emblem.png" alt="Entrepreneurship Club Logo" class="membership-logo">
-              <div class="membership-brand-text">
-                <span class="membership-brand-l1">ENTREPRENEURSHIP</span>
-                <span class="membership-brand-l2">CLUB</span>
-              </div>
-            </div>
-            <div class="membership-tag">
-              <span class="tag-dash"></span>
-              <span class="tag-text">MEMBERSHIP</span>
-            </div>
-            <h2 id="membershipModalTitle" class="membership-title">Join E-Club</h2>
+  <!-- MODERN LIGHT FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand-col">
+          <div class="footer-brand">
+            <img src="Web_img_resources/eclub_emblem.png" alt="E-Club" class="footer-logo">
+            <span class="footer-title">E-CLUB</span>
           </div>
+          <p class="footer-desc">
+            Empowering the next generation of ambitious student founders to build enduring, high-growth technology companies.
+          </p>
+          <div class="footer-socials">
+            <a href="#" aria-label="LinkedIn" class="social-icon">IN</a>
+            <a href="#" aria-label="Twitter / X" class="social-icon">𝕏</a>
+            <a href="#" aria-label="Instagram" class="social-icon">IG</a>
+            <a href="#" aria-label="GitHub" class="social-icon">GH</a>
+          </div>
+        </div>
 
-          <!-- Application Form -->
-          <form id="membershipForm" class="membership-form" novalidate>
-            <div class="form-grid">
-              <div class="form-group">
-                <label for="fullName">Full Name</label>
-                <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required
-                  autocomplete="name">
-                <span class="field-error">Please enter your full name</span>
-              </div>
+        <div class="footer-links-col">
+          <h5 class="footer-col-title">Ecosystem</h5>
+          <ul class="footer-links">
+            <li><a href="#ecosystem">Incubation Pillars</a></li>
+            <li><a href="#startups">Startup Showcase</a></li>
+            <li><a href="#events">Flagship Demo Day</a></li>
+            <li><a href="#wings">The 6 Core Wings</a></li>
+          </ul>
+        </div>
 
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email address" required
-                  autocomplete="email">
-                <span class="field-error">Please enter a valid email address</span>
-              </div>
+        <div class="footer-links-col">
+          <h5 class="footer-col-title">Programs</h5>
+          <ul class="footer-links">
+            <li><a href="#membership">Cohort Applications</a></li>
+            <li><a href="#events">Pitch Battles '25</a></li>
+            <li><a href="#ecosystem">Seed Capital Grants</a></li>
+            <li><a href="#faq">Founder FAQs</a></li>
+          </ul>
+        </div>
 
-              <div class="form-group">
-                <label for="mobileNumber">Mobile Number</label>
-                <input type="tel" id="mobileNumber" name="mobileNumber" placeholder="Enter your mobile number" required
-                  autocomplete="tel">
-                <span class="field-error">Please enter your mobile number</span>
-              </div>
-
-              <div class="form-group">
-                <label for="studentId">Student Enrollment Number</label>
-                <input type="text" id="studentId" name="studentEnrollment"
-                  placeholder="Enter your student enrollment number" required>
-                <span class="field-error">Please enter your student enrollment number</span>
-              </div>
-
-              <div class="form-group">
-                <label for="department">Department</label>
-                <input type="text" id="department" name="department" placeholder="e.g. Computer Science & Engineering"
-                  required>
-                <span class="field-error">Please enter your department</span>
-              </div>
-
-              <div class="form-group">
-                <label for="yearSemester">Year / Semester</label>
-                <input type="text" id="yearSemester" name="yearSemester" placeholder="e.g. 2nd Year / 4th Semester"
-                  required>
-                <span class="field-error">Please enter your year or semester</span>
-              </div>
-
-              <div class="form-group">
-                <label for="areasOfInterest">Areas of Interest</label>
-                <input type="text" id="areasOfInterest" name="areasOfInterest"
-                  placeholder="e.g. Startups, AI, Web Dev, Marketing" required>
-                <span class="field-error">Please enter your areas of interest</span>
-              </div>
-
-              <div class="form-group">
-                <label for="preferredTeam">Preferred E-Club Team</label>
-                <input type="text" id="preferredTeam" name="preferredTeam"
-                  placeholder="e.g. Technical, Management, Media" required>
-                <span class="field-error">Please enter your preferred team</span>
-              </div>
-
-              <div class="form-group form-group-full">
-                <label for="whyJoin">Why do you want to join E-Club?</label>
-                <textarea id="whyJoin" name="whyJoin" rows="3" placeholder="Tell us why you want to join E-Club..."
-                  required></textarea>
-                <span class="field-error">Please share why you want to join</span>
-              </div>
-            </div>
-
-            <div class="form-actions">
-              <button type="submit" class="btn-submit-membership">
-                <span>Join E-Club</span>
-                <span class="submit-arrow">&rarr;</span>
-              </button>
-            </div>
+        <div class="footer-newsletter-col">
+          <h5 class="footer-col-title">Founder Newsletter</h5>
+          <p class="newsletter-sub">Get weekly venture opportunities, grant alerts, and event invites.</p>
+          <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed to E-Club Founder Updates!');">
+            <input type="email" placeholder="founder@domain.com" required>
+            <button type="submit" class="btn btn-primary btn-pill">Subscribe</button>
           </form>
+        </div>
+      </div>
 
-          <!-- Success State -->
-          <div id="membershipSuccess" class="membership-success" style="display: none;">
-            <div class="success-icon-wrap">
-              <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-            </div>
-            <h3 class="success-title">Application Submitted!</h3>
-            <p class="success-desc">Thank you for applying to join E-Club! Your application has been received and our
-              team will get in touch with you shortly.</p>
-            <button type="button" class="btn-success-close" id="btnSuccessClose">Done</button>
-          </div>
-
+      <div class="footer-bottom">
+        <p>&copy; 2025 E-Club. All rights reserved. Designed for High-Velocity Founders.</p>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <span class="legal-sep">•</span>
+          <a href="#">Terms of Service</a>
+          <span class="legal-sep">•</span>
+          <a href="#">Code of Conduct</a>
         </div>
       </div>
     </div>
-  </div>
+  </footer>
 
-  <!-- SUBMIT YOUR IDEA MODAL -->
-  <div id="ideaModal" class="membership-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true"
-    aria-labelledby="ideaModalTitle">
-    <div class="membership-modal-backdrop" id="ideaModalBackdrop"></div>
-    <div class="membership-modal-glow-wrapper">
-      <div class="membership-border-card-box">
-        <div class="membership-modal-card">
-          <button type="button" class="membership-modal-close" id="closeIdeaModal"
-            aria-label="Close form">&times;</button>
-
-          <!-- Brand & Header -->
-          <div class="membership-header">
-            <div class="membership-brand">
-              <img src="Web_img_resources/eclub_emblem.png" alt="Entrepreneurship Club Logo" class="membership-logo">
-              <div class="membership-brand-text">
-                <span class="membership-brand-l1">ENTREPRENEURSHIP</span>
-                <span class="membership-brand-l2">CLUB</span>
-              </div>
-            </div>
-            <div class="membership-tag">
-              <span class="tag-dash"></span>
-              <span class="tag-text">INCUBATION</span>
-            </div>
-            <h2 id="ideaModalTitle" class="membership-title">Submit Your Idea</h2>
-          </div>
-
-          <!-- Application Form -->
-          <form id="ideaForm" class="membership-form" novalidate>
-            <div class="form-grid">
-              <div class="form-group">
-                <label for="ideaFounderName">Name</label>
-                <input type="text" id="ideaFounderName" name="name" placeholder="Enter your full name" required
-                  autocomplete="name">
-                <span class="field-error">Please enter your name</span>
-              </div>
-
-              <div class="form-group">
-                <label for="ideaEmail">Email</label>
-                <input type="email" id="ideaEmail" name="email" placeholder="Enter your email address" required
-                  autocomplete="email">
-                <span class="field-error">Please enter a valid email address</span>
-              </div>
-
-              <div class="form-group">
-                <label for="ideaDepartment">Department</label>
-                <input type="text" id="ideaDepartment" name="department"
-                  placeholder="e.g. Computer Science & Engineering" required>
-                <span class="field-error">Please enter your department</span>
-              </div>
-
-              <div class="form-group">
-                <label for="startupName">Startup / Idea Name</label>
-                <input type="text" id="startupName" name="startupName" placeholder="Enter startup or project name"
-                  required>
-                <span class="field-error">Please enter startup / idea name</span>
-              </div>
-
-              <div class="form-group">
-                <label for="targetUsers">Target Users</label>
-                <input type="text" id="targetUsers" name="targetUsers" placeholder="e.g. Students, Startups, SMEs"
-                  required>
-                <span class="field-error">Please specify target users</span>
-              </div>
-
-              <div class="form-group">
-                <label for="currentStage">Current Stage</label>
-                <input type="text" id="currentStage" name="currentStage" placeholder="e.g. Ideation, Prototype, MVP"
-                  required>
-                <span class="field-error">Please enter current stage</span>
-              </div>
-
-              <div class="form-group">
-                <label for="teamMembers">Team Members</label>
-                <input type="text" id="teamMembers" name="teamMembers" placeholder="e.g. Solo founder / 3 members"
-                  required>
-                <span class="field-error">Please mention your team members</span>
-              </div>
-
-              <div class="form-group">
-                <label for="domain">Domain</label>
-                <input type="text" id="domain" name="domain" placeholder="e.g. AI / FinTech / HealthTech / Agritech"
-                  required>
-                <span class="field-error">Please enter your domain</span>
-              </div>
-
-              <div class="form-group">
-                <label for="pitchDeck">Pitch Deck / Document</label>
-                <input type="text" id="pitchDeck" name="pitchDeck"
-                  placeholder="Link to Pitch Deck (Google Drive, Notion, etc.)">
-              </div>
-
-              <div class="form-group">
-                <label for="demoLink">Demo / Website Link (Optional)</label>
-                <input type="text" id="demoLink" name="demoLink" placeholder="Link to Prototype, Demo or Website">
-              </div>
-
-              <div class="form-group form-group-full">
-                <label for="problemStatement">Problem Statement</label>
-                <input type="text" id="problemStatement" name="problemStatement"
-                  placeholder="What core problem are you solving?" required>
-                <span class="field-error">Please describe the problem you are solving</span>
-              </div>
-
-              <div class="form-group form-group-full">
-                <label for="ideaDescription">Idea Description</label>
-                <textarea id="ideaDescription" name="ideaDescription" rows="3"
-                  placeholder="Describe your solution, value proposition, and innovation..." required></textarea>
-                <span class="field-error">Please describe your idea</span>
-              </div>
-
-              <div class="form-group form-group-full">
-                <label>Support Required</label>
-                <div class="support-tags">
-                  <label class="tag-chip"><input type="checkbox" name="supportRequired"
-                      value="Mentorship"><span>Mentorship</span></label>
-                  <label class="tag-chip"><input type="checkbox" name="supportRequired"
-                      value="Incubation"><span>Incubation</span></label>
-                  <label class="tag-chip"><input type="checkbox" name="supportRequired"
-                      value="Funding Guidance"><span>Funding Guidance</span></label>
-                  <label class="tag-chip"><input type="checkbox" name="supportRequired"
-                      value="Technical Support"><span>Technical Support</span></label>
-                  <label class="tag-chip"><input type="checkbox" name="supportRequired"
-                      value="Business Guidance"><span>Business Guidance</span></label>
-                  <label class="tag-chip"><input type="checkbox" name="supportRequired"
-                      value="Marketing"><span>Marketing</span></label>
-                  <label class="tag-chip"><input type="checkbox" name="supportRequired"
-                      value="Networking"><span>Networking</span></label>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-actions">
-              <button type="submit" class="btn-submit-membership">
-                <span>Submit My Idea</span>
-                <span class="submit-arrow">&rarr;</span>
-              </button>
-            </div>
-          </form>
-
-          <!-- Success State -->
-          <div id="ideaSuccess" class="membership-success" style="display: none;">
-            <div class="success-icon-wrap">
-              <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-            </div>
-            <h3 class="success-title">Idea Submitted!</h3>
-            <p class="success-desc">Thank you for submitting your startup idea to the E-Club Incubation Wing! Our
-              incubation mentors and screening committee will review your proposal and get in touch with you shortly.
-            </p>
-            <button type="button" class="btn-success-close" id="btnIdeaSuccessClose">Done</button>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- RULES & GUIDELINES MODAL -->
-  <div id="rulesModal" class="membership-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="rulesModalTitle">
-    <div class="membership-modal-backdrop" id="rulesModalBackdrop"></div>
-    <div class="membership-modal-glow-wrapper">
-      <div class="membership-border-card-box">
-        <div class="membership-modal-card">
-          <button type="button" class="membership-modal-close" id="closeRulesModal" aria-label="Close rules">&times;</button>
-          <div class="membership-header">
-            <div class="membership-brand">
-              <img src="Web_img_resources/eclub_emblem.png" alt="E-Club Logo" class="membership-logo">
-              <div class="membership-brand-text">
-                <span class="membership-brand-l1">ENTREPRENEURSHIP</span>
-                <span class="membership-brand-l2">CLUB</span>
-              </div>
-            </div>
-            <div class="membership-tag">
-              <span class="tag-dash"></span>
-              <span class="tag-text">CODE OF CONDUCT</span>
-            </div>
-            <h2 id="rulesModalTitle" class="membership-title">Rules &amp; Guidelines</h2>
-          </div>
-          <div class="legal-modal-content">
-            <p class="legal-lead">As members and participants of E-Club, students adhere to ethical, professional, and collaborative standards:</p>
-            <ul class="legal-list">
-              <li><strong>Professional Conduct:</strong> Maintain respectful, ethical, and professional behavior across all meetings, events, and forums.</li>
-              <li><strong>Responsible Participation:</strong> Actively engage and deliver on committed team tasks, projects, and club initiatives.</li>
-              <li><strong>Mutual Respect:</strong> Value diverse perspectives and foster an inclusive environment where all ideas are welcomed and celebrated.</li>
-              <li><strong>Event Guidelines:</strong> Adhere strictly to timelines, safety protocols, and organizer instructions during competitions, hackathons, and visits.</li>
-              <li><strong>Resource Integrity:</strong> Do not misuse E-Club facilities, equipment, communication channels, or official club branding.</li>
-              <li><strong>Confidentiality:</strong> Treat fellow founders&rsquo; startup ideas, proprietary discussions, and sensitive documentation with strict confidentiality.</li>
-              <li><strong>Originality:</strong> Submit solely original projects, pitch decks, and work; respect intellectual property rights and avoid plagiarism.</li>
-              <li><strong>Institutional Alignment:</strong> Abide by Parul University and PIERC disciplinary standards, code of conduct, and academic regulations.</li>
-            </ul>
-            <div class="form-actions">
-              <button type="button" class="btn-submit-membership" id="btnRulesAcknowledge"><span>Understood</span></button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PRIVACY POLICY MODAL -->
-  <div id="privacyModal" class="membership-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="privacyModalTitle">
-    <div class="membership-modal-backdrop" id="privacyModalBackdrop"></div>
-    <div class="membership-modal-glow-wrapper">
-      <div class="membership-border-card-box">
-        <div class="membership-modal-card">
-          <button type="button" class="membership-modal-close" id="closePrivacyModal" aria-label="Close privacy">&times;</button>
-          <div class="membership-header">
-            <div class="membership-brand">
-              <img src="Web_img_resources/eclub_emblem.png" alt="E-Club Logo" class="membership-logo">
-              <div class="membership-brand-text">
-                <span class="membership-brand-l1">ENTREPRENEURSHIP</span>
-                <span class="membership-brand-l2">CLUB</span>
-              </div>
-            </div>
-            <div class="membership-tag">
-              <span class="tag-dash"></span>
-              <span class="tag-text">DATA PRIVACY</span>
-            </div>
-            <h2 id="privacyModalTitle" class="membership-title">Privacy Policy</h2>
-          </div>
-          <div class="legal-modal-content">
-            <p class="legal-lead">E-Club and PIERC are committed to safeguarding the privacy and integrity of all student and founder information.</p>
-            <h3 class="legal-subheading">1. Information We Collect</h3>
-            <p class="legal-body">Through our membership application and startup idea submission forms, we collect student names, email addresses, mobile numbers, academic credentials (student ID, department, year/semester), startup details (pitch decks, problem statements, team members), and interest areas.</p>
-            <h3 class="legal-subheading">2. Purpose of Collection</h3>
-            <p class="legal-body">Collected information is utilized strictly for evaluating membership eligibility, coordinating club activities, facilitating 1-on-1 mentorship, event registration, and screening for PIERC incubation programs.</p>
-            <h3 class="legal-subheading">3. Data Protection &amp; Confidentiality</h3>
-            <p class="legal-body">All startup concepts and founder submissions are treated with strict confidentiality. We never sell, rent, or distribute student data to unauthorized third parties.</p>
-            <div class="form-actions">
-              <button type="button" class="btn-submit-membership" id="btnPrivacyAcknowledge"><span>Got It</span></button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</body>
   <script src="script.js"></script>
+</body>
+
 </html>
