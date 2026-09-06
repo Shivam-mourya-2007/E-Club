@@ -1568,25 +1568,51 @@ button, input, select, textarea {
 }
 
 .social-icon {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: #FFFFFF;
   border: 1px solid var(--border-card);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--text-headline);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.social-icon svg {
+  display: block;
+  width: 22px;
+  height: 22px;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .social-icon:hover {
-  background: var(--primary);
-  color: #FFFFFF;
-  border-color: var(--primary);
   transform: translateY(-2px);
+}
+
+.social-icon:hover svg {
+  transform: scale(1.12);
+}
+
+.social-icon.social-linkedin:hover {
+  border-color: #0A66C2;
+  box-shadow: 0 4px 14px rgba(10, 102, 194, 0.28);
+}
+
+.social-icon.social-x:hover {
+  border-color: #000000;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+}
+
+.social-icon.social-instagram:hover {
+  border-color: #d6249f;
+  box-shadow: 0 4px 14px rgba(214, 36, 159, 0.28);
+}
+
+.social-icon.social-youtube:hover {
+  border-color: #FF0000;
+  box-shadow: 0 4px 14px rgba(255, 0, 0, 0.28);
 }
 
 .footer-col-title {
