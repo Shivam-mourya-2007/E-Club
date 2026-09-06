@@ -30,6 +30,10 @@
   const heroContainer = document.getElementById('home');
   const hudPhases = document.querySelectorAll('.hud-phase');
 
+  // About Section Line SVG
+  const aboutLinePath = document.getElementById('aboutLinePath');
+  let aboutLineLength = 0;
+
 
   // Frame Cache
   const frames = new Array(ROCKET_FRAME_COUNT);
@@ -110,6 +114,12 @@
   // 3. HIGH-DPI CANVAS RENDERING WITH COVER-FIT
   // ==========================================================================
   function resizeCanvas() {
+    if (aboutLinePath) {
+      aboutLineLength = aboutLinePath.getTotalLength();
+      aboutLinePath.style.strokeDasharray = aboutLineLength;
+      aboutLinePath.style.strokeDashoffset = aboutLineLength;
+    }
+
     if (!canvas || !ctx) return;
     const dpr = window.devicePixelRatio || 1;
     const width = window.innerWidth;
@@ -163,7 +173,17 @@
       else navbar.classList.remove('scrolled');
     }
 
-    // 2. Rocket frame scrubbing
+    // 2. About section line drawing
+    const aboutSection = document.getElementById('about');
+    if (aboutSection && aboutLinePath) {
+      const rect = aboutSection.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const progress = Math.max(0, Math.min(1, ((vh - rect.top) / (vh + rect.height)) * 1.7));
+      const offset = aboutLineLength - (progress * aboutLineLength);
+      aboutLinePath.style.strokeDashoffset = offset;
+    }
+
+    // 3. Rocket frame scrubbing
     if (heroContainer) {
       const rect = heroContainer.getBoundingClientRect();
       const totalScrollable = heroContainer.offsetHeight - window.innerHeight;
@@ -320,6 +340,12 @@
     initFaqAccordion();
     initMobileMenu();
     initActiveNavHighlight();
+
+    if (aboutLinePath) {
+      aboutLineLength = aboutLinePath.getTotalLength();
+      aboutLinePath.style.strokeDasharray = aboutLineLength;
+      aboutLinePath.style.strokeDashoffset = aboutLineLength;
+    }
 
     window.addEventListener('resize', resizeCanvas);
     window.addEventListener('scroll', requestScrollTick, { passive: true });
