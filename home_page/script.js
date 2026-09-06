@@ -717,3 +717,101 @@
     if (window.location.hash === '#idea') {
       openIdeaModal();
     }
+
+    // =========================================================
+    // 8. FAQ ACCORDION INTERACTION
+    // =========================================================
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const questionBtn = item.querySelector('.faq-question');
+      if (!questionBtn) return;
+      questionBtn.addEventListener('click', () => {
+        const isOpen = item.classList.contains('active');
+        faqItems.forEach(otherItem => {
+          if (otherItem !== item) {
+            otherItem.classList.remove('active');
+            const otherBtn = otherItem.querySelector('.faq-question');
+            if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+        if (isOpen) {
+          item.classList.remove('active');
+          questionBtn.setAttribute('aria-expanded', 'false');
+        } else {
+          item.classList.add('active');
+          questionBtn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    // =========================================================
+    // 9. RULES & GUIDELINES AND PRIVACY MODALS
+    // =========================================================
+    const rulesModal = document.getElementById('rulesModal');
+    const closeRulesModalBtn = document.getElementById('closeRulesModal');
+    const rulesModalBackdrop = document.getElementById('rulesModalBackdrop');
+    const btnRulesAcknowledge = document.getElementById('btnRulesAcknowledge');
+    const openRulesBtns = document.querySelectorAll('#openRulesBtn, #linkRulesBottom, a[href="#rules"]');
+
+    function openRulesModal() {
+      if (!rulesModal) return;
+      rulesModal.classList.add('active');
+      rulesModal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+    }
+
+    function closeRulesModal() {
+      if (!rulesModal) return;
+      rulesModal.classList.remove('active');
+      rulesModal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+    }
+
+    openRulesBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openRulesModal();
+      });
+    });
+
+    if (closeRulesModalBtn) closeRulesModalBtn.addEventListener('click', closeRulesModal);
+    if (rulesModalBackdrop) rulesModalBackdrop.addEventListener('click', closeRulesModal);
+    if (btnRulesAcknowledge) btnRulesAcknowledge.addEventListener('click', closeRulesModal);
+
+    const privacyModal = document.getElementById('privacyModal');
+    const closePrivacyModalBtn = document.getElementById('closePrivacyModal');
+    const privacyModalBackdrop = document.getElementById('privacyModalBackdrop');
+    const btnPrivacyAcknowledge = document.getElementById('btnPrivacyAcknowledge');
+    const openPrivacyBtns = document.querySelectorAll('#openPrivacyBtn, #linkPrivacyBottom, a[href="#privacy"]');
+
+    function openPrivacyModal() {
+      if (!privacyModal) return;
+      privacyModal.classList.add('active');
+      privacyModal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+    }
+
+    function closePrivacyModal() {
+      if (!privacyModal) return;
+      privacyModal.classList.remove('active');
+      privacyModal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+    }
+
+    openPrivacyBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openPrivacyModal();
+      });
+    });
+
+    if (closePrivacyModalBtn) closePrivacyModalBtn.addEventListener('click', closePrivacyModal);
+    if (privacyModalBackdrop) privacyModalBackdrop.addEventListener('click', closePrivacyModal);
+    if (btnPrivacyAcknowledge) btnPrivacyAcknowledge.addEventListener('click', closePrivacyModal);
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (rulesModal && rulesModal.classList.contains('active')) closeRulesModal();
+        if (privacyModal && privacyModal.classList.contains('active')) closePrivacyModal();
+      }
+    });
