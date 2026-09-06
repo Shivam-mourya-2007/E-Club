@@ -356,7 +356,7 @@ button, input, select, textarea {
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 18px;
   flex-shrink: 0;
 }
 
@@ -488,7 +488,7 @@ button, input, select, textarea {
 .pierc-brand {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   text-decoration: none;
   transition: opacity 0.2s ease;
 }
@@ -499,54 +499,42 @@ button, input, select, textarea {
 
 .pierc-letters {
   font-family: var(--font-heading);
-  font-size: 15px;
+  font-size: 16.5px;
   font-weight: 900;
-  letter-spacing: 0.6px;
   line-height: 1;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  gap: 3.5px;
+  height: 22px;
 }
 
-.pierc-letters .p-letter {
-  position: relative;
-  color: #0F172A;
-}
-
-.pierc-letters .p-dot {
-  position: absolute;
-  top: 3.5px;
-  left: 3.5px;
-  width: 2px;
-  height: 2px;
-  border-radius: 50%;
-  background: var(--primary);
-}
-
-.pierc-letters .i-letter {
-  position: relative;
-  color: var(--primary);
-  margin: 0 1px;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.pierc-letters .i-ring {
-  position: absolute;
-  top: -3.5px;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  border: 1px solid var(--primary);
-}
-
+.pierc-letters .p-letter,
 .pierc-letters .e-letter,
 .pierc-letters .c-letter {
-  color: #0F172A;
+  color: #1E293B;
+  display: inline-flex;
+  align-items: flex-end;
+  padding-bottom: 0.5px;
 }
 
 .pierc-letters .r-letter {
   color: var(--primary);
+  display: inline-flex;
+  align-items: flex-end;
+  padding-bottom: 0.5px;
+}
+
+.pierc-letters .i-letter {
+  display: inline-flex;
+  align-items: flex-end;
+  line-height: 1;
+  padding-bottom: 0.5px;
+}
+
+.pierc-letters .i-halo-svg {
+  width: 9.5px;
+  height: 19.5px;
+  display: block;
 }
 
 .pierc-subtext {
@@ -819,60 +807,6 @@ button, input, select, textarea {
   letter-spacing: 0.08em;
 }
 
-/* Scroll Hint */
-.scroll-hint {
-  position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 15;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  opacity: 0.75;
-  animation: bounce 2s infinite;
-}
-
-.scroll-mouse {
-  width: 20px;
-  height: 32px;
-  border: 2px solid #FFFFFF;
-  border-radius: 12px;
-  position: relative;
-}
-
-.scroll-mouse::after {
-  content: '';
-  position: absolute;
-  top: 6px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 4px;
-  height: 6px;
-  background: #FFFFFF;
-  border-radius: 2px;
-  animation: scrollWheel 1.5s infinite;
-}
-
-@keyframes scrollWheel {
-  0% { opacity: 1; transform: translate(-50%, 0); }
-  100% { opacity: 0; transform: translate(-50%, 10px); }
-}
-
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
-  40% { transform: translate(-50%, -8px); }
-  60% { transform: translate(-50%, -4px); }
-}
-
-.scroll-label {
-  font-size: 0.72rem;
-  color: #FFFFFF;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
 
 .scroll-driver-track {
   height: 300vh;
@@ -1237,195 +1171,7 @@ button, input, select, textarea {
   line-height: 1.6;
 }
 
-/* ==========================================================================
-   7. APPLICATION & INCUBATION DUAL PORTAL (TABBED FORMS)
-   ========================================================================== */
-.portal-card-wrapper {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
-  overflow: hidden;
-}
 
-.portal-tab-bar {
-  display: flex;
-  background: var(--bg-slate);
-  border-bottom: 1px solid var(--border-card);
-}
-
-.portal-tab-btn {
-  flex: 1;
-  padding: 18px 24px;
-  background: none;
-  border: none;
-  font-family: var(--font-heading);
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--text-muted);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  transition: all 0.25s ease;
-  border-bottom: 3px solid transparent;
-}
-
-.portal-tab-btn:hover {
-  color: var(--text-headline);
-  background: rgba(255, 255, 255, 0.6);
-}
-
-.portal-tab-btn.active {
-  color: var(--primary);
-  background: #FFFFFF;
-  border-bottom-color: var(--primary);
-}
-
-.portal-form-panel {
-  display: none;
-  padding: 44px;
-}
-
-.portal-form-panel.active {
-  display: block;
-}
-
-.portal-header {
-  text-align: center;
-  max-width: 640px;
-  margin: 0 auto 36px;
-}
-
-.portal-title {
-  font-family: var(--font-heading);
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: var(--text-headline);
-  margin: 8px 0;
-}
-
-.portal-desc {
-  font-size: 0.95rem;
-  color: var(--text-body);
-}
-
-.portal-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.form-grid-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.form-grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.form-group label {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--text-headline);
-}
-
-.form-group .req {
-  color: var(--rose);
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: var(--radius-sm);
-  border: 1.5px solid var(--border-card);
-  background: var(--bg-slate);
-  color: var(--text-headline);
-  font-size: 0.92rem;
-  transition: all 0.2s ease;
-  outline: none;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  border-color: var(--primary);
-  background: #FFFFFF;
-  box-shadow: 0 0 0 3px var(--primary-glow);
-}
-
-.support-checkboxes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 4px;
-}
-
-.check-pill {
-  display: inline-flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-.check-pill input {
-  display: none;
-}
-
-.check-pill span {
-  font-size: 0.82rem;
-  font-weight: 600;
-  padding: 6px 14px;
-  border-radius: var(--radius-pill);
-  background: var(--bg-slate);
-  border: 1px solid var(--border-card);
-  color: var(--text-body);
-  transition: all 0.2s ease;
-}
-
-.check-pill input:checked + span {
-  background: var(--primary-light);
-  border-color: var(--primary);
-  color: var(--primary);
-  font-weight: 700;
-}
-
-.portal-feedback {
-  margin-top: 10px;
-  padding: 14px;
-  border-radius: var(--radius-sm);
-  font-size: 0.92rem;
-  font-weight: 600;
-  display: none;
-}
-
-.portal-feedback.success {
-  display: block;
-  background: var(--emerald-light);
-  color: var(--emerald);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-}
-
-.portal-feedback.error {
-  display: block;
-  background: rgba(244, 63, 94, 0.1);
-  color: var(--rose);
-  border: 1px solid rgba(244, 63, 94, 0.3);
-}
 
 /* ==========================================================================
    8. TESTIMONIALS
@@ -2011,14 +1757,6 @@ button, input, select, textarea {
     grid-template-columns: 1fr;
   }
 
-  .portal-form-panel {
-    padding: 24px 16px;
-  }
-
-  .form-grid-2,
-  .form-grid-3 {
-    grid-template-columns: 1fr;
-  }
 
   .footer-top {
     grid-template-columns: 1fr;

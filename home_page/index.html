@@ -61,7 +61,7 @@
         <li><a href="#why-join" class="nav-link">Why Join</a></li>
         <li><a href="#events" class="nav-link">Events</a></li>
         <li><a href="#team" class="nav-link">Team</a></li>
-        <li><a href="#portal" class="nav-link">Apply</a></li>
+        <li><a href="../form/index.html" class="nav-link">Apply</a></li>
         <li><a href="#gallery" class="nav-link">Gallery</a></li>
         <li><a href="#faq" class="nav-link">FAQ</a></li>
       </ul>
@@ -98,8 +98,15 @@
       <!-- PIERC -->
       <a href="https://www.pierc.org/" target="_blank" rel="noopener noreferrer" class="pierc-brand hide-tablet" title="Parul Innovation & Entrepreneurship Research Centre">
         <div class="pierc-letters">
-          <span class="p-letter">P<span class="p-dot"></span></span>
-          <span class="i-letter"><span class="i-ring"></span>I</span>
+          <span class="p-letter">P</span>
+          <span class="i-letter" title="i">
+            <svg class="i-halo-svg" viewBox="0 0 16 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Full Round Circle Dot (Solid Red) -->
+              <circle cx="8" cy="5.5" r="4.2" fill="#DC2626"/>
+              <!-- Full Red Stem -->
+              <rect x="5.2" y="13.5" width="5.6" height="20.5" rx="1.2" fill="#DC2626"/>
+            </svg>
+          </span>
           <span class="e-letter">E</span>
           <span class="r-letter">R</span>
           <span class="c-letter">C</span>
@@ -110,11 +117,6 @@
           <span>Research Centre</span>
         </div>
       </a>
-
-      <div class="nav-v-divider hide-mobile"></div>
-
-      <!-- Join E-Club CTA Button -->
-      <a href="#portal-membership" class="btn btn-primary btn-pill nav-cta">Join E-Club ➔</a>
 
       <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation">
         <span></span>
@@ -148,8 +150,8 @@
           </p>
 
           <div class="hero-ctas">
-            <a href="#portal-membership" class="btn btn-primary btn-pill">Join E-Club ➔</a>
-            <a href="#portal-idea" class="btn btn-outline btn-pill">Submit Your Idea</a>
+            <a href="../form/index.html?tab=membership" class="btn btn-primary btn-pill">Join E-Club ➔</a>
+            <a href="../form/index.html?tab=idea" class="btn btn-outline btn-pill">Submit Your Idea</a>
           </div>
 
           <!-- Floating Telemetry Cards -->
@@ -204,11 +206,6 @@
           </div>
         </div>
 
-        <!-- Scroll Indicator -->
-        <div class="scroll-hint" id="scrollHint">
-          <span class="scroll-mouse"></span>
-          <span class="scroll-label">Scroll to Launch</span>
-        </div>
 
       </div>
 
@@ -363,7 +360,7 @@
               <span class="event-type badge-type">Startup Competition</span>
               <h4 class="event-heading">National Pitch Battle '25</h4>
               <p class="event-text">Compete in 3-minute lightning pitches before angel investors. ₹2,00,000 in prototype grants.</p>
-              <a href="#portal-membership" class="event-link">Register to Pitch ➔</a>
+              <a href="../form/index.html?tab=membership" class="event-link">Register to Pitch ➔</a>
             </div>
           </div>
 
@@ -377,7 +374,7 @@
               <span class="event-type badge-type">Hackathon</span>
               <h4 class="event-heading">48-Hour AI Venture Sprint</h4>
               <p class="event-text">Form teams, validate problem statements, and deploy working MVPs over an intense 48-hour weekend.</p>
-              <a href="#portal-membership" class="event-link">Join Hackathon ➔</a>
+              <a href="../form/index.html?tab=membership" class="event-link">Join Hackathon ➔</a>
             </div>
           </div>
 
@@ -391,7 +388,7 @@
               <span class="event-type badge-type">Founder Talk</span>
               <h4 class="event-heading">Founders Unplugged: From Zero to Series A</h4>
               <p class="event-text">Unfiltered fireside chat with alumni unicorn founders on customer discovery and term sheets.</p>
-              <a href="#portal-membership" class="event-link">Reserve Free Seat ➔</a>
+              <a href="../form/index.html?tab=membership" class="event-link">Reserve Free Seat ➔</a>
             </div>
           </div>
 
@@ -405,7 +402,7 @@
               <span class="event-type badge-type">Ideation Session</span>
               <h4 class="event-heading">Design Thinking &amp; Problem Discovery</h4>
               <p class="event-text">Hands-on ideation workshop using user-empathy maps to spot multi-million dollar market gaps.</p>
-              <a href="#portal-membership" class="event-link">Join Session ➔</a>
+              <a href="../form/index.html?tab=membership" class="event-link">Join Session ➔</a>
             </div>
           </div>
 
@@ -419,7 +416,7 @@
               <span class="event-type badge-type">Startup Visit</span>
               <h4 class="event-heading">Tech Incubator &amp; R&amp;D Lab Trek</h4>
               <p class="event-text">Behind-the-scenes industrial visit to top incubators and hardware prototyping centers in Gujarat.</p>
-              <a href="#portal-membership" class="event-link">Apply for Trek ➔</a>
+              <a href="../form/index.html?tab=membership" class="event-link">Apply for Trek ➔</a>
             </div>
           </div>
 
@@ -433,7 +430,7 @@
               <span class="event-type badge-type">Pitching Session</span>
               <h4 class="event-heading">Closed-Door Angel Demo Day</h4>
               <p class="event-text">The premier graduation event where 15 incubated student startups pitch live for equity investments.</p>
-              <a href="#portal-idea" class="event-link">Submit Idea to Pitch ➔</a>
+              <a href="../form/index.html?tab=idea" class="event-link">Submit Idea to Pitch ➔</a>
             </div>
           </div>
         </div>
@@ -502,208 +499,6 @@
         </div>
       </div>
     </section>
-
-    <!-- 7. APPLICATION & SUBMISSION PORTAL (DUAL TABBED FORMS) -->
-    <section id="portal" class="section section-slate">
-      <div class="container">
-        
-        <div class="portal-card-wrapper reveal-card">
-          <!-- Tab Navigation Switcher -->
-          <div class="portal-tab-bar">
-            <button type="button" class="portal-tab-btn active" id="tabMembershipBtn">
-              <span>📋 Join E-Club (Membership)</span>
-            </button>
-            <button type="button" class="portal-tab-btn" id="tabIdeaBtn">
-              <span>🚀 Submit Your Idea (Incubation)</span>
-            </button>
-          </div>
-
-          <!-- FORM 1: JOIN E-CLUB (MEMBERSHIP FORM) -->
-          <div class="portal-form-panel active" id="portal-membership">
-            <div class="portal-header">
-              <span class="section-tag">MEMBERSHIP APPLICATION</span>
-              <h3 class="portal-title">Join the E-Club Community</h3>
-              <p class="portal-desc">
-                Become an active member of E-Club, join one of our six specialized teams, and gain hands-on venture experience.
-              </p>
-            </div>
-
-            <form id="membershipForm" class="portal-form" novalidate>
-              <div class="form-grid-2">
-                <div class="form-group">
-                  <label for="mFullName">Full Name <span class="req">*</span></label>
-                  <input type="text" id="mFullName" name="fullName" placeholder="Enter your full name" required>
-                </div>
-
-                <div class="form-group">
-                  <label for="mEmail">Email Address <span class="req">*</span></label>
-                  <input type="email" id="mEmail" name="email" placeholder="student@paruluniversity.ac.in" required>
-                </div>
-              </div>
-
-              <div class="form-grid-2">
-                <div class="form-group">
-                  <label for="mMobile">Mobile Number <span class="req">*</span></label>
-                  <input type="tel" id="mMobile" name="mobileNumber" placeholder="+91 98765 43210" required>
-                </div>
-
-                <div class="form-group">
-                  <label for="mStudentId">Student ID / Enrollment Number <span class="req">*</span></label>
-                  <input type="text" id="mStudentId" name="studentId" placeholder="e.g. 210303105001" required>
-                </div>
-              </div>
-
-              <div class="form-grid-2">
-                <div class="form-group">
-                  <label for="mDepartment">Department / Faculty <span class="req">*</span></label>
-                  <input type="text" id="mDepartment" name="department" placeholder="e.g. Computer Science &amp; Engg / Management" required>
-                </div>
-
-                <div class="form-group">
-                  <label for="mYearSemester">Year / Semester <span class="req">*</span></label>
-                  <input type="text" id="mYearSemester" name="yearSemester" placeholder="e.g. 2nd Year / 4th Semester" required>
-                </div>
-              </div>
-
-              <div class="form-grid-2">
-                <div class="form-group">
-                  <label for="mInterests">Areas of Interest <span class="req">*</span></label>
-                  <input type="text" id="mInterests" name="areasOfInterest" placeholder="e.g. AI, CleanTech, Web Dev, Event Planning" required>
-                </div>
-
-                <div class="form-group">
-                  <label for="mPreferredTeam">Preferred E-Club Team <span class="req">*</span></label>
-                  <select id="mPreferredTeam" name="preferredTeam" required>
-                    <option value="" disabled selected>Select Preferred Team</option>
-                    <option value="Chairperson Support">Chairperson / Strategy</option>
-                    <option value="Outreach">Outreach &amp; Corporate Relations</option>
-                    <option value="Technical">Technical &amp; Web Platform</option>
-                    <option value="Management">Management &amp; Event Logistics</option>
-                    <option value="Documentation">Documentation &amp; Reporting</option>
-                    <option value="Social Media">Social Media &amp; Digital Growth</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="mWhyJoin">Why do you want to join E-Club? <span class="req">*</span></label>
-                <textarea id="mWhyJoin" name="whyJoin" rows="3" placeholder="Tell us about your aspirations, what you hope to learn, and how you want to contribute..." required></textarea>
-              </div>
-
-              <button type="submit" class="btn btn-primary btn-pill btn-large">Join E-Club ➔</button>
-              <div class="portal-feedback" id="mFeedback"></div>
-            </form>
-          </div>
-
-          <!-- FORM 2: SUBMIT YOUR IDEA / INCUBATION FORM -->
-          <div class="portal-form-panel" id="portal-idea">
-            <div class="portal-header">
-              <span class="section-tag">INCUBATION &amp; SEED SUPPORT</span>
-              <h3 class="portal-title">Submit Your Startup Idea</h3>
-              <p class="portal-desc">
-                Have an innovative concept, research breakthrough, or active prototype? Submit your venture to receive PIERC incubation and mentor backing.
-              </p>
-            </div>
-
-            <form id="ideaForm" class="portal-form" novalidate>
-              <div class="form-grid-3">
-                <div class="form-group">
-                  <label for="iFounderName">Founder Name <span class="req">*</span></label>
-                  <input type="text" id="iFounderName" name="name" placeholder="Your full name" required>
-                </div>
-
-                <div class="form-group">
-                  <label for="iEmail">Email Address <span class="req">*</span></label>
-                  <input type="email" id="iEmail" name="email" placeholder="founder@university.edu" required>
-                </div>
-
-                <div class="form-group">
-                  <label for="iDepartment">Department <span class="req">*</span></label>
-                  <input type="text" id="iDepartment" name="department" placeholder="e.g. Electrical Engg" required>
-                </div>
-              </div>
-
-              <div class="form-grid-3">
-                <div class="form-group">
-                  <label for="iStartupName">Startup / Idea Name <span class="req">*</span></label>
-                  <input type="text" id="iStartupName" name="startupName" placeholder="e.g. AgriSync" required>
-                </div>
-
-                <div class="form-group">
-                  <label for="iDomain">Domain / Sector <span class="req">*</span></label>
-                  <input type="text" id="iDomain" name="domain" placeholder="e.g. AI, CleanTech, FinTech" required>
-                </div>
-
-                <div class="form-group">
-                  <label for="iCurrentStage">Current Stage <span class="req">*</span></label>
-                  <select id="iCurrentStage" name="currentStage" required>
-                    <option value="" disabled selected>Select Stage</option>
-                    <option value="Ideation">Ideation / Concept</option>
-                    <option value="Prototype">Prototype / Lab Proof</option>
-                    <option value="MVP">MVP in Testing</option>
-                    <option value="Traction">Early Traction / Users</option>
-                    <option value="Revenue">Generating Revenue</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-grid-2">
-                <div class="form-group">
-                  <label for="iTargetUsers">Target Users / Market <span class="req">*</span></label>
-                  <input type="text" id="iTargetUsers" name="targetUsers" placeholder="e.g. College students, Farmers, SME retailers" required>
-                </div>
-
-                <div class="form-group">
-                  <label for="iTeamMembers">Team Members <span class="req">*</span></label>
-                  <input type="text" id="iTeamMembers" name="teamMembers" placeholder="e.g. Solo founder / 3 student co-founders" required>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="iProblem">Problem Statement <span class="req">*</span></label>
-                <input type="text" id="iProblem" name="problemStatement" placeholder="What urgent problem are you solving for your users?" required>
-              </div>
-
-              <div class="form-group">
-                <label for="iDescription">Idea Description &amp; Solution <span class="req">*</span></label>
-                <textarea id="iDescription" name="ideaDescription" rows="3" placeholder="Describe your product, technology, and unique competitive advantage..." required></textarea>
-              </div>
-
-              <!-- Support Options Checkboxes -->
-              <div class="form-group">
-                <label>Support Required from E-Club &amp; PIERC (Select all that apply) <span class="req">*</span></label>
-                <div class="support-checkboxes">
-                  <label class="check-pill"><input type="checkbox" name="supportRequired" value="Mentorship"><span>Mentorship</span></label>
-                  <label class="check-pill"><input type="checkbox" name="supportRequired" value="Incubation"><span>Incubation</span></label>
-                  <label class="check-pill"><input type="checkbox" name="supportRequired" value="Funding Guidance"><span>Funding Guidance</span></label>
-                  <label class="check-pill"><input type="checkbox" name="supportRequired" value="Technical Support"><span>Technical Support</span></label>
-                  <label class="check-pill"><input type="checkbox" name="supportRequired" value="Business Guidance"><span>Business Guidance</span></label>
-                  <label class="check-pill"><input type="checkbox" name="supportRequired" value="Marketing"><span>Marketing</span></label>
-                  <label class="check-pill"><input type="checkbox" name="supportRequired" value="Networking"><span>Networking</span></label>
-                </div>
-              </div>
-
-              <div class="form-grid-2">
-                <div class="form-group">
-                  <label for="iPitchDeck">Pitch Deck / Document Link (Google Drive / Notion)</label>
-                  <input type="url" id="iPitchDeck" name="pitchDeck" placeholder="https://drive.google.com/your-deck">
-                </div>
-
-                <div class="form-group">
-                  <label for="iDemoLink">Demo / Prototype / Website Link (Optional)</label>
-                  <input type="url" id="iDemoLink" name="demoLink" placeholder="https://yourstartup.com">
-                </div>
-              </div>
-
-              <button type="submit" class="btn btn-primary btn-pill btn-large">Submit My Idea ➔</button>
-              <div class="portal-feedback" id="iFeedback"></div>
-            </form>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
     <!-- 8. TESTIMONIALS -->
     <section class="section section-light">
       <div class="container">
@@ -978,8 +773,8 @@
             Join E-Club, meet ambitious people, develop your skills, and take your first step toward building something meaningful.
           </p>
           <div class="final-cta-buttons">
-            <a href="#portal-membership" class="btn btn-primary btn-pill btn-large">Join E-Club ➔</a>
-            <a href="#portal-idea" class="btn btn-outline btn-pill btn-large">Submit Your Idea</a>
+            <a href="../form/index.html?tab=membership" class="btn btn-primary btn-pill btn-large">Join E-Club ➔</a>
+            <a href="../form/index.html?tab=idea" class="btn btn-outline btn-pill btn-large">Submit Your Idea</a>
           </div>
         </div>
       </div>
@@ -1025,8 +820,8 @@
         <div class="footer-links-col">
           <h5 class="footer-col-title">Action Portals</h5>
           <ul class="footer-links">
-            <li><a href="#portal-membership">Join E-Club Form</a></li>
-            <li><a href="#portal-idea">Submit Startup Idea</a></li>
+            <li><a href="../form/index.html?tab=membership">Join E-Club Form</a></li>
+            <li><a href="../form/index.html?tab=idea">Submit Startup Idea</a></li>
             <li><a href="https://www.pierc.org/" target="_blank" rel="noopener noreferrer">PIERC Incubation</a></li>
             <li><a href="https://www.paruluniversity.ac.in/" target="_blank" rel="noopener noreferrer">Parul University</a></li>
             <li><a href="#faq">Frequently Asked Questions</a></li>

@@ -30,17 +30,6 @@
   const heroContainer = document.getElementById('home');
   const hudPhases = document.querySelectorAll('.hud-phase');
 
-  // Tabbed Portal Elements
-  const tabMembershipBtn = document.getElementById('tabMembershipBtn');
-  const tabIdeaBtn = document.getElementById('tabIdeaBtn');
-  const panelMembership = document.getElementById('portal-membership');
-  const panelIdea = document.getElementById('portal-idea');
-
-  // Form Elements
-  const membershipForm = document.getElementById('membershipForm');
-  const mFeedback = document.getElementById('mFeedback');
-  const ideaForm = document.getElementById('ideaForm');
-  const iFeedback = document.getElementById('iFeedback');
 
   // Frame Cache
   const frames = new Array(ROCKET_FRAME_COUNT);
@@ -218,169 +207,6 @@
     }
   }
 
-  // ==========================================================================
-  // 5. TABBED APPLICATION PORTAL CONTROLLER
-  // ==========================================================================
-  function switchPortalTab(tabType) {
-    if (!tabMembershipBtn || !tabIdeaBtn || !panelMembership || !panelIdea) return;
-
-    if (tabType === 'idea') {
-      tabIdeaBtn.classList.add('active');
-      tabMembershipBtn.classList.remove('active');
-      panelIdea.classList.add('active');
-      panelMembership.classList.remove('active');
-    } else {
-      tabMembershipBtn.classList.add('active');
-      tabIdeaBtn.classList.remove('active');
-      panelMembership.classList.add('active');
-      panelIdea.classList.remove('active');
-    }
-  }
-
-  function initPortalTabs() {
-    if (tabMembershipBtn) {
-      tabMembershipBtn.addEventListener('click', () => switchPortalTab('membership'));
-    }
-    if (tabIdeaBtn) {
-      tabIdeaBtn.addEventListener('click', () => switchPortalTab('idea'));
-    }
-
-    // Intercept clicks on anchor tags pointing to portal tabs
-    document.addEventListener('click', (e) => {
-      const anchor = e.target.closest('a');
-      if (!anchor) return;
-
-      const href = anchor.getAttribute('href');
-      if (href === '#portal-idea') {
-        e.preventDefault();
-        switchPortalTab('idea');
-        const portalSection = document.getElementById('portal');
-        if (portalSection) {
-          portalSection.scrollIntoView({ behavior: 'smooth' });
-        }
-      } else if (href === '#portal-membership') {
-        e.preventDefault();
-        switchPortalTab('membership');
-        const portalSection = document.getElementById('portal');
-        if (portalSection) {
-          portalSection.scrollIntoView({ behavior: 'smooth' });
-        }
-      }
-    });
-
-    // Check URL hash on page load
-    if (window.location.hash === '#portal-idea') {
-      switchPortalTab('idea');
-    } else if (window.location.hash === '#portal-membership') {
-      switchPortalTab('membership');
-    }
-  }
-
-  // ==========================================================================
-  // 6. FORM VALIDATION & STORAGE
-  // ==========================================================================
-  function initFormHandlers() {
-    // 1. Membership Form Handler
-    if (membershipForm && mFeedback) {
-      membershipForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        const fullName = document.getElementById('mFullName').value.trim();
-        const email = document.getElementById('mEmail').value.trim();
-        const mobile = document.getElementById('mMobile').value.trim();
-        const studentId = document.getElementById('mStudentId').value.trim();
-        const department = document.getElementById('mDepartment').value.trim();
-        const yearSemester = document.getElementById('mYearSemester').value.trim();
-        const interests = document.getElementById('mInterests').value.trim();
-        const preferredTeam = document.getElementById('mPreferredTeam').value;
-        const whyJoin = document.getElementById('mWhyJoin').value.trim();
-
-        if (!fullName || !email || !mobile || !studentId || !department || !yearSemester || !interests || !preferredTeam || !whyJoin) {
-          mFeedback.className = 'portal-feedback error';
-          mFeedback.textContent = 'Please fill out all required fields marked with *';
-          return;
-        }
-
-        if (!email.includes('@')) {
-          mFeedback.className = 'portal-feedback error';
-          mFeedback.textContent = 'Please provide a valid student or institutional email address.';
-          return;
-        }
-
-        const memberData = {
-          fullName, email, mobile, studentId, department, yearSemester,
-          interests, preferredTeam, whyJoin,
-          submittedAt: new Date().toISOString()
-        };
-
-        try {
-          const existing = JSON.parse(localStorage.getItem('eclub_memberships') || '[]');
-          existing.push(memberData);
-          localStorage.setItem('eclub_memberships', JSON.stringify(existing));
-        } catch (err) {
-          console.error('Storage error', err);
-        }
-
-        mFeedback.className = 'portal-feedback success';
-        mFeedback.innerHTML = `🎉 <strong>Welcome to E-Club, ${fullName}!</strong> Your membership application for the <em>${preferredTeam}</em> team has been submitted. Check your email (${email}) for orientation details.`;
-        membershipForm.reset();
-      });
-    }
-
-    // 2. Startup Idea Submission Handler
-    if (ideaForm && iFeedback) {
-      ideaForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        const name = document.getElementById('iFounderName').value.trim();
-        const email = document.getElementById('iEmail').value.trim();
-        const department = document.getElementById('iDepartment').value.trim();
-        const startupName = document.getElementById('iStartupName').value.trim();
-        const domain = document.getElementById('iDomain').value.trim();
-        const currentStage = document.getElementById('iCurrentStage').value;
-        const targetUsers = document.getElementById('iTargetUsers').value.trim();
-        const teamMembers = document.getElementById('iTeamMembers').value.trim();
-        const problem = document.getElementById('iProblem').value.trim();
-        const description = document.getElementById('iDescription').value.trim();
-        const pitchDeck = document.getElementById('iPitchDeck').value.trim();
-        const demoLink = document.getElementById('iDemoLink').value.trim();
-
-        const selectedSupport = Array.from(ideaForm.querySelectorAll('input[name="supportRequired"]:checked')).map(cb => cb.value);
-
-        if (!name || !email || !department || !startupName || !domain || !currentStage || !targetUsers || !teamMembers || !problem || !description) {
-          iFeedback.className = 'portal-feedback error';
-          iFeedback.textContent = 'Please fill out all required venture fields marked with *';
-          return;
-        }
-
-        if (selectedSupport.length === 0) {
-          iFeedback.className = 'portal-feedback error';
-          iFeedback.textContent = 'Please select at least one type of support required from E-Club & PIERC.';
-          return;
-        }
-
-        const ventureData = {
-          name, email, department, startupName, domain, currentStage,
-          targetUsers, teamMembers, problem, description,
-          supportRequired: selectedSupport,
-          pitchDeck, demoLink,
-          submittedAt: new Date().toISOString()
-        };
-
-        try {
-          const existing = JSON.parse(localStorage.getItem('eclub_ideas') || '[]');
-          existing.push(ventureData);
-          localStorage.setItem('eclub_ideas', JSON.stringify(existing));
-        } catch (err) {
-          console.error('Storage error', err);
-        }
-
-        iFeedback.className = 'portal-feedback success';
-        iFeedback.innerHTML = `🚀 <strong>Venture Logged!</strong> Congratulations, ${name}! Your startup <em>${startupName}</em> has been submitted for PIERC incubation &amp; mentorship review.`;
-        ideaForm.reset();
-      });
-    }
-  }
 
   // ==========================================================================
   // 7. INTERSECTION OBSERVER FOR CARD REVEALS
@@ -491,8 +317,6 @@
     preloadRocketFrames();
     resizeCanvas();
     initScrollReveals();
-    initPortalTabs();
-    initFormHandlers();
     initFaqAccordion();
     initMobileMenu();
     initActiveNavHighlight();

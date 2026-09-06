@@ -3,278 +3,317 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>E-Club Application Portal | Join & Submit Idea</title>
+  <title>E-Club Application Portal | Parul University</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <style>
-    .portal-view {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .form-panel {
-      display: none;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-    }
-    .form-panel.active {
-      display: flex;
-    }
-    .form-panel:not(.active) {
-      display: none;
-    }
-  </style>
 </head>
 <body>
 
-  <!-- Navigation Tabs -->
-  <div class="form-nav-tabs">
-    <button type="button" class="form-tab-btn active" id="tabMembershipBtn" onclick="switchTab('membership')">Join E-Club</button>
-    <button type="button" class="form-tab-btn" id="tabIdeaBtn" onclick="switchTab('idea')">Submit Your Idea</button>
-  </div>
+  <!-- Top Bar: Back to Home & Institutional Lockup -->
+  <header class="portal-top-bar">
+    <a href="../home_page/index.html" class="back-home-btn" title="Return to E-Club Home">
+      <span>&larr;</span>
+      <span>Back to E-Club Home</span>
+    </a>
 
-  <div class="portal-view">
+    <div class="institutional-badges-top">
+      <div class="parul-naac-mini">
+        <div class="pu-text-mini">
+          <span class="pu-name-mini">Parul<sup>&reg;</sup></span>
+          <span class="pu-sub-mini">University</span>
+        </div>
+        <div class="pu-sep-mini"></div>
+        <div style="display: flex; align-items: center;">
+          <div class="naac-circle-mini">A</div>
+          <span class="naac-pluses-mini">++</span>
+        </div>
+      </div>
+    </div>
+  </header>
 
-    <!-- PANEL 1: JOIN E-CLUB -->
+  <!-- Navigation Tabs between forms -->
+  <nav class="form-nav-tabs" aria-label="Portal tabs">
+    <button type="button" class="form-tab-btn active" id="tabMembershipBtn" onclick="switchTab('membership')">
+      <span>📋</span>
+      <span>Join E-Club (Membership)</span>
+    </button>
+    <button type="button" class="form-tab-btn" id="tabIdeaBtn" onclick="switchTab('idea')">
+      <span>🚀</span>
+      <span>Submit Your Idea (Incubation)</span>
+    </button>
+  </nav>
+
+  <main class="portal-view">
+
+    <!-- ==========================================================================
+         PANEL 1: MEMBERSHIP APPLICATION FORM
+         ========================================================================== -->
     <div id="panelMembership" class="form-panel active">
       <div class="form-container-wrapper">
-        <div class="form-border-card-box">
-          <div class="form-card">
-            
-            <div class="form-header">
-              <div class="form-brand">
-                <img src="../home_page/Web_img_resources/eclub_emblem.png" alt="E-Club Emblem" class="form-logo">
-                <div class="form-brand-text">
-                  <span class="form-brand-l1">ENTREPRENEURSHIP</span>
-                  <span class="form-brand-l2">CLUB</span>
-                </div>
+        <div class="form-card">
+          
+          <div class="form-header">
+            <div class="form-brand">
+              <img src="../home_page/Web_img_resources/eclub_emblem.png" alt="E-Club Emblem" class="form-logo">
+              <div class="form-brand-text">
+                <span class="form-brand-l1">ENTREPRENEURSHIP</span>
+                <span class="form-brand-l2">CLUB</span>
               </div>
-              <div class="form-tag">
-                <span class="tag-dash"></span>
-                <span class="tag-text">MEMBERSHIP</span>
-              </div>
-              <h1 class="form-title">Join E-Club</h1>
             </div>
-
-            <form id="membershipForm" novalidate>
-              <div class="form-grid">
-                <div class="form-group">
-                  <label for="fullName">Full Name</label>
-                  <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required autocomplete="name">
-                  <span class="field-error">Please enter your full name</span>
-                </div>
-
-                <div class="form-group">
-                  <label for="email">Email</label>
-                  <input type="email" id="email" name="email" placeholder="Enter your email address" required autocomplete="email">
-                  <span class="field-error">Please enter a valid email address</span>
-                </div>
-
-                <div class="form-group">
-                  <label for="mobileNumber">Mobile Number</label>
-                  <input type="tel" id="mobileNumber" name="mobileNumber" placeholder="Enter your mobile number" required autocomplete="tel">
-                  <span class="field-error">Please enter your mobile number</span>
-                </div>
-
-                <div class="form-group">
-                  <label for="studentId">Student Enrollment Number</label>
-                  <input type="text" id="studentId" name="studentEnrollment" placeholder="Enter your student enrollment number" required>
-                  <span class="field-error">Please enter your student enrollment number</span>
-                </div>
-
-                <div class="form-group">
-                  <label for="department">Department</label>
-                  <input type="text" id="department" name="department" placeholder="e.g. Computer Science & Engineering" required>
-                  <span class="field-error">Please enter your department</span>
-                </div>
-
-                <div class="form-group">
-                  <label for="yearSemester">Year / Semester</label>
-                  <input type="text" id="yearSemester" name="yearSemester" placeholder="e.g. 2nd Year / 4th Semester" required>
-                  <span class="field-error">Please enter your year or semester</span>
-                </div>
-
-                <div class="form-group">
-                  <label for="areasOfInterest">Areas of Interest</label>
-                  <input type="text" id="areasOfInterest" name="areasOfInterest" placeholder="e.g. Startups, AI, Web Dev, Marketing" required>
-                  <span class="field-error">Please enter your areas of interest</span>
-                </div>
-
-                <div class="form-group">
-                  <label for="preferredTeam">Preferred E-Club Team</label>
-                  <input type="text" id="preferredTeam" name="preferredTeam" placeholder="e.g. Technical, Management, Media" required>
-                  <span class="field-error">Please enter your preferred team</span>
-                </div>
-
-                <div class="form-group form-group-full">
-                  <label for="whyJoin">Why do you want to join E-Club?</label>
-                  <textarea id="whyJoin" name="whyJoin" rows="3" placeholder="Tell us why you want to join E-Club..." required></textarea>
-                  <span class="field-error">Please share why you want to join</span>
-                </div>
-              </div>
-
-              <div class="form-actions">
-                <button type="submit" class="btn-submit">
-                  <span>Join E-Club</span>
-                  <span class="submit-arrow">&rarr;</span>
-                </button>
-              </div>
-            </form>
-
-            <div id="membershipSuccess" class="form-success" style="display: none;">
-              <div class="success-icon-wrap">
-                <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </div>
-              <h2 class="success-title">Application Submitted!</h2>
-              <p class="success-desc">Thank you for applying to join E-Club! Your application has been recorded and our team will get in touch with you shortly.</p>
-              <button type="button" class="btn-success-reset" onclick="resetMembershipForm()">Submit Another Response</button>
+            <div>
+              <span class="form-tag">MEMBERSHIP APPLICATION</span>
             </div>
-
+            <h1 class="form-title">Join the E-Club Community</h1>
+            <p class="form-desc">
+              Become an active member of E-Club, join one of our six specialized teams, and gain hands-on venture experience.
+            </p>
           </div>
+
+          <!-- Membership Form -->
+          <form id="membershipForm" novalidate>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="mFullName">Full Name <span class="req">*</span></label>
+                <input type="text" id="mFullName" name="fullName" placeholder="Enter your full name" required autocomplete="name">
+                <span class="field-error">Please enter your full name</span>
+              </div>
+
+              <div class="form-group">
+                <label for="mEmail">Email Address <span class="req">*</span></label>
+                <input type="email" id="mEmail" name="email" placeholder="student@paruluniversity.ac.in" required autocomplete="email">
+                <span class="field-error">Please enter a valid email address</span>
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="mMobile">Mobile Number <span class="req">*</span></label>
+                <input type="tel" id="mMobile" name="mobileNumber" placeholder="+91 98765 43210" required autocomplete="tel">
+                <span class="field-error">Please enter your mobile number</span>
+              </div>
+
+              <div class="form-group">
+                <label for="mStudentId">Student ID / Enrollment Number <span class="req">*</span></label>
+                <input type="text" id="mStudentId" name="studentId" placeholder="e.g. 210303105001" required>
+                <span class="field-error">Please enter your student enrollment number</span>
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="mDepartment">Department / Faculty <span class="req">*</span></label>
+                <input type="text" id="mDepartment" name="department" placeholder="e.g. Computer Science &amp; Engg / Management" required>
+                <span class="field-error">Please specify your department</span>
+              </div>
+
+              <div class="form-group">
+                <label for="mYearSemester">Year / Semester <span class="req">*</span></label>
+                <input type="text" id="mYearSemester" name="yearSemester" placeholder="e.g. 2nd Year / 4th Semester" required>
+                <span class="field-error">Please specify your year or semester</span>
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="mInterests">Areas of Interest <span class="req">*</span></label>
+                <input type="text" id="mInterests" name="areasOfInterest" placeholder="e.g. AI, CleanTech, Web Dev, Event Planning" required>
+                <span class="field-error">Please list your areas of interest</span>
+              </div>
+
+              <div class="form-group">
+                <label for="mPreferredTeam">Preferred E-Club Team <span class="req">*</span></label>
+                <select id="mPreferredTeam" name="preferredTeam" required>
+                  <option value="" disabled selected>Select Preferred Team</option>
+                  <option value="Chairperson Support">Chairperson / Strategy</option>
+                  <option value="Outreach">Outreach &amp; Corporate Relations</option>
+                  <option value="Technical">Technical &amp; Web Platform</option>
+                  <option value="Management">Management &amp; Event Logistics</option>
+                  <option value="Documentation">Documentation &amp; Reporting</option>
+                  <option value="Social Media">Social Media &amp; Digital Growth</option>
+                </select>
+                <span class="field-error">Please select a preferred team</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="mWhyJoin">Why do you want to join E-Club? <span class="req">*</span></label>
+              <textarea id="mWhyJoin" name="whyJoin" rows="4" placeholder="Tell us about your aspirations, what you hope to learn, and how you want to contribute..." required></textarea>
+              <span class="field-error">Please write a brief explanation</span>
+            </div>
+
+            <div class="form-submit-row">
+              <button type="submit" class="btn-primary">
+                <span>Submit Membership Application</span>
+                <span>➔</span>
+              </button>
+            </div>
+          </form>
+
+          <!-- Membership Success Card -->
+          <div id="mSuccessCard" class="form-success-card">
+            <div class="success-icon-wrap">✓</div>
+            <h2 class="success-title">Application Submitted!</h2>
+            <p class="success-desc">
+              Thank you for applying to E-Club! Your application has been received and stored. Our executive team will review your profile and reach out via email for the onboarding session.
+            </p>
+            <button type="button" class="btn-reset" onclick="resetMembershipForm()">Submit Another Application</button>
+          </div>
+
         </div>
       </div>
     </div>
 
-    <!-- PANEL 2: SUBMIT YOUR IDEA -->
+    <!-- ==========================================================================
+         PANEL 2: STARTUP IDEA INCUBATION FORM
+         ========================================================================== -->
     <div id="panelIdea" class="form-panel">
       <div class="form-container-wrapper">
-        <div class="form-border-card-box">
-          <div class="form-card">
-            
-            <div class="form-header">
-              <div class="form-brand">
-                <img src="../home_page/Web_img_resources/eclub_emblem.png" alt="E-Club Emblem" class="form-logo">
-                <div class="form-brand-text">
-                  <span class="form-brand-l1">ENTREPRENEURSHIP</span>
-                  <span class="form-brand-l2">CLUB</span>
-                </div>
+        <div class="form-card">
+          
+          <div class="form-header">
+            <div class="form-brand">
+              <img src="../home_page/Web_img_resources/eclub_emblem.png" alt="E-Club Emblem" class="form-logo">
+              <div class="form-brand-text">
+                <span class="form-brand-l1">ENTREPRENEURSHIP</span>
+                <span class="form-brand-l2">CLUB</span>
               </div>
-              <div class="form-tag">
-                <span class="tag-dash"></span>
-                <span class="tag-text">INCUBATION</span>
-              </div>
-              <h1 class="form-title">Submit Your Idea</h1>
             </div>
-
-            <form id="ideaForm" novalidate>
-              <div class="form-grid">
-                <div class="form-group">
-                  <label for="founderName">Name</label>
-                  <input type="text" id="founderName" name="name" placeholder="Enter your full name" required autocomplete="name">
-                  <span class="field-error">Please enter your name</span>
-                </div>
-
-                <div class="form-group">
-                  <label for="ideaEmail">Email</label>
-                  <input type="email" id="ideaEmail" name="email" placeholder="Enter your email address" required autocomplete="email">
-                  <span class="field-error">Please enter a valid email address</span>
-                </div>
-
-                <div class="form-group">
-                  <label for="ideaDepartment">Department</label>
-                  <input type="text" id="ideaDepartment" name="department" placeholder="e.g. Computer Science & Engineering" required>
-                  <span class="field-error">Please enter your department</span>
-                </div>
-
-                <div class="form-group">
-                  <label for="startupName">Startup / Idea Name</label>
-                  <input type="text" id="startupName" name="startupName" placeholder="Enter startup or project name" required>
-                  <span class="field-error">Please enter startup / idea name</span>
-                </div>
-
-                <div class="form-group">
-                  <label for="targetUsers">Target Users</label>
-                  <input type="text" id="targetUsers" name="targetUsers" placeholder="e.g. Students, Startups, Businesses" required>
-                  <span class="field-error">Please specify target users</span>
-                </div>
-
-                <div class="form-group">
-                  <label for="currentStage">Current Stage</label>
-                  <input type="text" id="currentStage" name="currentStage" placeholder="e.g. Ideation, Prototype, MVP, Launched" required>
-                  <span class="field-error">Please enter current stage</span>
-                </div>
-
-                <div class="form-group">
-                  <label for="teamMembers">Team Members</label>
-                  <input type="text" id="teamMembers" name="teamMembers" placeholder="e.g. Solo founder / 3 members" required>
-                  <span class="field-error">Please mention your team members</span>
-                </div>
-
-                <div class="form-group">
-                  <label for="domain">Domain</label>
-                  <input type="text" id="domain" name="domain" placeholder="e.g. AI / FinTech / HealthTech / Agritech" required>
-                  <span class="field-error">Please enter your domain</span>
-                </div>
-
-                <div class="form-group">
-                  <label for="pitchDeck">Pitch Deck / Document</label>
-                  <input type="text" id="pitchDeck" name="pitchDeck" placeholder="Link to Pitch Deck (Google Drive, Notion, etc.)">
-                </div>
-
-                <div class="form-group">
-                  <label for="demoLink">Demo / Website Link (Optional)</label>
-                  <input type="text" id="demoLink" name="demoLink" placeholder="Link to Prototype, Demo or Website">
-                </div>
-
-                <div class="form-group form-group-full">
-                  <label for="problemStatement">Problem Statement</label>
-                  <input type="text" id="problemStatement" name="problemStatement" placeholder="What core problem are you solving?" required>
-                  <span class="field-error">Please describe the problem you are solving</span>
-                </div>
-
-                <div class="form-group form-group-full">
-                  <label for="ideaDescription">Idea Description</label>
-                  <textarea id="ideaDescription" name="ideaDescription" rows="3" placeholder="Describe your solution, value proposition, and innovation..." required></textarea>
-                  <span class="field-error">Please describe your idea</span>
-                </div>
-
-                <div class="form-group form-group-full">
-                  <label>Support Required</label>
-                  <div class="support-tags">
-                    <label class="tag-chip"><input type="checkbox" name="supportRequired" value="Mentorship"><span>Mentorship</span></label>
-                    <label class="tag-chip"><input type="checkbox" name="supportRequired" value="Incubation"><span>Incubation</span></label>
-                    <label class="tag-chip"><input type="checkbox" name="supportRequired" value="Funding Guidance"><span>Funding Guidance</span></label>
-                    <label class="tag-chip"><input type="checkbox" name="supportRequired" value="Technical Support"><span>Technical Support</span></label>
-                    <label class="tag-chip"><input type="checkbox" name="supportRequired" value="Business Guidance"><span>Business Guidance</span></label>
-                    <label class="tag-chip"><input type="checkbox" name="supportRequired" value="Marketing"><span>Marketing</span></label>
-                    <label class="tag-chip"><input type="checkbox" name="supportRequired" value="Networking"><span>Networking</span></label>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-actions">
-                <button type="submit" class="btn-submit">
-                  <span>Submit My Idea</span>
-                  <span class="submit-arrow">&rarr;</span>
-                </button>
-              </div>
-            </form>
-
-            <div id="ideaSuccess" class="form-success" style="display: none;">
-              <div class="success-icon-wrap">
-                <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </div>
-              <h2 class="success-title">Idea Submitted!</h2>
-              <p class="success-desc">Thank you for submitting your startup idea to the E-Club Incubation Wing! Our incubation mentors and screening committee will review your proposal and get in touch with you shortly.</p>
-              <button type="button" class="btn-success-reset" onclick="resetIdeaForm()">Submit Another Idea</button>
+            <div>
+              <span class="form-tag">INCUBATION &amp; SEED SUPPORT</span>
             </div>
-
+            <h1 class="form-title">Submit Your Startup Idea</h1>
+            <p class="form-desc">
+              Have an innovative concept, research breakthrough, or active prototype? Submit your venture to receive PIERC incubation and mentor backing.
+            </p>
           </div>
+
+          <!-- Idea Form -->
+          <form id="ideaForm" novalidate>
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label for="iFounderName">Founder Name <span class="req">*</span></label>
+                <input type="text" id="iFounderName" name="name" placeholder="Your full name" required autocomplete="name">
+                <span class="field-error">Please enter founder name</span>
+              </div>
+
+              <div class="form-group">
+                <label for="iEmail">Email Address <span class="req">*</span></label>
+                <input type="email" id="iEmail" name="email" placeholder="founder@university.edu" required autocomplete="email">
+                <span class="field-error">Please enter a valid email</span>
+              </div>
+
+              <div class="form-group">
+                <label for="iDepartment">Department <span class="req">*</span></label>
+                <input type="text" id="iDepartment" name="department" placeholder="e.g. Electrical Engg" required>
+                <span class="field-error">Please enter department</span>
+              </div>
+            </div>
+
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label for="iStartupName">Startup / Idea Name <span class="req">*</span></label>
+                <input type="text" id="iStartupName" name="startupName" placeholder="e.g. AgriSync" required>
+                <span class="field-error">Please enter startup name</span>
+              </div>
+
+              <div class="form-group">
+                <label for="iDomain">Domain / Sector <span class="req">*</span></label>
+                <input type="text" id="iDomain" name="domain" placeholder="e.g. AI, CleanTech, FinTech" required>
+                <span class="field-error">Please enter sector</span>
+              </div>
+
+              <div class="form-group">
+                <label for="iCurrentStage">Current Stage <span class="req">*</span></label>
+                <select id="iCurrentStage" name="currentStage" required>
+                  <option value="" disabled selected>Select Stage</option>
+                  <option value="Ideation">Ideation / Concept</option>
+                  <option value="Prototype">Prototype / Lab Proof</option>
+                  <option value="MVP">MVP in Testing</option>
+                  <option value="Traction">Early Traction / Users</option>
+                  <option value="Revenue">Generating Revenue</option>
+                </select>
+                <span class="field-error">Please select stage</span>
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="iTargetUsers">Target Users / Market <span class="req">*</span></label>
+                <input type="text" id="iTargetUsers" name="targetUsers" placeholder="e.g. College students, Farmers, SME retailers" required>
+                <span class="field-error">Please describe target market</span>
+              </div>
+
+              <div class="form-group">
+                <label for="iTeamMembers">Team Members <span class="req">*</span></label>
+                <input type="text" id="iTeamMembers" name="teamMembers" placeholder="e.g. Solo founder / 3 student co-founders" required>
+                <span class="field-error">Please list team members</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="iProblem">Problem Statement <span class="req">*</span></label>
+              <input type="text" id="iProblem" name="problemStatement" placeholder="What urgent problem are you solving for your users?" required>
+              <span class="field-error">Please specify problem statement</span>
+            </div>
+
+            <div class="form-group">
+              <label for="iDescription">Idea Description &amp; Solution <span class="req">*</span></label>
+              <textarea id="iDescription" name="ideaDescription" rows="4" placeholder="Describe your product, technology, and unique competitive advantage..." required></textarea>
+              <span class="field-error">Please provide an idea description</span>
+            </div>
+
+            <!-- Support Options Checkboxes -->
+            <div class="form-group">
+              <label>Support Required from E-Club &amp; PIERC (Select all that apply) <span class="req">*</span></label>
+              <div class="support-checkboxes">
+                <label class="check-pill"><input type="checkbox" name="supportRequired" value="Mentorship"><span>Mentorship</span></label>
+                <label class="check-pill"><input type="checkbox" name="supportRequired" value="Incubation"><span>Incubation</span></label>
+                <label class="check-pill"><input type="checkbox" name="supportRequired" value="Funding Guidance"><span>Funding Guidance</span></label>
+                <label class="check-pill"><input type="checkbox" name="supportRequired" value="Technical Support"><span>Technical Support</span></label>
+                <label class="check-pill"><input type="checkbox" name="supportRequired" value="Business Guidance"><span>Business Guidance</span></label>
+                <label class="check-pill"><input type="checkbox" name="supportRequired" value="Marketing"><span>Marketing</span></label>
+                <label class="check-pill"><input type="checkbox" name="supportRequired" value="Networking"><span>Networking</span></label>
+              </div>
+              <span class="field-error" id="supportError">Please select at least one support option</span>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="iPitchDeck">Pitch Deck / Document Link (Google Drive / Notion)</label>
+                <input type="url" id="iPitchDeck" name="pitchDeck" placeholder="https://drive.google.com/your-deck">
+              </div>
+
+              <div class="form-group">
+                <label for="iDemoLink">Demo / Prototype / Website Link (Optional)</label>
+                <input type="url" id="iDemoLink" name="demoLink" placeholder="https://yourstartup.com">
+              </div>
+            </div>
+
+            <div class="form-submit-row">
+              <button type="submit" class="btn-primary">
+                <span>Submit Startup Idea</span>
+                <span>➔</span>
+              </button>
+            </div>
+          </form>
+
+          <!-- Idea Success Card -->
+          <div id="iSuccessCard" class="form-success-card">
+            <div class="success-icon-wrap">🚀</div>
+            <h2 class="success-title">Idea Submitted to PIERC!</h2>
+            <p class="success-desc">
+              Your startup concept has been registered with E-Club and the PIERC incubation cell. Our screening committee will review your proposal and invite shortlisted ventures for a 1-on-1 pitch review.
+            </p>
+            <button type="button" class="btn-reset" onclick="resetIdeaForm()">Submit Another Idea</button>
+          </div>
+
         </div>
       </div>
     </div>
 
-  </div>
-
-  <a href="../home_page/index.html" class="back-link">&larr; Back to E-Club Home</a>
+  </main>
 
   <script>
     function switchTab(type) {
@@ -284,35 +323,44 @@
       const panelIdea = document.getElementById('panelIdea');
 
       if (type === 'idea') {
-        tabMem.classList.remove('active');
         tabIdea.classList.add('active');
-        panelMem.classList.remove('active');
+        tabMem.classList.remove('active');
         panelIdea.classList.add('active');
-        window.location.hash = '#idea';
+        panelMem.classList.remove('active');
+        history.replaceState(null, '', '?tab=idea');
       } else {
-        tabIdea.classList.remove('active');
         tabMem.classList.add('active');
-        panelIdea.classList.remove('active');
+        tabIdea.classList.remove('active');
         panelMem.classList.add('active');
-        window.location.hash = '#membership';
+        panelIdea.classList.remove('active');
+        history.replaceState(null, '', '?tab=membership');
       }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Check hash on load
-    if (window.location.hash === '#idea') {
-      switchTab('idea');
-    }
+    // Check query param or hash on load
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const tabParam = params.get('tab');
+      const hash = window.location.hash;
 
-    // Membership Form handling
-    const memForm = document.getElementById('membershipForm');
-    const memSuccess = document.getElementById('membershipSuccess');
+      if (tabParam === 'idea' || hash === '#idea') {
+        switchTab('idea');
+      } else {
+        switchTab('membership');
+      }
+    });
 
-    memForm.addEventListener('submit', (e) => {
+    // Membership Form Handler
+    const mForm = document.getElementById('membershipForm');
+    const mSuccessCard = document.getElementById('mSuccessCard');
+
+    mForm.addEventListener('submit', (e) => {
       e.preventDefault();
       let isValid = true;
-      const required = memForm.querySelectorAll('input[required], textarea[required]');
+      const requiredInputs = mForm.querySelectorAll('input[required], select[required], textarea[required]');
 
-      required.forEach((input) => {
+      requiredInputs.forEach((input) => {
         const group = input.closest('.form-group');
         let fieldValid = true;
         if (!input.value.trim()) {
@@ -323,56 +371,55 @@
 
         if (!fieldValid) {
           isValid = false;
-          group.classList.add('has-error');
+          if (group) group.classList.add('has-error');
         } else {
-          group.classList.remove('has-error');
+          if (group) group.classList.remove('has-error');
         }
 
         input.addEventListener('input', () => {
-          group.classList.remove('has-error');
+          if (group) group.classList.remove('has-error');
         }, { once: true });
       });
 
       if (isValid) {
         const data = {
-          fullName: document.getElementById('fullName').value.trim(),
-          email: document.getElementById('email').value.trim(),
-          mobileNumber: document.getElementById('mobileNumber').value.trim(),
-          studentEnrollment: document.getElementById('studentId').value.trim(),
-          studentId: document.getElementById('studentId').value.trim(),
-          department: document.getElementById('department').value.trim(),
-          yearSemester: document.getElementById('yearSemester').value.trim(),
-          areasOfInterest: document.getElementById('areasOfInterest').value.trim(),
-          preferredTeam: document.getElementById('preferredTeam').value.trim(),
-          whyJoin: document.getElementById('whyJoin').value.trim(),
+          fullName: document.getElementById('mFullName').value.trim(),
+          email: document.getElementById('mEmail').value.trim(),
+          mobileNumber: document.getElementById('mMobile').value.trim(),
+          studentId: document.getElementById('mStudentId').value.trim(),
+          department: document.getElementById('mDepartment').value.trim(),
+          yearSemester: document.getElementById('mYearSemester').value.trim(),
+          areasOfInterest: document.getElementById('mInterests').value.trim(),
+          preferredTeam: document.getElementById('mPreferredTeam').value,
+          whyJoin: document.getElementById('mWhyJoin').value.trim(),
           submittedAt: new Date().toISOString()
         };
 
-        const list = JSON.parse(localStorage.getItem('eclub_memberships') || '[]');
-        list.push(data);
-        localStorage.setItem('eclub_memberships', JSON.stringify(list));
+        const existing = JSON.parse(localStorage.getItem('eclub_memberships') || '[]');
+        existing.push(data);
+        localStorage.setItem('eclub_memberships', JSON.stringify(existing));
 
-        memForm.style.display = 'none';
-        memSuccess.style.display = 'block';
+        mForm.style.display = 'none';
+        mSuccessCard.style.display = 'block';
       }
     });
 
     function resetMembershipForm() {
-      memForm.reset();
-      memForm.style.display = 'block';
-      memSuccess.style.display = 'none';
+      mForm.reset();
+      mForm.style.display = 'block';
+      mSuccessCard.style.display = 'none';
     }
 
-    // Idea Form handling
-    const ideaForm = document.getElementById('ideaForm');
-    const ideaSuccess = document.getElementById('ideaSuccess');
+    // Idea Form Handler
+    const iForm = document.getElementById('ideaForm');
+    const iSuccessCard = document.getElementById('iSuccessCard');
 
-    ideaForm.addEventListener('submit', (e) => {
+    iForm.addEventListener('submit', (e) => {
       e.preventDefault();
       let isValid = true;
-      const required = ideaForm.querySelectorAll('input[required], textarea[required]');
+      const requiredInputs = iForm.querySelectorAll('input[required], select[required], textarea[required]');
 
-      required.forEach((input) => {
+      requiredInputs.forEach((input) => {
         const group = input.closest('.form-group');
         let fieldValid = true;
         if (!input.value.trim()) {
@@ -383,49 +430,57 @@
 
         if (!fieldValid) {
           isValid = false;
-          group.classList.add('has-error');
+          if (group) group.classList.add('has-error');
         } else {
-          group.classList.remove('has-error');
+          if (group) group.classList.remove('has-error');
         }
 
         input.addEventListener('input', () => {
-          group.classList.remove('has-error');
+          if (group) group.classList.remove('has-error');
         }, { once: true });
       });
 
-      if (isValid) {
-        const selectedSupport = Array.from(ideaForm.querySelectorAll('input[name="supportRequired"]:checked')).map(cb => cb.value);
+      // Check at least one support checkbox
+      const checkedBoxes = Array.from(iForm.querySelectorAll('input[name="supportRequired"]:checked')).map(cb => cb.value);
+      const supportGroup = document.querySelector('.support-checkboxes').closest('.form-group');
+      if (checkedBoxes.length === 0) {
+        isValid = false;
+        supportGroup.classList.add('has-error');
+      } else {
+        supportGroup.classList.remove('has-error');
+      }
 
+      if (isValid) {
         const data = {
-          name: document.getElementById('founderName').value.trim(),
-          email: document.getElementById('ideaEmail').value.trim(),
-          department: document.getElementById('ideaDepartment').value.trim(),
-          startupName: document.getElementById('startupName').value.trim(),
-          targetUsers: document.getElementById('targetUsers').value.trim(),
-          currentStage: document.getElementById('currentStage').value.trim(),
-          teamMembers: document.getElementById('teamMembers').value.trim(),
-          domain: document.getElementById('domain').value.trim(),
-          pitchDeck: document.getElementById('pitchDeck') ? document.getElementById('pitchDeck').value.trim() : '',
-          demoLink: document.getElementById('demoLink') ? document.getElementById('demoLink').value.trim() : '',
-          problemStatement: document.getElementById('problemStatement').value.trim(),
-          ideaDescription: document.getElementById('ideaDescription').value.trim(),
-          supportRequired: selectedSupport,
+          founderName: document.getElementById('iFounderName').value.trim(),
+          email: document.getElementById('iEmail').value.trim(),
+          department: document.getElementById('iDepartment').value.trim(),
+          startupName: document.getElementById('iStartupName').value.trim(),
+          domain: document.getElementById('iDomain').value.trim(),
+          currentStage: document.getElementById('iCurrentStage').value,
+          targetUsers: document.getElementById('iTargetUsers').value.trim(),
+          teamMembers: document.getElementById('iTeamMembers').value.trim(),
+          problemStatement: document.getElementById('iProblem').value.trim(),
+          ideaDescription: document.getElementById('iDescription').value.trim(),
+          supportRequired: checkedBoxes,
+          pitchDeck: document.getElementById('iPitchDeck').value.trim(),
+          demoLink: document.getElementById('iDemoLink').value.trim(),
           submittedAt: new Date().toISOString()
         };
 
-        const list = JSON.parse(localStorage.getItem('eclub_ideas') || '[]');
-        list.push(data);
-        localStorage.setItem('eclub_ideas', JSON.stringify(list));
+        const existing = JSON.parse(localStorage.getItem('eclub_ideas') || '[]');
+        existing.push(data);
+        localStorage.setItem('eclub_ideas', JSON.stringify(existing));
 
-        ideaForm.style.display = 'none';
-        ideaSuccess.style.display = 'block';
+        iForm.style.display = 'none';
+        iSuccessCard.style.display = 'block';
       }
     });
 
     function resetIdeaForm() {
-      ideaForm.reset();
-      ideaForm.style.display = 'block';
-      ideaSuccess.style.display = 'none';
+      iForm.reset();
+      iForm.style.display = 'block';
+      iSuccessCard.style.display = 'none';
     }
   </script>
 </body>
