@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>E-Club | Entrepreneurship Club</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<script>
-  // Immediate check to prevent flash of preloader/intro on page refresh
-  if (sessionStorage.getItem('eclub_intro_seen')) {
-    document.documentElement.classList.add('intro-skipped');
-  }
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>E-Club | Entrepreneurship Club</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    // Immediate check to prevent flash of preloader/intro on page refresh
+    if (sessionStorage.getItem('eclub_intro_seen')) {
+      document.documentElement.classList.add('intro-skipped');
+    }
+  </script>
 </head>
+
 <body>
 
   <!-- Preloader Screen -->
@@ -22,8 +26,11 @@
     <div class="loader-content">
       <div class="gold-ring-wrapper">
         <svg class="progress-ring" viewBox="0 0 110 110" width="100%" height="100%">
-          <circle class="progress-ring-track" stroke="rgba(218, 175, 110, 0.15)" stroke-width="3" fill="transparent" r="48" cx="55" cy="55"/>
-          <circle id="progressRingCircle" class="progress-ring-fill" stroke="#D4AF37" stroke-width="3" stroke-dasharray="301.59" stroke-dashoffset="301.59" stroke-linecap="round" fill="transparent" r="48" cx="55" cy="55"/>
+          <circle class="progress-ring-track" stroke="rgba(218, 175, 110, 0.15)" stroke-width="3" fill="transparent"
+            r="48" cx="55" cy="55" />
+          <circle id="progressRingCircle" class="progress-ring-fill" stroke="#D4AF37" stroke-width="3"
+            stroke-dasharray="301.59" stroke-dashoffset="301.59" stroke-linecap="round" fill="transparent" r="48"
+            cx="55" cy="55" />
         </svg>
         <span id="loadPercent" class="load-percent">0%</span>
       </div>
@@ -107,7 +114,7 @@
     <!-- SCROLL ANIMATION WRAPPER -->
     <section class="rocket-scroll" id="home">
       <div class="rocket-content">
-        
+
         <!-- HERO SECTION (Step 1) -->
         <div class="content-block active" id="step-1">
           <p class="ghost-label" style="margin-bottom:-20px;">Hero</p>
@@ -115,7 +122,8 @@
             <div class="hero-content">
               <div class="eyebrow">E-CLUB · ENTREPRENEURSHIP CLUB</div>
               <h1 class="headline">Think. Build.<br>Innovate.</h1>
-              <p class="subtext">E-Club is where students connect, ideas grow, and entrepreneurship begins. Explore startups, meet mentors, and take your first step from idea to venture.</p>
+              <p class="subtext">E-Club is where students connect, ideas grow, and entrepreneurship begins. Explore
+                startups, meet mentors, and take your first step from idea to venture.</p>
               <div class="hero-buttons">
                 <a href="#membership" class="btn btn-primary" id="heroJoinBtn">Join E-Club</a>
                 <a href="#idea" class="btn btn-secondary" id="heroIdeaBtn">Submit Your Idea</a>
@@ -131,7 +139,9 @@
           <section class="about" id="about">
             <div class="eyebrow">ABOUT E-CLUB</div>
             <h2>Where curiosity turns into a venture</h2>
-            <p>E-Club is Parul University's student entrepreneurship community. We help students explore innovation, leadership, and startups — moving from a first idea to a first pitch, project, or venture, alongside mentors, workshops, and peers who build with you.</p>
+            <p>E-Club is Parul University's student entrepreneurship community. We help students explore innovation,
+              leadership, and startups — moving from a first idea to a first pitch, project, or venture, alongside
+              mentors, workshops, and peers who build with you.</p>
           </section>
         </div>
 
@@ -141,10 +151,12 @@
           <section class="about" id="mission">
             <div class="eyebrow">MISSION &amp; VISION</div>
             <h2>Building the future, together</h2>
-            <p>Our mission is to foster a culture of innovation and problem-solving. We envision a community where every student has the resources, mentorship, and network to turn their boldest ideas into successful ventures.</p>
+            <p>Our mission is to foster a culture of innovation and problem-solving. We envision a community where every
+              student has the resources, mentorship, and network to turn their boldest ideas into successful ventures.
+            </p>
           </section>
         </div>
-        
+
       </div>
 
       <!-- STICKY VISUAL -->
@@ -163,13 +175,15 @@
   </main>
 
   <!-- MEMBERSHIP APPLICATION MODAL -->
-  <div id="membershipModal" class="membership-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="membershipModalTitle">
+  <div id="membershipModal" class="membership-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true"
+    aria-labelledby="membershipModalTitle">
     <div class="membership-modal-backdrop" id="membershipModalBackdrop"></div>
     <div class="membership-modal-glow-wrapper">
       <div class="membership-border-card-box">
         <div class="membership-modal-card">
-          <button type="button" class="membership-modal-close" id="closeMembershipModal" aria-label="Close form">&times;</button>
-          
+          <button type="button" class="membership-modal-close" id="closeMembershipModal"
+            aria-label="Close form">&times;</button>
+
           <!-- Brand & Header -->
           <div class="membership-header">
             <div class="membership-brand">
@@ -191,55 +205,64 @@
             <div class="form-grid">
               <div class="form-group">
                 <label for="fullName">Full Name</label>
-                <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required autocomplete="name">
+                <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required
+                  autocomplete="name">
                 <span class="field-error">Please enter your full name</span>
               </div>
 
               <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email address" required autocomplete="email">
+                <input type="email" id="email" name="email" placeholder="Enter your email address" required
+                  autocomplete="email">
                 <span class="field-error">Please enter a valid email address</span>
               </div>
 
               <div class="form-group">
                 <label for="mobileNumber">Mobile Number</label>
-                <input type="tel" id="mobileNumber" name="mobileNumber" placeholder="Enter your mobile number" required autocomplete="tel">
+                <input type="tel" id="mobileNumber" name="mobileNumber" placeholder="Enter your mobile number" required
+                  autocomplete="tel">
                 <span class="field-error">Please enter your mobile number</span>
               </div>
 
               <div class="form-group">
                 <label for="studentId">Student Enrollment Number</label>
-                <input type="text" id="studentId" name="studentEnrollment" placeholder="Enter your student enrollment number" required>
+                <input type="text" id="studentId" name="studentEnrollment"
+                  placeholder="Enter your student enrollment number" required>
                 <span class="field-error">Please enter your student enrollment number</span>
               </div>
 
               <div class="form-group">
                 <label for="department">Department</label>
-                <input type="text" id="department" name="department" placeholder="e.g. Computer Science & Engineering" required>
+                <input type="text" id="department" name="department" placeholder="e.g. Computer Science & Engineering"
+                  required>
                 <span class="field-error">Please enter your department</span>
               </div>
 
               <div class="form-group">
                 <label for="yearSemester">Year / Semester</label>
-                <input type="text" id="yearSemester" name="yearSemester" placeholder="e.g. 2nd Year / 4th Semester" required>
+                <input type="text" id="yearSemester" name="yearSemester" placeholder="e.g. 2nd Year / 4th Semester"
+                  required>
                 <span class="field-error">Please enter your year or semester</span>
               </div>
 
               <div class="form-group">
                 <label for="areasOfInterest">Areas of Interest</label>
-                <input type="text" id="areasOfInterest" name="areasOfInterest" placeholder="e.g. Startups, AI, Web Dev, Marketing" required>
+                <input type="text" id="areasOfInterest" name="areasOfInterest"
+                  placeholder="e.g. Startups, AI, Web Dev, Marketing" required>
                 <span class="field-error">Please enter your areas of interest</span>
               </div>
 
               <div class="form-group">
                 <label for="preferredTeam">Preferred E-Club Team</label>
-                <input type="text" id="preferredTeam" name="preferredTeam" placeholder="e.g. Technical, Management, Media" required>
+                <input type="text" id="preferredTeam" name="preferredTeam"
+                  placeholder="e.g. Technical, Management, Media" required>
                 <span class="field-error">Please enter your preferred team</span>
               </div>
 
               <div class="form-group form-group-full">
                 <label for="whyJoin">Why do you want to join E-Club?</label>
-                <textarea id="whyJoin" name="whyJoin" rows="3" placeholder="Tell us why you want to join E-Club..." required></textarea>
+                <textarea id="whyJoin" name="whyJoin" rows="3" placeholder="Tell us why you want to join E-Club..."
+                  required></textarea>
                 <span class="field-error">Please share why you want to join</span>
               </div>
             </div>
@@ -255,12 +278,14 @@
           <!-- Success State -->
           <div id="membershipSuccess" class="membership-success" style="display: none;">
             <div class="success-icon-wrap">
-              <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="20 6 9 17 4 12"></polyline>
               </svg>
             </div>
             <h3 class="success-title">Application Submitted!</h3>
-            <p class="success-desc">Thank you for applying to join E-Club! Your application has been received and our team will get in touch with you shortly.</p>
+            <p class="success-desc">Thank you for applying to join E-Club! Your application has been received and our
+              team will get in touch with you shortly.</p>
             <button type="button" class="btn-success-close" id="btnSuccessClose">Done</button>
           </div>
 
@@ -270,13 +295,15 @@
   </div>
 
   <!-- SUBMIT YOUR IDEA MODAL -->
-  <div id="ideaModal" class="membership-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="ideaModalTitle">
+  <div id="ideaModal" class="membership-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true"
+    aria-labelledby="ideaModalTitle">
     <div class="membership-modal-backdrop" id="ideaModalBackdrop"></div>
     <div class="membership-modal-glow-wrapper">
       <div class="membership-border-card-box">
         <div class="membership-modal-card">
-          <button type="button" class="membership-modal-close" id="closeIdeaModal" aria-label="Close form">&times;</button>
-          
+          <button type="button" class="membership-modal-close" id="closeIdeaModal"
+            aria-label="Close form">&times;</button>
+
           <!-- Brand & Header -->
           <div class="membership-header">
             <div class="membership-brand">
@@ -298,55 +325,64 @@
             <div class="form-grid">
               <div class="form-group">
                 <label for="ideaFounderName">Name</label>
-                <input type="text" id="ideaFounderName" name="name" placeholder="Enter your full name" required autocomplete="name">
+                <input type="text" id="ideaFounderName" name="name" placeholder="Enter your full name" required
+                  autocomplete="name">
                 <span class="field-error">Please enter your name</span>
               </div>
 
               <div class="form-group">
                 <label for="ideaEmail">Email</label>
-                <input type="email" id="ideaEmail" name="email" placeholder="Enter your email address" required autocomplete="email">
+                <input type="email" id="ideaEmail" name="email" placeholder="Enter your email address" required
+                  autocomplete="email">
                 <span class="field-error">Please enter a valid email address</span>
               </div>
 
               <div class="form-group">
                 <label for="ideaDepartment">Department</label>
-                <input type="text" id="ideaDepartment" name="department" placeholder="e.g. Computer Science & Engineering" required>
+                <input type="text" id="ideaDepartment" name="department"
+                  placeholder="e.g. Computer Science & Engineering" required>
                 <span class="field-error">Please enter your department</span>
               </div>
 
               <div class="form-group">
                 <label for="startupName">Startup / Idea Name</label>
-                <input type="text" id="startupName" name="startupName" placeholder="Enter startup or project name" required>
+                <input type="text" id="startupName" name="startupName" placeholder="Enter startup or project name"
+                  required>
                 <span class="field-error">Please enter startup / idea name</span>
               </div>
 
               <div class="form-group">
                 <label for="targetUsers">Target Users</label>
-                <input type="text" id="targetUsers" name="targetUsers" placeholder="e.g. Students, Startups, SMEs" required>
+                <input type="text" id="targetUsers" name="targetUsers" placeholder="e.g. Students, Startups, SMEs"
+                  required>
                 <span class="field-error">Please specify target users</span>
               </div>
 
               <div class="form-group">
                 <label for="currentStage">Current Stage</label>
-                <input type="text" id="currentStage" name="currentStage" placeholder="e.g. Ideation, Prototype, MVP" required>
+                <input type="text" id="currentStage" name="currentStage" placeholder="e.g. Ideation, Prototype, MVP"
+                  required>
                 <span class="field-error">Please enter current stage</span>
               </div>
 
               <div class="form-group">
                 <label for="teamMembers">Team Members</label>
-                <input type="text" id="teamMembers" name="teamMembers" placeholder="e.g. Solo founder / 3 members" required>
+                <input type="text" id="teamMembers" name="teamMembers" placeholder="e.g. Solo founder / 3 members"
+                  required>
                 <span class="field-error">Please mention your team members</span>
               </div>
 
               <div class="form-group">
                 <label for="domain">Domain</label>
-                <input type="text" id="domain" name="domain" placeholder="e.g. AI / FinTech / HealthTech / Agritech" required>
+                <input type="text" id="domain" name="domain" placeholder="e.g. AI / FinTech / HealthTech / Agritech"
+                  required>
                 <span class="field-error">Please enter your domain</span>
               </div>
 
               <div class="form-group">
                 <label for="pitchDeck">Pitch Deck / Document</label>
-                <input type="text" id="pitchDeck" name="pitchDeck" placeholder="Link to Pitch Deck (Google Drive, Notion, etc.)">
+                <input type="text" id="pitchDeck" name="pitchDeck"
+                  placeholder="Link to Pitch Deck (Google Drive, Notion, etc.)">
               </div>
 
               <div class="form-group">
@@ -356,26 +392,35 @@
 
               <div class="form-group form-group-full">
                 <label for="problemStatement">Problem Statement</label>
-                <input type="text" id="problemStatement" name="problemStatement" placeholder="What core problem are you solving?" required>
+                <input type="text" id="problemStatement" name="problemStatement"
+                  placeholder="What core problem are you solving?" required>
                 <span class="field-error">Please describe the problem you are solving</span>
               </div>
 
               <div class="form-group form-group-full">
                 <label for="ideaDescription">Idea Description</label>
-                <textarea id="ideaDescription" name="ideaDescription" rows="3" placeholder="Describe your solution, value proposition, and innovation..." required></textarea>
+                <textarea id="ideaDescription" name="ideaDescription" rows="3"
+                  placeholder="Describe your solution, value proposition, and innovation..." required></textarea>
                 <span class="field-error">Please describe your idea</span>
               </div>
 
               <div class="form-group form-group-full">
                 <label>Support Required</label>
                 <div class="support-tags">
-                  <label class="tag-chip"><input type="checkbox" name="supportRequired" value="Mentorship"><span>Mentorship</span></label>
-                  <label class="tag-chip"><input type="checkbox" name="supportRequired" value="Incubation"><span>Incubation</span></label>
-                  <label class="tag-chip"><input type="checkbox" name="supportRequired" value="Funding Guidance"><span>Funding Guidance</span></label>
-                  <label class="tag-chip"><input type="checkbox" name="supportRequired" value="Technical Support"><span>Technical Support</span></label>
-                  <label class="tag-chip"><input type="checkbox" name="supportRequired" value="Business Guidance"><span>Business Guidance</span></label>
-                  <label class="tag-chip"><input type="checkbox" name="supportRequired" value="Marketing"><span>Marketing</span></label>
-                  <label class="tag-chip"><input type="checkbox" name="supportRequired" value="Networking"><span>Networking</span></label>
+                  <label class="tag-chip"><input type="checkbox" name="supportRequired"
+                      value="Mentorship"><span>Mentorship</span></label>
+                  <label class="tag-chip"><input type="checkbox" name="supportRequired"
+                      value="Incubation"><span>Incubation</span></label>
+                  <label class="tag-chip"><input type="checkbox" name="supportRequired"
+                      value="Funding Guidance"><span>Funding Guidance</span></label>
+                  <label class="tag-chip"><input type="checkbox" name="supportRequired"
+                      value="Technical Support"><span>Technical Support</span></label>
+                  <label class="tag-chip"><input type="checkbox" name="supportRequired"
+                      value="Business Guidance"><span>Business Guidance</span></label>
+                  <label class="tag-chip"><input type="checkbox" name="supportRequired"
+                      value="Marketing"><span>Marketing</span></label>
+                  <label class="tag-chip"><input type="checkbox" name="supportRequired"
+                      value="Networking"><span>Networking</span></label>
                 </div>
               </div>
             </div>
@@ -391,12 +436,15 @@
           <!-- Success State -->
           <div id="ideaSuccess" class="membership-success" style="display: none;">
             <div class="success-icon-wrap">
-              <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="20 6 9 17 4 12"></polyline>
               </svg>
             </div>
             <h3 class="success-title">Idea Submitted!</h3>
-            <p class="success-desc">Thank you for submitting your startup idea to the E-Club Incubation Wing! Our incubation mentors and screening committee will review your proposal and get in touch with you shortly.</p>
+            <p class="success-desc">Thank you for submitting your startup idea to the E-Club Incubation Wing! Our
+              incubation mentors and screening committee will review your proposal and get in touch with you shortly.
+            </p>
             <button type="button" class="btn-success-close" id="btnIdeaSuccessClose">Done</button>
           </div>
 
@@ -463,6 +511,22 @@
     const DEBUG = false;
     const debugReadout = document.getElementById('debug-readout');
 
+    function getBlockBoundaries() {
+      if (!rocketScroll) return [];
+      const totalContentHeight = Array.from(contentBlocks)
+        .reduce((sum, block) => sum + block.getBoundingClientRect().height, 0);
+      if (totalContentHeight <= 0) return [];
+      let cumulative = 0;
+      return Array.from(contentBlocks).map(block => {
+        const start = cumulative / totalContentHeight;
+        cumulative += block.getBoundingClientRect().height;
+        const end = cumulative / totalContentHeight;
+        return { start, end };
+      });
+    }
+
+    let blockBoundaries = getBlockBoundaries();
+
     // =========================================================
     // 3. INITIALIZATION & REFRESH DETECTION
     // =========================================================
@@ -477,6 +541,7 @@
         websiteContainer.style.opacity = '1';
         websiteContainer.style.pointerEvents = 'auto';
       }
+      alignRocketSticky();
       initRocketCanvas();
       preloadRocketFrames();
     } else {
@@ -618,6 +683,7 @@
       }
 
       document.body.classList.remove('intro-active');
+      alignRocketSticky();
       initRocketCanvas();
 
       setTimeout(() => {
@@ -650,6 +716,14 @@
     // =========================================================
     // 5. ROCKET SCROLL ANIMATION SYSTEM
     // =========================================================
+    function alignRocketSticky() {
+      if (!rocketSticky) return;
+      const header = document.querySelector('.navbar');
+      const headerRect = header ? header.getBoundingClientRect() : null;
+      const headerBottom = headerRect ? headerRect.bottom : 0;
+      rocketSticky.style.top = `${Math.max(0, headerBottom)}px`;
+    }
+
     function initRocketCanvas() {
       if (!rocketCanvas || !rocketCtx) return;
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -727,10 +801,23 @@
       if (maxScroll <= 0) return;
 
       let scrollFraction = Math.max(0, Math.min(1, scrollTop / maxScroll));
-      const frameIndex = Math.min(
-        ROCKET_FRAME_COUNT,
-        Math.max(1, Math.round(scrollFraction * (ROCKET_FRAME_COUNT - 1)) + 1)
-      );
+
+      // HOLD_END = end of content-block[0]'s (Text 1) active range, i.e. where Text 2 (content-block[1]) begins.
+      // Now driven by measured boundaries instead of assuming equal thirds.
+      const HOLD_END = blockBoundaries.length > 0 ? blockBoundaries[0].end : 0;
+
+      let frameIndex;
+      if (scrollFraction <= HOLD_END) {
+        // Phase 1 — HOLD: rocket stays completely static (frame 1) through all of Text 1 → Text 2 transition
+        frameIndex = 1;
+      } else {
+        // Phase 2 — LAUNCH: remap remaining scroll (HOLD_END → 1) to the full frame sequence (smoke + upward movement)
+        const launchFraction = Math.max(0, Math.min(1, (scrollFraction - HOLD_END) / (1 - HOLD_END)));
+        frameIndex = Math.min(
+          ROCKET_FRAME_COUNT,
+          Math.max(1, Math.round(launchFraction * (ROCKET_FRAME_COUNT - 1)) + 1)
+        );
+      }
 
       if (DEBUG && debugReadout) {
         debugReadout.innerText = `Progress: ${(scrollFraction * 100).toFixed(2)}% | Frame: ${frameIndex}`;
@@ -740,9 +827,10 @@
 
       // Rocket exit effect
       if (rocketCanvas) {
-        if (scrollFraction > 0.92) {
-          const exitProgress = (scrollFraction - 0.92) / 0.08;
-          const translateX = exitProgress * 150;
+        const EXIT_START = 0.90; // start sliding out over the last 10% of scroll instead of last 1%
+        if (scrollFraction > EXIT_START) {
+          const exitProgress = (scrollFraction - EXIT_START) / (1 - EXIT_START);
+          const translateX = exitProgress * 60;
           rocketCanvas.style.transform = `translateX(${translateX}%)`;
         } else {
           rocketCanvas.style.transform = `translateX(0%)`;
@@ -758,13 +846,13 @@
           rocketSticky.style.opacity = '1';
           rocketSticky.style.pointerEvents = 'auto';
         }
+
       }
 
       // Text block fade sync
-      if (N > 0) {
+      if (blockBoundaries.length > 0) {
         contentBlocks.forEach((block, i) => {
-          const start = i / N;
-          const end = (i + 1) / N;
+          const { start, end } = blockBoundaries[i];
           if (scrollFraction >= start && scrollFraction <= end) {
             block.classList.add('active');
           } else {
@@ -789,9 +877,11 @@
     }, { passive: true });
 
     window.addEventListener('resize', () => {
+      blockBoundaries = getBlockBoundaries();
       if (!isIntroFinished) {
         resizeIntroCanvas();
       } else {
+        alignRocketSticky();
         initRocketCanvas();
       }
     });
@@ -822,7 +912,7 @@
       membershipModal.classList.remove('active');
       membershipModal.setAttribute('aria-hidden', 'true');
       document.body.classList.remove('modal-open');
-      
+
       // Reset form view after animation if success was shown
       setTimeout(() => {
         if (membershipSuccess && membershipSuccess.style.display !== 'none') {
@@ -884,7 +974,7 @@
 
         let isValid = true;
         const requiredInputs = membershipForm.querySelectorAll('input[required], textarea[required]');
-        
+
         requiredInputs.forEach((input) => {
           const formGroup = input.closest('.form-group');
           let fieldValid = true;
@@ -968,7 +1058,7 @@
       ideaModal.classList.remove('active');
       ideaModal.setAttribute('aria-hidden', 'true');
       document.body.classList.remove('modal-open');
-      
+
       setTimeout(() => {
         if (ideaSuccess && ideaSuccess.style.display !== 'none') {
           ideaSuccess.style.display = 'none';
@@ -1020,7 +1110,7 @@
 
         let isValid = true;
         const requiredInputs = ideaForm.querySelectorAll('input[required], textarea[required]');
-        
+
         requiredInputs.forEach((input) => {
           const formGroup = input.closest('.form-group');
           let fieldValid = true;
@@ -1085,4 +1175,5 @@
     }
   </script>
 </body>
+
 </html>
