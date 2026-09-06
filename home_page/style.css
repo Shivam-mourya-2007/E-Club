@@ -1,5 +1,5 @@
-﻿/* ==========================================================================
-   E-CLUB Ã¢â‚¬â€ ENTREPRENEURSHIP CLUB
+/* ==========================================================================
+   E-CLUB ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â ENTREPRENEURSHIP CLUB
    LIGHT THEME DESIGN SYSTEM & STYLESHEET
    ========================================================================== */
 
@@ -979,26 +979,29 @@ button, input, select, textarea {
 }
 
 /* 
-  Split Slide-In Animation for Mission & Vision 
+  Premium "Split Slide-In + Subtle Scale" Animation for Mission & Vision 
   Overrides the generic .reveal-card translateY animation
 */
 div.mv-mission {
   opacity: 0;
-  transform: translateX(-80px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateX(-100px) scale(0.96);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 div.mv-vision {
   opacity: 0;
-  transform: translateX(80px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateX(100px) scale(0.96);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  /* The inline style transition-delay: 0.15s in HTML handles the stagger */
 }
 
 div.mv-mission.revealed,
 div.mv-vision.revealed {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateX(0) scale(1);
 }
+
+
 
 .mv-tag {
   font-size: 0.75rem;
@@ -1472,7 +1475,7 @@ div.mv-vision.revealed {
 }
 
 .policy-list li::before {
-  content: 'Ã¢â‚¬Â¢';
+  content: 'ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢';
   position: absolute;
   left: 4px;
   color: var(--primary);
@@ -1853,6 +1856,7 @@ div.mv-vision.revealed {
     width: 100%;
   }
 }
+
 
 
 
