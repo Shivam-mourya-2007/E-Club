@@ -1,817 +1,420 @@
-// =========================================================
-    // 1. INTRO ANIMATION CONFIGURATION & STATE
-    // =========================================================
-    const INTRO_FRAME_FILES = (() => {
-      const list = [];
-      for (let i = 1; i <= 227; i++) {
-        if (i === 210 || i === 219) continue; // Skip missing indices
-        list.push(`frame_${String(i).padStart(3, '0')}.webp`);
-      }
-      return list;
-    })();
+/**
+ * E-Club | Venture Accelerator
+ * High-Performance Scroll & Interactive System
+ */
 
-    const TOTAL_INTRO_FRAMES = INTRO_FRAME_FILES.length; // 225 frames
-    const TARGET_FPS = 32;
-    const FRAME_DURATION = 1000 / TARGET_FPS;
+(function () {
+  'use strict';
 
-    const introImages = new Array(TOTAL_INTRO_FRAMES);
-    const preloader = document.getElementById('preloader');
-    const loadPercent = document.getElementById('loadPercent');
-    const progressRingCircle = document.getElementById('progressRingCircle');
-    const loaderStatus = document.getElementById('loaderStatus');
+  // ==========================================================================
+  // 1. CONSTANTS & CONFIGURATION
+  // ==========================================================================
+  const ROCKET_FRAME_COUNT = 300;
+  const FRAMES_DIR = 'frames_webp_300/';
+  const FRAME_PREFIX = 'frame_';
+  const FRAME_EXT = '.webp';
 
-    const introStage = document.getElementById('intro-stage');
-    const introCanvas = document.getElementById('introCanvas');
-    const introCtx = introCanvas ? introCanvas.getContext('2d', { alpha: false }) : null;
-    const skipIntroBtn = document.getElementById('skipIntroBtn');
-    const websiteContainer = document.getElementById('website-container');
+  // Elements
+  const preloader = document.getElementById('preloader');
+  const progressRing = document.getElementById('progressRingCircle');
+  const loadPercentText = document.getElementById('loadPercent');
+  const loaderStatus = document.getElementById('loaderStatus');
 
-    let currentIntroFrameIndex = 0;
-    let isIntroPlaying = false;
-    let isIntroFinished = false;
-    let introAnimationId = null;
-    let lastIntroTimestamp = 0;
-    let introTimeAccumulator = 0;
+  const navbar = document.getElementById('mainNavbar');
+  const mobileToggle = document.getElementById('mobileToggle');
+  const navMenu = document.getElementById('navMenu');
+  const navLinks = document.querySelectorAll('.nav-link');
 
-    // Check if intro has already been seen in this session (e.g. on refresh)
-    const hasSeenIntro = !!sessionStorage.getItem('eclub_intro_seen');
+  const canvas = document.getElementById('rocket-canvas');
+  const ctx = canvas ? canvas.getContext('2d') : null;
+  const heroContainer = document.getElementById('home');
+  const scrollTrack = document.getElementById('scrollTrack');
+  const hudPhases = document.querySelectorAll('.hud-phase');
 
-    // =========================================================
-    // 2. ROCKET SCROLL ANIMATION CONFIGURATION & STATE
-    // =========================================================
-    const ROCKET_FRAME_COUNT = 300;
-    const rocketImages = new Array(ROCKET_FRAME_COUNT);
-    let rocketImagesLoaded = 0;
-    let lastDrawnRocketIndex = -1;
-    let currentRocketFrame = 1;
+  // Frame Cache
+  const frames = new Array(ROCKET_FRAME_COUNT);
+  let framesLoaded = 0;
+  let currentFrameIndex = 0;
+  let isTicking = false;
 
-    const rocketCanvas = document.getElementById('rocket-canvas');
-    const rocketCtx = rocketCanvas ? rocketCanvas.getContext('2d') : null;
-    const loadingState = document.getElementById('loading-state');
-    const rocketScroll = document.querySelector('.rocket-scroll');
-    const rocketSticky = document.querySelector('.rocket-sticky');
-    const contentBlocks = document.querySelectorAll('.content-block');
-    const N = contentBlocks.length;
-    const DEBUG = false;
-    const debugReadout = document.getElementById('debug-readout');
+  // ==========================================================================
+  // 2. PRELOADER & FRAME LOADER
+  // ==========================================================================
+  function getFrameSrc(index) {
+    const padded = String(index).padStart(4, '0');
+    return `${FRAMES_DIR}${FRAME_PREFIX}${padded}${FRAME_EXT}`;
+  }
 
-    function getBlockBoundaries() {
-      if (!rocketScroll) return [];
-      const totalContentHeight = Array.from(contentBlocks)
-        .reduce((sum, block) => sum + block.getBoundingClientRect().height, 0);
-      if (totalContentHeight <= 0) return [];
-      let cumulative = 0;
-      return Array.from(contentBlocks).map(block => {
-        const start = cumulative / totalContentHeight;
-        cumulative += block.getBoundingClientRect().height;
-        const end = cumulative / totalContentHeight;
-        return { start, end };
-      });
+  function updatePreloaderProgress(pct) {
+    if (!progressRing || !loadPercentText) return;
+    const circumference = 301.59;
+    const offset = circumference - (pct / 100) * circumference;
+    progressRing.style.strokeDashoffset = offset;
+    loadPercentText.textContent = `${pct}%`;
+
+    if (loaderStatus) {
+      if (pct < 40) loaderStatus.textContent = 'Loading venture flight telemetry...';
+      else if (pct < 80) loaderStatus.textContent = 'Calibrating rocket aerodynamics...';
+      else loaderStatus.textContent = 'Launch systems primed.';
+    }
+  }
+
+  function finishPreloader() {
+    sessionStorage.setItem('eclub_intro_seen', 'true');
+    if (preloader) {
+      preloader.style.opacity = '0';
+      setTimeout(() => {
+        preloader.style.display = 'none';
+        document.documentElement.classList.add('html-intro-done');
+      }, 600);
+    }
+  }
+
+  function preloadRocketFrames() {
+    // Check if session already seen
+    if (sessionStorage.getItem('eclub_intro_seen')) {
+      finishPreloader();
     }
 
-    let blockBoundaries = getBlockBoundaries();
+    let loadedCount = 0;
+    // Load first frame immediately for fast initial paint
+    const firstImg = new Image();
+    firstImg.src = getFrameSrc(1);
+    firstImg.onload = () => {
+      frames[0] = firstImg;
+      loadedCount++;
+      drawRocketFrame(0);
+    };
 
-    // =========================================================
-    // 3. INITIALIZATION & REFRESH DETECTION
-    // =========================================================
-    if (hasSeenIntro) {
-      // Refresh or subsequent visit: completely bypass intro!
-      isIntroFinished = true;
-      if (preloader) preloader.style.display = 'none';
-      if (introStage) introStage.style.display = 'none';
-      document.body.classList.remove('intro-active');
-      if (websiteContainer) {
-        websiteContainer.classList.add('visible');
-        websiteContainer.style.opacity = '1';
-        websiteContainer.style.pointerEvents = 'auto';
-      }
-      alignRocketSticky();
-      initRocketCanvas();
-      preloadRocketFrames();
+    // Preload remaining frames
+    for (let i = 1; i <= ROCKET_FRAME_COUNT; i++) {
+      const img = new Image();
+      img.src = getFrameSrc(i);
+      img.onload = () => {
+        frames[i - 1] = img;
+        loadedCount++;
+        const pct = Math.floor((loadedCount / ROCKET_FRAME_COUNT) * 100);
+        updatePreloaderProgress(pct);
+
+        if (loadedCount === ROCKET_FRAME_COUNT) {
+          setTimeout(finishPreloader, 300);
+        }
+      };
+      img.onerror = () => {
+        loadedCount++;
+        if (loadedCount === ROCKET_FRAME_COUNT) finishPreloader();
+      };
+    }
+  }
+
+  // ==========================================================================
+  // 3. HIGH-DPI CANVAS RENDERING & ASPECT-FIT
+  // ==========================================================================
+  function resizeCanvas() {
+    if (!canvas || !ctx) return;
+    const dpr = window.devicePixelRatio || 1;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.scale(dpr, dpr);
+
+    drawRocketFrame(currentFrameIndex);
+  }
+
+  function drawRocketFrame(index) {
+    if (!ctx || !canvas) return;
+    const img = frames[index];
+    if (!img || !img.complete || img.naturalWidth === 0) return;
+
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    ctx.clearRect(0, 0, width, height);
+
+    // Cover-fit calculation
+    const imgRatio = img.naturalWidth / img.naturalHeight;
+    const screenRatio = width / height;
+
+    let renderW, renderH, offsetX, offsetY;
+
+    if (screenRatio > imgRatio) {
+      renderW = width;
+      renderH = width / imgRatio;
+      offsetX = 0;
+      offsetY = (height - renderH) / 2;
     } else {
-      // First visit: lock scroll and start preloading intro
-      document.body.classList.add('intro-active');
-      preloadIntroFrames();
+      renderH = height;
+      renderW = height * imgRatio;
+      offsetX = (width - renderW) / 2;
+      offsetY = 0;
     }
 
-    // =========================================================
-    // 4. INTRO FRAMES PRELOAD & PLAYBACK
-    // =========================================================
-    function preloadIntroFrames() {
-      let loadedCount = 0;
-      const circumference = 2 * Math.PI * 48; // r = 48
-      if (progressRingCircle) {
-        progressRingCircle.style.strokeDasharray = circumference;
-        progressRingCircle.style.strokeDashoffset = circumference;
-      }
+    ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
+  }
 
-      INTRO_FRAME_FILES.forEach((file, index) => {
-        const img = new Image();
-        img.src = `assets/${file}`;
-        img.onload = () => {
-          introImages[index] = img;
-          loadedCount++;
-          const percent = (loadedCount / TOTAL_INTRO_FRAMES) * 100;
-          if (loadPercent) loadPercent.textContent = Math.round(percent) + '%';
-          if (progressRingCircle) {
-            const offset = circumference - (percent / 100) * circumference;
-            progressRingCircle.style.strokeDashoffset = offset;
-          }
-          if (loadedCount === TOTAL_INTRO_FRAMES) {
-            onIntroPreloadComplete();
-          }
-        };
-        img.onerror = () => {
-          // Fallback path in case accessed from parent directory
-          const fallback = new Image();
-          fallback.src = `../Landing_Page/assets/${file}`;
-          fallback.onload = () => {
-            introImages[index] = fallback;
-            loadedCount++;
-            if (loadedCount === TOTAL_INTRO_FRAMES) onIntroPreloadComplete();
-          };
-          fallback.onerror = () => {
-            loadedCount++;
-            if (loadedCount === TOTAL_INTRO_FRAMES) onIntroPreloadComplete();
-          };
-        };
-      });
+  // ==========================================================================
+  // 4. SCROLL-BOUND ROCKET ANIMATION
+  // ==========================================================================
+  function onScroll() {
+    // 1. Sticky Navbar styling
+    if (navbar) {
+      if (window.scrollY > 30) navbar.classList.add('scrolled');
+      else navbar.classList.remove('scrolled');
     }
 
-    function onIntroPreloadComplete() {
-      if (loaderStatus) loaderStatus.textContent = "Ready";
-      setTimeout(() => {
-        if (preloader) preloader.classList.add('fade-out');
-        resizeIntroCanvas();
-        startIntroPlayback();
+    // 2. Rocket frame scrubbing
+    if (heroContainer) {
+      const rect = heroContainer.getBoundingClientRect();
+      const totalScrollable = heroContainer.offsetHeight - window.innerHeight;
 
-        // Concurrently preload 300 rocket frames during intro playback
-        preloadRocketFrames();
-      }, 350);
-    }
+      if (totalScrollable > 0) {
+        // How much of the hero track has scrolled past the top
+        const scrolled = -rect.top;
+        const progress = Math.max(0, Math.min(1, scrolled / totalScrollable));
 
-    function resizeIntroCanvas() {
-      if (!introCanvas || isIntroFinished) return;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      introCanvas.width = window.innerWidth * dpr;
-      introCanvas.height = window.innerHeight * dpr;
-      renderIntroFrame(currentIntroFrameIndex);
-    }
-
-    function renderIntroFrame(index) {
-      if (!introCtx) return;
-      const img = introImages[index];
-      if (!img) return;
-
-      const cw = introCanvas.width;
-      const ch = introCanvas.height;
-      const iw = img.naturalWidth || 1280;
-      const ih = img.naturalHeight || 720;
-
-      const scale = Math.max(cw / iw, ch / ih);
-      const dw = iw * scale;
-      const dh = ih * scale;
-      const dx = (cw - dw) / 2;
-      const dy = (ch - dh) / 2;
-
-      introCtx.drawImage(img, dx, dy, dw, dh);
-    }
-
-    function startIntroPlayback() {
-      if (isIntroFinished) return;
-      isIntroPlaying = true;
-      lastIntroTimestamp = performance.now();
-      introTimeAccumulator = 0;
-      cancelAnimationFrame(introAnimationId);
-      introAnimationId = requestAnimationFrame(introLoop);
-    }
-
-    function introLoop(timestamp) {
-      if (!isIntroPlaying || isIntroFinished) return;
-
-      const delta = timestamp - lastIntroTimestamp;
-      lastIntroTimestamp = timestamp;
-      introTimeAccumulator += delta;
-
-      while (introTimeAccumulator >= FRAME_DURATION) {
-        introTimeAccumulator -= FRAME_DURATION;
-        currentIntroFrameIndex++;
-
-        if (currentIntroFrameIndex >= TOTAL_INTRO_FRAMES) {
-          currentIntroFrameIndex = TOTAL_INTRO_FRAMES - 1;
-          renderIntroFrame(currentIntroFrameIndex);
-          completeIntro();
-          return;
-        }
-      }
-
-      renderIntroFrame(currentIntroFrameIndex);
-      introAnimationId = requestAnimationFrame(introLoop);
-    }
-
-    function completeIntro() {
-      if (isIntroFinished) return;
-      isIntroPlaying = false;
-      isIntroFinished = true;
-      cancelAnimationFrame(introAnimationId);
-
-      // Save to sessionStorage so it never plays again upon refresh
-      sessionStorage.setItem('eclub_intro_seen', 'true');
-
-      if (introStage) introStage.classList.add('fade-out');
-
-      if (websiteContainer) {
-        websiteContainer.classList.add('visible');
-        websiteContainer.style.opacity = '1';
-        websiteContainer.style.pointerEvents = 'auto';
-      }
-
-      document.body.classList.remove('intro-active');
-      alignRocketSticky();
-      initRocketCanvas();
-
-      setTimeout(() => {
-        if (introStage) introStage.style.display = 'none';
-        if (preloader) preloader.style.display = 'none';
-      }, 1400);
-    }
-
-    if (skipIntroBtn) {
-      skipIntroBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        completeIntro();
-      });
-    }
-
-    if (introCanvas) {
-      introCanvas.addEventListener('click', () => {
-        if (!isIntroFinished) {
-          isIntroPlaying = !isIntroPlaying;
-          if (isIntroPlaying) {
-            lastIntroTimestamp = performance.now();
-            introAnimationId = requestAnimationFrame(introLoop);
-          } else {
-            cancelAnimationFrame(introAnimationId);
-          }
-        }
-      });
-    }
-
-    // =========================================================
-    // 5. ROCKET SCROLL ANIMATION SYSTEM
-    // =========================================================
-    function alignRocketSticky() {
-      if (!rocketSticky) return;
-      const header = document.querySelector('.navbar');
-      const headerRect = header ? header.getBoundingClientRect() : null;
-      const headerBottom = headerRect ? headerRect.bottom : 0;
-      rocketSticky.style.top = `${Math.max(0, headerBottom)}px`;
-    }
-
-    function initRocketCanvas() {
-      if (!rocketCanvas || !rocketCtx) return;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      rocketCanvas.width = 1280 * dpr;
-      rocketCanvas.height = 720 * dpr;
-      rocketCtx.setTransform(1, 0, 0, 1, 0, 0);
-      rocketCtx.scale(dpr, dpr);
-
-      lastDrawnRocketIndex = -1;
-      updateRocketCanvas(currentRocketFrame || 1);
-      handleScroll();
-    }
-
-    function preloadRocketFrames() {
-      for (let i = 1; i <= ROCKET_FRAME_COUNT; i++) {
-        const img = new Image();
-        const padded = String(i).padStart(4, '0');
-        img.src = `frames_webp_300/frame_${padded}.webp`;
-        img.onload = () => {
-          rocketImages[i - 1] = img;
-          rocketImagesLoaded++;
-          if (loadingState) {
-            const pct = Math.floor((rocketImagesLoaded / ROCKET_FRAME_COUNT) * 100);
-            loadingState.innerText = `Loading ${pct}%`;
-          }
-          if (rocketImagesLoaded === ROCKET_FRAME_COUNT && loadingState) {
-            loadingState.style.display = 'none';
-          }
-          if (currentRocketFrame === i || (i === 1 && lastDrawnRocketIndex === -1)) {
-            updateRocketCanvas(currentRocketFrame);
-          }
-        };
-        img.onerror = () => {
-          rocketImagesLoaded++;
-          if (rocketImagesLoaded === ROCKET_FRAME_COUNT && loadingState) {
-            loadingState.style.display = 'none';
-          }
-        };
-      }
-    }
-
-    function updateRocketCanvas(index) {
-      currentRocketFrame = index;
-      if (!rocketCtx) return;
-
-      let img = rocketImages[index - 1];
-      if (!img || !img.complete) {
-        for (let d = 1; d <= 25; d++) {
-          if (index - 1 - d >= 0 && rocketImages[index - 1 - d]?.complete) {
-            img = rocketImages[index - 1 - d];
-            break;
-          }
-          if (index - 1 + d < ROCKET_FRAME_COUNT && rocketImages[index - 1 + d]?.complete) {
-            img = rocketImages[index - 1 + d];
-            break;
-          }
-        }
-      }
-
-      if (!img || !img.complete) return;
-      rocketCtx.clearRect(0, 0, 1280, 720);
-      rocketCtx.drawImage(img, 0, 0, 1280, 720);
-      lastDrawnRocketIndex = index;
-    }
-
-    let scrollTicking = false;
-
-    function handleScroll() {
-      if (!rocketScroll) return;
-
-      const scrollRect = rocketScroll.getBoundingClientRect();
-      const scrollTop = -scrollRect.top;
-      const maxScroll = scrollRect.height - window.innerHeight;
-
-      if (maxScroll <= 0) return;
-
-      let scrollFraction = Math.max(0, Math.min(1, scrollTop / maxScroll));
-
-      // HOLD_END = end of content-block[0]'s (Text 1) active range, i.e. where Text 2 (content-block[1]) begins.
-      // Now driven by measured boundaries instead of assuming equal thirds.
-      const HOLD_END = blockBoundaries.length > 0 ? blockBoundaries[0].end : 0;
-
-      let frameIndex;
-      if (scrollFraction <= HOLD_END) {
-        // Phase 1 — HOLD: rocket stays completely static (frame 1) through all of Text 1 → Text 2 transition
-        frameIndex = 1;
-      } else {
-        // Phase 2 — LAUNCH: remap remaining scroll (HOLD_END → 1) to the full frame sequence (smoke + upward movement)
-        const launchFraction = Math.max(0, Math.min(1, (scrollFraction - HOLD_END) / (1 - HOLD_END)));
-        frameIndex = Math.min(
-          ROCKET_FRAME_COUNT,
-          Math.max(1, Math.round(launchFraction * (ROCKET_FRAME_COUNT - 1)) + 1)
+        const targetFrame = Math.min(
+          ROCKET_FRAME_COUNT - 1,
+          Math.floor(progress * (ROCKET_FRAME_COUNT - 1))
         );
-      }
 
-      if (DEBUG && debugReadout) {
-        debugReadout.innerText = `Progress: ${(scrollFraction * 100).toFixed(2)}% | Frame: ${frameIndex}`;
-      }
-
-      updateRocketCanvas(frameIndex);
-
-      // Rocket exit effect
-      if (rocketCanvas) {
-        const EXIT_START = 0.90; // start sliding out over the last 10% of scroll instead of last 1%
-        if (scrollFraction > EXIT_START) {
-          const exitProgress = (scrollFraction - EXIT_START) / (1 - EXIT_START);
-          const translateX = exitProgress * 60;
-          rocketCanvas.style.transform = `translateX(${translateX}%)`;
-        } else {
-          rocketCanvas.style.transform = `translateX(0%)`;
-        }
-      }
-
-      // Sticky opacity
-      if (rocketSticky) {
-        if (scrollFraction >= 1) {
-          rocketSticky.style.opacity = '0';
-          rocketSticky.style.pointerEvents = 'none';
-        } else {
-          rocketSticky.style.opacity = '1';
-          rocketSticky.style.pointerEvents = 'auto';
+        if (targetFrame !== currentFrameIndex) {
+          currentFrameIndex = targetFrame;
+          drawRocketFrame(currentFrameIndex);
         }
 
-      }
-
-      // Text block fade sync
-      if (blockBoundaries.length > 0) {
-        contentBlocks.forEach((block, i) => {
-          const { start, end } = blockBoundaries[i];
-          if (scrollFraction >= start && scrollFraction <= end) {
-            block.classList.add('active');
+        // Update HUD Phases
+        if (hudPhases && hudPhases.length === 3) {
+          hudPhases.forEach((phase) => phase.classList.remove('active'));
+          if (progress < 0.33) {
+            hudPhases[0].classList.add('active');
+          } else if (progress < 0.66) {
+            hudPhases[1].classList.add('active');
           } else {
-            if (scrollFraction === 1 && i === N - 1) {
-              block.classList.add('active');
-            } else {
-              block.classList.remove('active');
-            }
-          }
-        });
-      }
-    }
-
-    window.addEventListener('scroll', () => {
-      if (!scrollTicking) {
-        window.requestAnimationFrame(() => {
-          handleScroll();
-          scrollTicking = false;
-        });
-        scrollTicking = true;
-      }
-    }, { passive: true });
-
-    window.addEventListener('resize', () => {
-      blockBoundaries = getBlockBoundaries();
-      if (!isIntroFinished) {
-        resizeIntroCanvas();
-      } else {
-        alignRocketSticky();
-        initRocketCanvas();
-      }
-    });
-
-    // =========================================================
-    // 6. MEMBERSHIP MODAL INTERACTION & LOGIC
-    // =========================================================
-    const membershipModal = document.getElementById('membershipModal');
-    const membershipForm = document.getElementById('membershipForm');
-    const membershipSuccess = document.getElementById('membershipSuccess');
-    const closeMembershipModalBtn = document.getElementById('closeMembershipModal');
-    const membershipModalBackdrop = document.getElementById('membershipModalBackdrop');
-    const btnSuccessClose = document.getElementById('btnSuccessClose');
-    const heroJoinBtn = document.getElementById('heroJoinBtn');
-    const navMembershipBtn = document.getElementById('navMembershipBtn');
-
-    function openMembershipModal() {
-      if (!membershipModal) return;
-      membershipModal.classList.add('active');
-      membershipModal.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('modal-open');
-      const firstInput = membershipForm ? membershipForm.querySelector('input') : null;
-      if (firstInput) setTimeout(() => firstInput.focus(), 120);
-    }
-
-    function closeMembershipModal() {
-      if (!membershipModal) return;
-      membershipModal.classList.remove('active');
-      membershipModal.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('modal-open');
-
-      // Reset form view after animation if success was shown
-      setTimeout(() => {
-        if (membershipSuccess && membershipSuccess.style.display !== 'none') {
-          membershipSuccess.style.display = 'none';
-          if (membershipForm) {
-            membershipForm.style.display = 'block';
-            membershipForm.reset();
-            membershipForm.querySelectorAll('.form-group').forEach(fg => fg.classList.remove('has-error'));
+            hudPhases[2].classList.add('active');
           }
         }
-      }, 350);
-    }
-
-    if (heroJoinBtn) {
-      heroJoinBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        openMembershipModal();
-      });
-    }
-
-    if (navMembershipBtn) {
-      navMembershipBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        openMembershipModal();
-      });
-    }
-
-    // Global click listener for any link pointing to #membership
-    document.addEventListener('click', (e) => {
-      const target = e.target.closest('a[href="#membership"], .btn-join-eclub');
-      if (target) {
-        e.preventDefault();
-        openMembershipModal();
       }
-    });
+    }
+  }
 
-    if (closeMembershipModalBtn) {
-      closeMembershipModalBtn.addEventListener('click', closeMembershipModal);
+  function requestScrollTick() {
+    if (!isTicking) {
+      requestAnimationFrame(() => {
+        onScroll();
+        isTicking = false;
+      });
+      isTicking = true;
+    }
+  }
+
+  // ==========================================================================
+  // 5. INTERSECTION OBSERVER FOR CARD REVEALS
+  // ==========================================================================
+  function initScrollReveals() {
+    const revealCards = document.querySelectorAll('.reveal-card');
+    if (!('IntersectionObserver' in window)) {
+      revealCards.forEach((c) => c.classList.add('revealed'));
+      return;
     }
 
-    if (membershipModalBackdrop) {
-      membershipModalBackdrop.addEventListener('click', closeMembershipModal);
-    }
-
-    if (btnSuccessClose) {
-      btnSuccessClose.addEventListener('click', closeMembershipModal);
-    }
-
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && membershipModal && membershipModal.classList.contains('active')) {
-        closeMembershipModal();
-      }
-    });
-
-    // Form submission & validation
-    if (membershipForm) {
-      membershipForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        let isValid = true;
-        const requiredInputs = membershipForm.querySelectorAll('input[required], textarea[required]');
-
-        requiredInputs.forEach((input) => {
-          const formGroup = input.closest('.form-group');
-          let fieldValid = true;
-
-          if (!input.value.trim()) {
-            fieldValid = false;
-          } else if (input.type === 'email') {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            fieldValid = emailRegex.test(input.value.trim());
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target);
           }
-
-          if (!fieldValid) {
-            isValid = false;
-            if (formGroup) formGroup.classList.add('has-error');
-          } else {
-            if (formGroup) formGroup.classList.remove('has-error');
-          }
-
-          input.addEventListener('input', () => {
-            if (formGroup) formGroup.classList.remove('has-error');
-          }, { once: true });
         });
-
-        if (isValid) {
-          const formData = {
-            fullName: document.getElementById('fullName').value.trim(),
-            email: document.getElementById('email').value.trim(),
-            mobileNumber: document.getElementById('mobileNumber').value.trim(),
-            studentEnrollment: document.getElementById('studentId').value.trim(),
-            studentId: document.getElementById('studentId').value.trim(),
-            department: document.getElementById('department').value.trim(),
-            yearSemester: document.getElementById('yearSemester').value.trim(),
-            areasOfInterest: document.getElementById('areasOfInterest').value.trim(),
-            preferredTeam: document.getElementById('preferredTeam').value.trim(),
-            whyJoin: document.getElementById('whyJoin').value.trim(),
-            submittedAt: new Date().toISOString()
-          };
-
-          try {
-            const existing = JSON.parse(localStorage.getItem('eclub_memberships') || '[]');
-            existing.push(formData);
-            localStorage.setItem('eclub_memberships', JSON.stringify(existing));
-          } catch (err) {
-            console.error('Storage error', err);
-          }
-
-          membershipForm.style.display = 'none';
-          if (membershipSuccess) {
-            membershipSuccess.style.display = 'block';
-          }
-        }
-      });
-    }
-
-    if (window.location.hash === '#membership') {
-      openMembershipModal();
-    }
-
-    // =========================================================
-    // 7. SUBMIT YOUR IDEA MODAL INTERACTION & LOGIC
-    // =========================================================
-    const ideaModal = document.getElementById('ideaModal');
-    const ideaForm = document.getElementById('ideaForm');
-    const ideaSuccess = document.getElementById('ideaSuccess');
-    const closeIdeaModalBtn = document.getElementById('closeIdeaModal');
-    const ideaModalBackdrop = document.getElementById('ideaModalBackdrop');
-    const btnIdeaSuccessClose = document.getElementById('btnIdeaSuccessClose');
-    const heroIdeaBtn = document.getElementById('heroIdeaBtn');
-
-    function openIdeaModal() {
-      if (!ideaModal) return;
-      ideaModal.classList.add('active');
-      ideaModal.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('modal-open');
-      const firstInput = ideaForm ? ideaForm.querySelector('input') : null;
-      if (firstInput) setTimeout(() => firstInput.focus(), 120);
-    }
-
-    function closeIdeaModal() {
-      if (!ideaModal) return;
-      ideaModal.classList.remove('active');
-      ideaModal.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('modal-open');
-
-      setTimeout(() => {
-        if (ideaSuccess && ideaSuccess.style.display !== 'none') {
-          ideaSuccess.style.display = 'none';
-          if (ideaForm) {
-            ideaForm.style.display = 'block';
-            ideaForm.reset();
-            ideaForm.querySelectorAll('.form-group').forEach(fg => fg.classList.remove('has-error'));
-          }
-        }
-      }, 350);
-    }
-
-    if (heroIdeaBtn) {
-      heroIdeaBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        openIdeaModal();
-      });
-    }
-
-    document.addEventListener('click', (e) => {
-      const target = e.target.closest('a[href="#idea"], .btn-submit-idea');
-      if (target) {
-        e.preventDefault();
-        openIdeaModal();
+      },
+      {
+        threshold: 0.15,
+        rootMargin: '0px 0px -40px 0px'
       }
-    });
+    );
 
-    if (closeIdeaModalBtn) {
-      closeIdeaModalBtn.addEventListener('click', closeIdeaModal);
+    revealCards.forEach((card) => observer.observe(card));
+  }
+
+  // ==========================================================================
+  // 6. COUNTDOWN TIMER
+  // ==========================================================================
+  function initDemoCountdown() {
+    const cdDays = document.getElementById('cdDays');
+    const cdHours = document.getElementById('cdHours');
+    const cdMins = document.getElementById('cdMins');
+    const cdSecs = document.getElementById('cdSecs');
+
+    if (!cdDays || !cdHours || !cdMins || !cdSecs) return;
+
+    // Target demo day: 45 days from current
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() + 42);
+    targetDate.setHours(10, 0, 0, 0);
+
+    function updateTimer() {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+
+      if (diff <= 0) return;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+      cdDays.textContent = String(days).padStart(2, '0');
+      cdHours.textContent = String(hours).padStart(2, '0');
+      cdMins.textContent = String(mins).padStart(2, '0');
+      cdSecs.textContent = String(secs).padStart(2, '0');
     }
 
-    if (ideaModalBackdrop) {
-      ideaModalBackdrop.addEventListener('click', closeIdeaModal);
-    }
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  }
 
-    if (btnIdeaSuccessClose) {
-      btnIdeaSuccessClose.addEventListener('click', closeIdeaModal);
-    }
-
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && ideaModal && ideaModal.classList.contains('active')) {
-        closeIdeaModal();
-      }
-    });
-
-    if (ideaForm) {
-      ideaForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        let isValid = true;
-        const requiredInputs = ideaForm.querySelectorAll('input[required], textarea[required]');
-
-        requiredInputs.forEach((input) => {
-          const formGroup = input.closest('.form-group');
-          let fieldValid = true;
-
-          if (!input.value.trim()) {
-            fieldValid = false;
-          } else if (input.type === 'email') {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            fieldValid = emailRegex.test(input.value.trim());
-          }
-
-          if (!fieldValid) {
-            isValid = false;
-            if (formGroup) formGroup.classList.add('has-error');
-          } else {
-            if (formGroup) formGroup.classList.remove('has-error');
-          }
-
-          input.addEventListener('input', () => {
-            if (formGroup) formGroup.classList.remove('has-error');
-          }, { once: true });
-        });
-
-        if (isValid) {
-          const selectedSupport = Array.from(ideaForm.querySelectorAll('input[name="supportRequired"]:checked')).map(cb => cb.value);
-
-          const ideaData = {
-            name: document.getElementById('ideaFounderName').value.trim(),
-            email: document.getElementById('ideaEmail').value.trim(),
-            department: document.getElementById('ideaDepartment').value.trim(),
-            startupName: document.getElementById('startupName').value.trim(),
-            targetUsers: document.getElementById('targetUsers').value.trim(),
-            currentStage: document.getElementById('currentStage').value.trim(),
-            teamMembers: document.getElementById('teamMembers').value.trim(),
-            domain: document.getElementById('domain').value.trim(),
-            pitchDeck: document.getElementById('pitchDeck') ? document.getElementById('pitchDeck').value.trim() : '',
-            demoLink: document.getElementById('demoLink') ? document.getElementById('demoLink').value.trim() : '',
-            problemStatement: document.getElementById('problemStatement').value.trim(),
-            ideaDescription: document.getElementById('ideaDescription').value.trim(),
-            supportRequired: selectedSupport,
-            submittedAt: new Date().toISOString()
-          };
-
-          try {
-            const existing = JSON.parse(localStorage.getItem('eclub_ideas') || '[]');
-            existing.push(ideaData);
-            localStorage.setItem('eclub_ideas', JSON.stringify(existing));
-          } catch (err) {
-            console.error('Storage error', err);
-          }
-
-          ideaForm.style.display = 'none';
-          if (ideaSuccess) {
-            ideaSuccess.style.display = 'block';
-          }
-        }
-      });
-    }
-
-    if (window.location.hash === '#idea') {
-      openIdeaModal();
-    }
-
-    // =========================================================
-    // 8. FAQ ACCORDION INTERACTION
-    // =========================================================
+  // ==========================================================================
+  // 7. FAQ ACCORDION
+  // ==========================================================================
+  function initFaqAccordion() {
     const faqItems = document.querySelectorAll('.faq-item');
-    faqItems.forEach(item => {
-      const questionBtn = item.querySelector('.faq-question');
-      if (!questionBtn) return;
-      questionBtn.addEventListener('click', () => {
-        const isOpen = item.classList.contains('active');
-        faqItems.forEach(otherItem => {
-          if (otherItem !== item) {
-            otherItem.classList.remove('active');
-            const otherBtn = otherItem.querySelector('.faq-question');
-            if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+
+    faqItems.forEach((item) => {
+      const btn = item.querySelector('.faq-question');
+      const answer = item.querySelector('.faq-answer');
+
+      if (!btn || !answer) return;
+
+      btn.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+
+        // Close all other items
+        faqItems.forEach((other) => {
+          if (other !== item) {
+            other.classList.remove('active');
+            const otherAns = other.querySelector('.faq-answer');
+            if (otherAns) otherAns.style.maxHeight = null;
           }
         });
-        if (isOpen) {
+
+        // Toggle current item
+        if (isActive) {
           item.classList.remove('active');
-          questionBtn.setAttribute('aria-expanded', 'false');
+          answer.style.maxHeight = null;
         } else {
           item.classList.add('active');
-          questionBtn.setAttribute('aria-expanded', 'true');
+          answer.style.maxHeight = answer.scrollHeight + 40 + 'px';
         }
       });
     });
+  }
 
-    // =========================================================
-    // 9. RULES & GUIDELINES AND PRIVACY MODALS
-    // =========================================================
-    const rulesModal = document.getElementById('rulesModal');
-    const closeRulesModalBtn = document.getElementById('closeRulesModal');
-    const rulesModalBackdrop = document.getElementById('rulesModalBackdrop');
-    const btnRulesAcknowledge = document.getElementById('btnRulesAcknowledge');
-    const openRulesBtns = document.querySelectorAll('#openRulesBtn, #linkRulesBottom, a[href="#rules"]');
+  // ==========================================================================
+  // 8. APPLICATION FORM HANDLING
+  // ==========================================================================
+  function initApplicationForm() {
+    const form = document.getElementById('eclubApplicationForm');
+    const feedback = document.getElementById('formFeedback');
+    const submitBtn = document.getElementById('submitFormBtn');
 
-    function openRulesModal() {
-      if (!rulesModal) return;
-      rulesModal.classList.add('active');
-      rulesModal.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('modal-open');
-    }
+    if (!form || !feedback || !submitBtn) return;
 
-    function closeRulesModal() {
-      if (!rulesModal) return;
-      rulesModal.classList.remove('active');
-      rulesModal.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('modal-open');
-    }
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
 
-    openRulesBtns.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        openRulesModal();
-      });
-    });
+      const fullName = document.getElementById('fullName').value.trim();
+      const email = document.getElementById('collegeEmail').value.trim();
+      const studentId = document.getElementById('studentId').value.trim();
+      const stage = document.getElementById('startupStage').value;
+      const sector = document.getElementById('ventureSector').value;
+      const pitch = document.getElementById('pitchSummary').value.trim();
 
-    if (closeRulesModalBtn) closeRulesModalBtn.addEventListener('click', closeRulesModal);
-    if (rulesModalBackdrop) rulesModalBackdrop.addEventListener('click', closeRulesModal);
-    if (btnRulesAcknowledge) btnRulesAcknowledge.addEventListener('click', closeRulesModal);
-
-    const privacyModal = document.getElementById('privacyModal');
-    const closePrivacyModalBtn = document.getElementById('closePrivacyModal');
-    const privacyModalBackdrop = document.getElementById('privacyModalBackdrop');
-    const btnPrivacyAcknowledge = document.getElementById('btnPrivacyAcknowledge');
-    const openPrivacyBtns = document.querySelectorAll('#openPrivacyBtn, #linkPrivacyBottom, a[href="#privacy"]');
-
-    function openPrivacyModal() {
-      if (!privacyModal) return;
-      privacyModal.classList.add('active');
-      privacyModal.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('modal-open');
-    }
-
-    function closePrivacyModal() {
-      if (!privacyModal) return;
-      privacyModal.classList.remove('active');
-      privacyModal.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('modal-open');
-    }
-
-    openPrivacyBtns.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        openPrivacyModal();
-      });
-    });
-
-    if (closePrivacyModalBtn) closePrivacyModalBtn.addEventListener('click', closePrivacyModal);
-    if (privacyModalBackdrop) privacyModalBackdrop.addEventListener('click', closePrivacyModal);
-    if (btnPrivacyAcknowledge) btnPrivacyAcknowledge.addEventListener('click', closePrivacyModal);
-
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        if (rulesModal && rulesModal.classList.contains('active')) closeRulesModal();
-        if (privacyModal && privacyModal.classList.contains('active')) closePrivacyModal();
+      if (!fullName || !email || !studentId || !stage || !sector || !pitch) {
+        feedback.className = 'form-feedback error';
+        feedback.textContent = 'Please fill out all required fields marked with *';
+        return;
       }
+
+      // Basic email check
+      if (!email.includes('@')) {
+        feedback.className = 'form-feedback error';
+        feedback.textContent = 'Please provide a valid college or founder email address.';
+        return;
+      }
+
+      // Simulated success submission
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting Application...';
+
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Cohort Application ➔';
+        feedback.className = 'form-feedback success';
+        feedback.innerHTML = `🚀 <strong>Congratulations, ${fullName}!</strong> Your venture application has been logged for Cohort '25 review. Check your inbox (<em>${email}</em>) for next steps and interview scheduling.`;
+        form.reset();
+      }, 1000);
     });
+  }
+
+  // ==========================================================================
+  // 9. MOBILE NAVIGATION DRAWER
+  // ==========================================================================
+  function initMobileMenu() {
+    if (!mobileToggle || !navMenu) return;
+
+    mobileToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('open');
+    });
+
+    navLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+      });
+    });
+  }
+
+  // ==========================================================================
+  // 10. ACTIVE LINK HIGHLIGHTING ON SCROLL
+  // ==========================================================================
+  function initActiveNavHighlight() {
+    const sections = document.querySelectorAll('section[id]');
+
+    window.addEventListener('scroll', () => {
+      const scrollPos = window.scrollY + 120;
+
+      sections.forEach((sec) => {
+        const top = sec.offsetTop;
+        const height = sec.offsetHeight;
+        const id = sec.getAttribute('id');
+
+        if (scrollPos >= top && scrollPos < top + height) {
+          navLinks.forEach((link) => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${id}`) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    });
+  }
+
+  // ==========================================================================
+  // 11. INITIALIZATION
+  // ==========================================================================
+  window.addEventListener('DOMContentLoaded', () => {
+    preloadRocketFrames();
+    resizeCanvas();
+    initScrollReveals();
+    initDemoCountdown();
+    initFaqAccordion();
+    initApplicationForm();
+    initMobileMenu();
+    initActiveNavHighlight();
+
+    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('scroll', requestScrollTick, { passive: true });
+  });
+})();
