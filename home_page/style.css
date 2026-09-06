@@ -754,7 +754,7 @@ a.naac-badge-group {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding-top: 25vh; /* Pushes content up visually closer to the Navbar */
+  padding-top: 15vh; /* Reduced from 25vh to decrease gap to navbar */
   opacity: 0.2;
   transition: opacity 0.5s ease;
 }
@@ -768,7 +768,7 @@ a.naac-badge-group {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 0 40px;
+  padding: 0 60px; /* Changed from 0 40px to shift slightly left */
   gap: 40px;
 }
 
