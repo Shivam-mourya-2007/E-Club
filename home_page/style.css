@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   /* Canvas & Neutral Surface Tokens */
   --bg-canvas: #FFFFFF;
   --bg-slate: #F8FAFC;
@@ -670,6 +670,41 @@ button, input, select, textarea {
   letter-spacing: -0.03em;
   margin-bottom: 18px;
   text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Staggered sequential entrance for Think. Build. Innovate. */
+.hero-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(28px) scale(0.96);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.hero-word-1 {
+  margin-right: 0.28em;
+}
+
+.html-intro-done .hero-word-1,
+.hero-word-1.animate-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition-delay: 0.2s;
+}
+
+.html-intro-done .hero-word-2,
+.hero-word-2.animate-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition-delay: 0.7s;
+}
+
+.html-intro-done .hero-word-3,
+.hero-word-3.animate-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition-delay: 1.2s;
 }
 
 .hero-subtext {
@@ -1470,9 +1505,10 @@ div.mv-vision.revealed {
 }
 
 .policy-list li::before {
-  content: 'ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢';
+  content: '\2022';
   position: absolute;
   left: 4px;
+  top: -1px;
   color: var(--primary);
   font-weight: 800;
   font-size: 1.1rem;
