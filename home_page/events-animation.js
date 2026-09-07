@@ -1,26 +1,25 @@
 /**
- * GSAP Scroll-Scrubbed "Stack to Scatter" Animation for Events
+ * GSAP "Stack to Scatter" Animation for Events
+ * Auto-play once per entry via IntersectionObserver
  */
 
 (function () {
   'use strict';
 
   window.addEventListener('DOMContentLoaded', () => {
-    // Ensure GSAP and ScrollTrigger are loaded
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-      console.warn('GSAP or ScrollTrigger not loaded.');
+    // Ensure GSAP is loaded
+    if (typeof gsap === 'undefined') {
+      console.warn('GSAP not loaded.');
       return;
     }
 
-    gsap.registerPlugin(ScrollTrigger);
-
+    const eventsSection = document.querySelector('#events');
     const grid = document.querySelector('.events-grid');
     const cards = gsap.utils.toArray('.event-card');
-    
-    if (!grid || !cards.length) return;
+
+    if (!grid || !cards.length || !eventsSection) return;
 
     // Configuration
-    const SCRUB_SPEED = 1;
     const CARD_DURATION = 0.6;
     const STAGGER_OFFSET = 0.08;
 
@@ -34,7 +33,7 @@
     // Debounce helper for window resize
     function debounce(func, wait) {
       let timeout;
-      return function(...args) {
+      return function (...args) {
         clearTimeout(timeout);
         timeout = setTimeout(() => func.apply(this, args), wait);
       };
@@ -42,12 +41,12 @@
 
     mm.add("(min-width: 769px)", () => {
       let tl;
-      
+      let observer;
+      let eventsAnimationPlayed = false;
+
       function buildAnimation() {
-        // Kill existing timeline to clear inline styles and pins for clean recalculation
-        if (tl) {
-          tl.kill();
-        }
+        if (tl) tl.kill();
+        if (observer) observer.disconnect();
 
         // Strip all GSAP inline styles to measure natural DOM positions
         gsap.set(cards, { clearProps: "all" });
@@ -87,20 +86,11 @@
           });
         });
 
-        // 4. Create Scrub Timeline
-        tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: "#events",
-            pin: true,
-            scrub: SCRUB_SPEED,
-            start: "top top",
-            end: "+=150%"
-          }
-        });
+        // 4. Create Paused Timeline (No ScrollTrigger)
+        tl = gsap.timeline({ paused: true });
 
         // 5. Animate from stack to natural positions
         cards.forEach((card, i) => {
-          // Use explicit position parameter for overlapping stagger
           tl.to(card, {
             x: 0,
             y: 0,
@@ -110,15 +100,31 @@
             ease: "none"
           }, i * STAGGER_OFFSET);
         });
+
+        // 6. Setup IntersectionObserver
+        observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !eventsAnimationPlayed) {
+              eventsAnimationPlayed = true;
+              tl.play();
+              observer.unobserve(eventsSection);
+            }
+          });
+        }, {
+          threshold: 0.35 // trigger when 35% visible
+        });
+
+        observer.observe(eventsSection);
       }
 
-      // Initial build
       buildAnimation();
 
-      // Recalculate cleanly on resize
       const handleResize = debounce(() => {
-        buildAnimation();
-        ScrollTrigger.refresh();
+        // Only rebuild if the animation hasn't played yet
+        // If it HAS played, the cards are cleanly at x:0 y:0 and naturally responsive
+        if (!eventsAnimationPlayed) {
+          buildAnimation();
+        }
       }, 250);
 
       window.addEventListener("resize", handleResize);
@@ -127,29 +133,46 @@
       return () => {
         window.removeEventListener("resize", handleResize);
         if (tl) tl.kill();
+        if (observer) observer.disconnect();
         gsap.set(cards, { clearProps: "all" });
       };
     });
 
-    // Mobile fallback: simple fade/slide-in, no pin
+    // Mobile fallback: simple fade/slide-in with IntersectionObserver
     mm.add("(max-width: 768px)", () => {
-      cards.forEach((card, i) => {
+      let observer;
+      let playedCards = new Set();
+
+      cards.forEach((card) => {
         gsap.set(card, { opacity: 0, y: 30 });
-        gsap.to(card, {
-          scrollTrigger: {
-            trigger: card,
-            start: "top 85%",
-          },
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          ease: "power2.out",
-          clearProps: "all"
-        });
       });
 
+      observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const card = entry.target;
+            if (!playedCards.has(card)) {
+              playedCards.add(card);
+              gsap.to(card, {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                ease: "power2.out",
+                clearProps: "all"
+              });
+              observer.unobserve(card);
+            }
+          }
+        });
+      }, {
+        threshold: 0.15
+      });
+
+      cards.forEach(card => observer.observe(card));
+
       return () => {
-        cards.forEach(card => gsap.set(card, { clearProps: "all" }));
+        if (observer) observer.disconnect();
+        gsap.set(cards, { clearProps: "all" });
       };
     });
 
