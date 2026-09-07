@@ -985,14 +985,14 @@ button, input, select, textarea {
 div.mv-mission {
   opacity: 0;
   transform: translateX(-100px) scale(0.96);
-  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1), transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 div.mv-vision {
   opacity: 0;
   transform: translateX(100px) scale(0.96);
-  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
   /* The inline style transition-delay: 0.15s in HTML handles the stagger */
+  transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1), transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 div.mv-mission.revealed,
