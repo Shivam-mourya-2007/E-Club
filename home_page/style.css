@@ -4,13 +4,13 @@
   --bg-slate: #F8FAFC;
   --bg-surface: #FFFFFF;
   --bg-card: #FFFFFF;
-  
+
   /* Brand Accents (Vibrant Crimson Red) */
   --primary: #DC2626;
   --primary-hover: #B91C1C;
   --primary-light: rgba(220, 38, 38, 0.08);
   --primary-glow: rgba(220, 38, 38, 0.25);
-  
+
   --cyan: #06B6D4;
   --cyan-light: rgba(6, 182, 212, 0.1);
   --emerald: #10B981;
@@ -19,23 +19,23 @@
   --purple-light: rgba(139, 92, 246, 0.1);
   --amber: #F59E0B;
   --rose: #F43F5E;
-  
+
   /* Typography Colors */
   --text-headline: #0F172A;
   --text-body: #475569;
   --text-muted: #64748B;
   --text-light: #94A3B8;
-  
+
   /* Borders & Shadows */
   --border-subtle: rgba(226, 232, 240, 0.8);
   --border-card: #E2E8F0;
   --border-focus: #DC2626;
-  
+
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
   --shadow-hover: 0 20px 35px -10px rgba(220, 38, 38, 0.15), 0 8px 16px -4px rgba(15, 23, 42, 0.06);
   --shadow-float: 0 12px 30px -4px rgba(15, 23, 42, 0.12);
-  
+
   /* Radii & Fonts */
   --radius-sm: 8px;
   --radius-md: 14px;
@@ -46,7 +46,9 @@
 }
 
 /* Reset & Global Baseline */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -74,12 +76,16 @@ a {
   transition: all 0.2s ease;
 }
 
-img, svg {
+img,
+svg {
   display: block;
   max-width: 100%;
 }
 
-button, input, select, textarea {
+button,
+input,
+select,
+textarea {
   font-family: inherit;
 }
 
@@ -571,7 +577,8 @@ button, input, select, textarea {
 .hero-scroll-container {
   position: relative;
   width: 100%;
-  background: #070A12; /* Deep space canvas blending natively with rocket frames */
+  background: #070A12;
+  /* Deep space canvas blending natively with rocket frames */
 }
 
 .hero-sticky-stage {
@@ -656,9 +663,17 @@ button, input, select, textarea {
 }
 
 @keyframes pulseGlow {
-  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-  70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
 }
 
 .hero-title {
@@ -758,14 +773,32 @@ button, input, select, textarea {
   transition: transform 0.3s ease;
 }
 
-.float-card-1 { animation: float 4.5s ease-in-out infinite; }
-.float-card-2 { animation: float 5.2s ease-in-out infinite 0.5s; }
-.float-card-3 { animation: float 4.8s ease-in-out infinite 1s; }
-.float-card-4 { animation: float 5.5s ease-in-out infinite 1.5s; }
+.float-card-1 {
+  animation: float 4.5s ease-in-out infinite;
+}
+
+.float-card-2 {
+  animation: float 5.2s ease-in-out infinite 0.5s;
+}
+
+.float-card-3 {
+  animation: float 4.8s ease-in-out infinite 1s;
+}
+
+.float-card-4 {
+  animation: float 5.5s ease-in-out infinite 1.5s;
+}
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-7px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
 }
 
 .telemetry-icon-wrap {
@@ -979,10 +1012,25 @@ button, input, select, textarea {
   line-height: 1.6;
 }
 
-.bg-indigo-soft { background: var(--primary-light); color: var(--primary); }
-.bg-cyan-soft { background: var(--cyan-light); color: var(--cyan); }
-.bg-emerald-soft { background: var(--emerald-light); color: var(--emerald); }
-.bg-purple-soft { background: var(--purple-light); color: var(--purple); }
+.bg-indigo-soft {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.bg-cyan-soft {
+  background: var(--cyan-light);
+  color: var(--cyan);
+}
+
+.bg-emerald-soft {
+  background: var(--emerald-light);
+  color: var(--emerald);
+}
+
+.bg-purple-soft {
+  background: var(--purple-light);
+  color: var(--purple);
+}
 
 /* ==========================================================================
    3. MISSION & VISION
@@ -1109,6 +1157,51 @@ div.mv-vision.revealed {
   color: var(--text-body);
   line-height: 1.55;
   flex-grow: 1;
+}
+
+/* Custom Entrance Animations for Benefit Items */
+@media (prefers-reduced-motion: no-preference) {
+  /* BASE STATE (Unrevealed / Exit) */
+  .benefits-grid .benefit-item.reveal-card {
+    position: relative; /* Required for z-index layering */
+    /* Default transition applied when removing .revealed (Scroll Up / Exit) */
+    transition: transform 0.7s ease-out, opacity 0.7s ease-out, z-index 0s !important;
+  }
+
+  /* Initial/Hidden Transforms and Z-Indexes */
+  .benefits-grid .benefit-item.reveal-card:nth-child(1) { transform: translateX(120%) !important; opacity: 0 !important; z-index: 4; transition-delay: 0s, 0s, 0s !important; }
+  .benefits-grid .benefit-item.reveal-card:nth-child(2) { transform: translateX(120%) !important; opacity: 0 !important; z-index: 3; transition-delay: 0.15s, 0.15s, 0s !important; }
+  .benefits-grid .benefit-item.reveal-card:nth-child(3) { transform: translateX(120%) !important; opacity: 0 !important; z-index: 2; transition-delay: 0.3s, 0.3s, 0s !important; }
+  .benefits-grid .benefit-item.reveal-card:nth-child(4) { transform: translateX(120%) !important; opacity: 0 !important; z-index: 1; transition-delay: 0.45s, 0.45s, 0s !important; }
+
+  .benefits-grid .benefit-item.reveal-card:nth-child(5) { transform: translateX(-120%) !important; opacity: 0 !important; z-index: 1; transition-delay: 0.45s, 0.45s, 0s !important; }
+  .benefits-grid .benefit-item.reveal-card:nth-child(6) { transform: translateX(-120%) !important; opacity: 0 !important; z-index: 2; transition-delay: 0.3s, 0.3s, 0s !important; }
+  .benefits-grid .benefit-item.reveal-card:nth-child(7) { transform: translateX(-120%) !important; opacity: 0 !important; z-index: 3; transition-delay: 0.15s, 0.15s, 0s !important; }
+  .benefits-grid .benefit-item.reveal-card:nth-child(8) { transform: translateX(-120%) !important; opacity: 0 !important; z-index: 4; transition-delay: 0s, 0s, 0s !important; }
+
+  /* REVEALED STATE (Entrance) */
+  .benefits-grid .benefit-item.reveal-card.revealed {
+    transform: translateX(0) !important;
+    opacity: 1 !important;
+    z-index: 1 !important; /* Reset to normal stacking context */
+  }
+
+  /* Entrance Transitions: Keep staggered transform delays, but hold z-index high until animation finishes (1.2s safety buffer) */
+  .benefits-grid .benefit-item.reveal-card.revealed:nth-child(1) { transition-delay: 0s, 0s, 1.2s !important; }
+  .benefits-grid .benefit-item.reveal-card.revealed:nth-child(2) { transition-delay: 0.15s, 0.15s, 1.2s !important; }
+  .benefits-grid .benefit-item.reveal-card.revealed:nth-child(3) { transition-delay: 0.3s, 0.3s, 1.2s !important; }
+  .benefits-grid .benefit-item.reveal-card.revealed:nth-child(4) { transition-delay: 0.45s, 0.45s, 1.2s !important; }
+
+  .benefits-grid .benefit-item.reveal-card.revealed:nth-child(5) { transition-delay: 0.45s, 0.45s, 1.2s !important; }
+  .benefits-grid .benefit-item.reveal-card.revealed:nth-child(6) { transition-delay: 0.3s, 0.3s, 1.2s !important; }
+  .benefits-grid .benefit-item.reveal-card.revealed:nth-child(7) { transition-delay: 0.15s, 0.15s, 1.2s !important; }
+  .benefits-grid .benefit-item.reveal-card.revealed:nth-child(8) { transition-delay: 0s, 0s, 1.2s !important; }
+
+  /* Restore hover effect with instant transition to prevent lag */
+  .benefits-grid .benefit-item.reveal-card.revealed:hover {
+    transform: translateY(-4px) !important;
+    transition: all 0.3s ease !important; /* Overrides the entrance delay/duration */
+  }
 }
 
 /* ==========================================================================
@@ -1364,9 +1457,17 @@ div.mv-vision.revealed {
   padding: 18px;
 }
 
-.gal-grad-1 { background: linear-gradient(135deg, #1E1B4B 0%, #DC2626 100%); }
-.gal-grad-2 { background: linear-gradient(135deg, #0F172A 0%, #06B6D4 100%); }
-.gal-grad-3 { background: linear-gradient(135deg, #312E81 0%, #8B5CF6 100%); }
+.gal-grad-1 {
+  background: linear-gradient(135deg, #1E1B4B 0%, #DC2626 100%);
+}
+
+.gal-grad-2 {
+  background: linear-gradient(135deg, #0F172A 0%, #06B6D4 100%);
+}
+
+.gal-grad-3 {
+  background: linear-gradient(135deg, #312E81 0%, #8B5CF6 100%);
+}
 
 .gallery-tag {
   font-size: 0.7rem;
@@ -1788,6 +1889,7 @@ div.mv-vision.revealed {
   .hide-tablet {
     display: none !important;
   }
+
   .benefits-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1887,7 +1989,3 @@ div.mv-vision.revealed {
     width: 100%;
   }
 }
-
-
-
-
