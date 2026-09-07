@@ -62,14 +62,24 @@
     }
   }
 
+  function triggerHeroTitleAnimation() {
+    document.documentElement.classList.add('html-intro-done');
+    const heroWords = document.querySelectorAll('.hero-word');
+    heroWords.forEach((word) => {
+      word.classList.add('animate-in');
+    });
+  }
+
   function finishPreloader() {
     sessionStorage.setItem('eclub_intro_seen', 'true');
     if (preloader) {
       preloader.style.opacity = '0';
       setTimeout(() => {
         preloader.style.display = 'none';
-        document.documentElement.classList.add('html-intro-done');
+        triggerHeroTitleAnimation();
       }, 550);
+    } else {
+      triggerHeroTitleAnimation();
     }
   }
 
@@ -349,5 +359,10 @@
 
     window.addEventListener('resize', resizeCanvas);
     window.addEventListener('scroll', requestScrollTick, { passive: true });
+
+    // Safety fallback: ensure hero words animate in even if frame loading stalls
+    setTimeout(() => {
+      triggerHeroTitleAnimation();
+    }, 2200);
   });
 })();
