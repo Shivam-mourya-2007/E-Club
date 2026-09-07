@@ -242,25 +242,47 @@
   // 7. INTERSECTION OBSERVER FOR CARD REVEALS
   // ==========================================================================
   function initScrollReveals() {
-    const revealCards = document.querySelectorAll('.reveal-card');
     if (!('IntersectionObserver' in window)) {
-      revealCards.forEach((c) => c.classList.add('revealed'));
+      document.querySelectorAll('.reveal-card').forEach((c) => c.classList.add('revealed'));
       return;
     }
 
-    const observer = new IntersectionObserver(
+    // 1. Generic Observer (2-way) for standard elements
+    const genericObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('revealed');
-            observer.unobserve(entry.target);
+          } else {
+            entry.target.classList.remove('revealed');
           }
         });
       },
       { threshold: 0.12, rootMargin: '0px 0px -30px 0px' }
     );
 
-    revealCards.forEach((card) => observer.observe(card));
+    document.querySelectorAll('.reveal-card:not(.benefits-grid .reveal-card)').forEach((card) => {
+      genericObserver.observe(card);
+    });
+
+    // 2. Synchronized Observer for Benefits Grid (2-way)
+    const benefitsGrid = document.querySelector('.benefits-grid');
+    if (benefitsGrid) {
+      const benefitsObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const cards = entry.target.querySelectorAll('.reveal-card');
+            if (entry.isIntersecting) {
+              cards.forEach(c => c.classList.add('revealed'));
+            } else {
+              cards.forEach(c => c.classList.remove('revealed'));
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -30px 0px' }
+      );
+      benefitsObserver.observe(benefitsGrid);
+    }
   }
 
   // ==========================================================================
