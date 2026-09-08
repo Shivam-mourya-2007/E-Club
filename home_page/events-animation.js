@@ -20,8 +20,8 @@
     if (!grid || !cards.length || !eventsSection) return;
 
     // Configuration
-    const CARD_DURATION = 0.6;
-    const STAGGER_OFFSET = 0.08;
+    const CARD_DURATION = 1.35;
+    const STAGGER_OFFSET = 0.15;
 
     // Deterministic offset arrays for fan/jitter
     const rotVals = [-8, 5, -6, 8, -4, 6];
@@ -97,7 +97,7 @@
             rotation: 0,
             rotateY: 0,
             duration: CARD_DURATION,
-            ease: "power2.out"
+            ease: "power3.out"
           }, i * STAGGER_OFFSET);
         });
 
@@ -155,8 +155,8 @@
             gsap.to(card, {
               opacity: 1,
               y: 0,
-              duration: 0.5,
-              ease: "power2.out"
+              duration: 1.15,
+              ease: "power3.out"
             });
           } else {
             gsap.set(card, {
