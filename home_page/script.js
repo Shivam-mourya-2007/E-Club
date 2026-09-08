@@ -237,9 +237,8 @@
     }
   }
 
-
   // ==========================================================================
-  // 7. INTERSECTION OBSERVER FOR CARD REVEALS
+  // 5. SCROLL REVEALS
   // ==========================================================================
   function initScrollReveals() {
     if (!('IntersectionObserver' in window)) {
@@ -258,7 +257,7 @@
           }
         });
       },
-      { threshold: 0.12, rootMargin: '0px 0px -30px 0px' }
+      { threshold: 0.12, rootMargin: '0px 0px -20px 0px' }
     );
 
     document.querySelectorAll('.reveal-card:not(.benefits-grid .reveal-card)').forEach((card) => {
@@ -279,7 +278,7 @@
             }
           });
         },
-        { threshold: 0.12, rootMargin: '0px 0px -30px 0px' }
+        { threshold: 0.15, rootMargin: '0px 0px -20px 0px' }
       );
       benefitsObserver.observe(benefitsGrid);
     }
