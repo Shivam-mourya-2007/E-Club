@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   /* Canvas & Neutral Surface Tokens */
   --bg-canvas: #FFFFFF;
   --bg-slate: #F8FAFC;
@@ -901,7 +901,7 @@ textarea {
 
 .section-tag {
   display: inline-block;
-  font-size: 0.76rem;
+  font-size: 1.75rem;
   font-weight: 800;
   color: var(--primary);
   background: var(--primary-light);
