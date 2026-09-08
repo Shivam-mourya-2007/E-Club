@@ -1,6 +1,6 @@
 /**
  * GSAP "Stack to Scatter" Animation for Events
- * Auto-play once per entry via IntersectionObserver
+ * Replays seamlessly whenever the user scrolls back into view
  */
 
 (function () {
@@ -42,7 +42,7 @@
     mm.add("(min-width: 769px)", () => {
       let tl;
       let observer;
-      let eventsAnimationPlayed = false;
+      let hasPlayed = false;
 
       function buildAnimation() {
         if (tl) tl.kill();
@@ -86,7 +86,7 @@
           });
         });
 
-        // 4. Create Paused Timeline (No ScrollTrigger)
+        // 4. Create Paused Timeline
         tl = gsap.timeline({ paused: true });
 
         // 5. Animate from stack to natural positions
@@ -97,21 +97,27 @@
             rotation: 0,
             rotateY: 0,
             duration: CARD_DURATION,
-            ease: "none"
+            ease: "power2.out"
           }, i * STAGGER_OFFSET);
         });
 
-        // 6. Setup IntersectionObserver
+        // 6. Setup IntersectionObserver for repeated replay
+        hasPlayed = false;
+
         observer = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
-            if (entry.isIntersecting && !eventsAnimationPlayed) {
-              eventsAnimationPlayed = true;
-              tl.play();
-              observer.unobserve(eventsSection);
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
+              if (!hasPlayed) {
+                hasPlayed = true;
+                tl.restart();
+              }
+            } else if (!entry.isIntersecting) {
+              hasPlayed = false;
+              tl.pause(0);
             }
           });
         }, {
-          threshold: 0.35 // trigger when 35% visible
+          threshold: [0, 0.2]
         });
 
         observer.observe(eventsSection);
@@ -120,11 +126,7 @@
       buildAnimation();
 
       const handleResize = debounce(() => {
-        // Only rebuild if the animation hasn't played yet
-        // If it HAS played, the cards are cleanly at x:0 y:0 and naturally responsive
-        if (!eventsAnimationPlayed) {
-          buildAnimation();
-        }
+        buildAnimation();
       }, 250);
 
       window.addEventListener("resize", handleResize);
@@ -138,10 +140,9 @@
       };
     });
 
-    // Mobile fallback: simple fade/slide-in with IntersectionObserver
+    // Mobile fallback: simple fade/slide-in repeating on scroll
     mm.add("(max-width: 768px)", () => {
       let observer;
-      let playedCards = new Set();
 
       cards.forEach((card) => {
         gsap.set(card, { opacity: 0, y: 30 });
@@ -149,19 +150,19 @@
 
       observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
+          const card = entry.target;
           if (entry.isIntersecting) {
-            const card = entry.target;
-            if (!playedCards.has(card)) {
-              playedCards.add(card);
-              gsap.to(card, {
-                opacity: 1,
-                y: 0,
-                duration: 0.6,
-                ease: "power2.out",
-                clearProps: "all"
-              });
-              observer.unobserve(card);
-            }
+            gsap.to(card, {
+              opacity: 1,
+              y: 0,
+              duration: 0.5,
+              ease: "power2.out"
+            });
+          } else {
+            gsap.set(card, {
+              opacity: 0,
+              y: 30
+            });
           }
         });
       }, {
