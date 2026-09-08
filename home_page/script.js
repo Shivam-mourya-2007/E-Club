@@ -286,6 +286,29 @@
   }
 
   // ==========================================================================
+  // 12. FLOATING SOCIALS OBSERVER
+  // ==========================================================================
+  function initFloatingSocials() {
+    const floatingSocials = document.getElementById('floatingSocials');
+    const aboutSection = document.getElementById('about');
+    if (!floatingSocials || !aboutSection) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting || entry.boundingClientRect.top < 0) {
+          floatingSocials.classList.add('visible');
+        } else {
+          floatingSocials.classList.remove('visible');
+        }
+      });
+    }, {
+      rootMargin: '0px 0px 0px 0px'
+    });
+
+    observer.observe(aboutSection);
+  }
+
+  // ==========================================================================
   // 8. FAQ ACCORDION CONTROLLER
   // ==========================================================================
   function initFaqAccordion() {
@@ -369,6 +392,7 @@
     preloadRocketFrames();
     resizeCanvas();
     initScrollReveals();
+    initFloatingSocials();
     initFaqAccordion();
     initMobileMenu();
     initActiveNavHighlight();
