@@ -1115,48 +1115,210 @@ div.mv-vision.revealed {
 .benefits-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  gap: 22px;
 }
 
 .benefit-item {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-md);
-  padding: 28px 24px;
-  box-shadow: var(--shadow-sm);
-  transition: all 0.3s ease;
+  position: relative;
+  background: linear-gradient(165deg, #FFFFFF 0%, #FAFBFC 100%);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  border-radius: var(--radius-lg);
+  padding: 26px 22px 20px;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  cursor: default;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s ease;
+  will-change: transform, box-shadow;
+}
+
+/* Elegant expanding top accent bar on hover */
+.benefit-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3.5px;
+  background: linear-gradient(90deg, #DC2626 0%, #EA580C 55%, #F59E0B 100%);
+  opacity: 0;
+  transform: scaleX(0.15);
+  transform-origin: left;
+  transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 2;
+}
+
+/* Ambient Radial Glow on Hover */
+.benefit-item::after {
+  content: '';
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(220, 38, 38, 0.12) 0%, rgba(234, 88, 12, 0.04) 50%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .benefit-item:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-hover);
+  transform: translateY(-8px) scale(1.015);
+  border-color: rgba(220, 38, 38, 0.35);
+  box-shadow: 0 22px 42px -12px rgba(220, 38, 38, 0.15),
+              0 10px 24px -4px rgba(15, 23, 42, 0.06),
+              0 0 0 1px rgba(220, 38, 38, 0.18);
+}
+
+.benefit-item:hover::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.benefit-item:hover::after {
+  opacity: 1;
+  transform: scale(1.25);
+}
+
+/* Reveal transition with smooth spring easing */
+.benefit-item.reveal-card {
+  opacity: 0;
+  transform: translateY(32px) scale(0.97);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.45s ease,
+              border-color 0.4s ease;
+}
+
+.benefit-item.reveal-card.revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Header with Icon and Number Pill */
+.benefit-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+.benefit-icon-badge {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.08) 0%, rgba(249, 115, 22, 0.06) 100%);
+  border: 1px solid rgba(220, 38, 38, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s ease,
+              background 0.4s ease,
+              border-color 0.4s ease;
+}
+
+.benefit-item:hover .benefit-icon-badge {
+  transform: scale(1.12) rotate(-4deg);
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.15) 0%, rgba(249, 115, 22, 0.12) 100%);
   border-color: rgba(220, 38, 38, 0.3);
+  box-shadow: 0 6px 18px rgba(220, 38, 38, 0.22);
 }
 
 .benefit-num {
   font-family: var(--font-heading);
-  font-size: 1.8rem;
-  font-weight: 900;
-  color: rgba(220, 38, 38, 0.2);
-  line-height: 1;
-  margin-bottom: 12px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--primary);
+  background: rgba(220, 38, 38, 0.07);
+  border: 1px solid rgba(220, 38, 38, 0.16);
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.06em;
+  transition: all 0.35s ease;
+}
+
+.benefit-item:hover .benefit-num {
+  background: var(--primary);
+  color: #FFFFFF;
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.32);
+  transform: scale(1.05);
 }
 
 .benefit-title {
   font-family: var(--font-heading);
-  font-size: 1.05rem;
-  font-weight: 700;
+  font-size: 1.1rem;
+  font-weight: 800;
   color: var(--text-headline);
-  margin-bottom: 8px;
+  line-height: 1.35;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 2;
+  transition: color 0.3s ease;
+}
+
+.benefit-item:hover .benefit-title {
+  color: var(--primary);
 }
 
 .benefit-text {
   font-size: 0.88rem;
   color: var(--text-body);
-  line-height: 1.55;
+  line-height: 1.6;
   flex-grow: 1;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 18px;
+}
+
+/* Footer Tag & Micro Arrow */
+.benefit-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid rgba(226, 232, 240, 0.7);
+  position: relative;
+  z-index: 2;
+}
+
+.benefit-highlight {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  transition: color 0.3s ease;
+}
+
+.benefit-item:hover .benefit-highlight {
+  color: var(--primary);
+}
+
+.benefit-action-arrow {
+  font-size: 0.88rem;
+  color: var(--text-light);
+  opacity: 0.5;
+  transform: translateX(0);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.3s ease,
+              opacity 0.3s ease;
+}
+
+.benefit-item:hover .benefit-action-arrow {
+  opacity: 1;
+  color: var(--primary);
+  transform: translateX(5px);
 }
 
 /* Custom Entrance Animations for Benefit Items */
