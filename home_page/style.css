@@ -571,6 +571,19 @@ textarea {
   transition: all 0.3s ease;
 }
 
+.mobile-toggle.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.mobile-toggle.active span:nth-child(2) {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.mobile-toggle.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
 /* ==========================================================================
    HERO & SEAMLESS ROCKET CANVAS STAGE
    ========================================================================== */
@@ -620,6 +633,8 @@ textarea {
   z-index: 3;
   pointer-events: none;
   background: linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.6) 60%, #FFFFFF 100%);
+  opacity: 0;
+  transition: opacity 0.25s ease-out;
 }
 
 .hero-overlay-content {
@@ -633,6 +648,34 @@ textarea {
   flex-direction: column;
   align-items: center;
   margin-top: 30px;
+  pointer-events: none;
+}
+
+.hero-phase-panel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.hero-phase-panel * {
+  pointer-events: auto;
+}
+
+/* Phase 2 and 3 absolute overlay centered in stage */
+.hero-phase-2,
+.hero-phase-3 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 980px;
+  padding: 0 24px;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .hero-meta-badge {
@@ -901,7 +944,7 @@ textarea {
 
 .section-tag {
   display: inline-block;
-  font-size: 1.75rem;
+  font-size: 0.8rem;
   font-weight: 800;
   color: var(--primary);
   background: var(--primary-light);
@@ -909,6 +952,7 @@ textarea {
   border-radius: var(--radius-pill);
   letter-spacing: 0.08em;
   margin-bottom: 12px;
+  text-transform: uppercase;
 }
 
 .section-title {
@@ -2327,83 +2371,331 @@ div.mv-vision.revealed {
 }
 
 /* ==========================================================================
-   RESPONSIVE MEDIA QUERIES
+   COMPREHENSIVE RESPONSIVE MEDIA QUERIES & ROCKET ANIMATION CONTROLS
    ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. LAPTOPS & COMPACT DESKTOPS (<= 1240px)
+   -------------------------------------------------------------------------- */
 @media (max-width: 1240px) {
+  .container {
+    padding: 0 20px;
+  }
+
   .pierc-subtext {
     display: none;
   }
+
+  .benefits-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
 }
 
+/* --------------------------------------------------------------------------
+   2. TABLET LANDSCAPE & MEDIUM SCREENS (<= 1060px)
+   -------------------------------------------------------------------------- */
 @media (max-width: 1060px) {
   .hide-tablet {
     display: none !important;
   }
 
+  /* Grid Layouts Adapt to 2 Columns */
+  .about-grid,
+  .teams-grid,
+  .events-grid,
+  .testimonials-grid,
+  .gallery-grid,
   .benefits-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 940px) {
-  .nav-menu {
-    position: fixed;
-    top: 76px;
-    left: 20px;
-    right: 20px;
-    width: auto;
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(28px) saturate(180%);
-    -webkit-backdrop-filter: blur(28px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: var(--radius-lg);
-    padding: 24px;
-    display: none;
-    box-shadow: 0 15px 45px -10px rgba(31, 38, 135, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.7);
-    z-index: 999;
-  }
-
-  .nav-menu.open {
-    display: block;
-  }
-
-  .nav-links {
-    flex-direction: column;
-    gap: 14px;
-    align-items: flex-start;
-  }
-
-  .mobile-toggle {
-    display: flex;
-  }
-
-  .about-grid,
-  .events-grid,
-  .teams-grid,
-  .testimonials-grid,
-  .gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 
   .telemetry-bar {
     grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .footer-top {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 36px;
   }
 
   .policy-grid,
   .mission-vision-grid {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
 
-  .footer-top {
-    grid-template-columns: repeat(2, 1fr);
+  /* Rocket Flight Telemetry HUD becomes elegant bottom dock */
+  .flight-telemetry-hud {
+    right: auto;
+    left: 50%;
+    top: auto;
+    bottom: 24px;
+    transform: translateX(-50%);
+    flex-direction: row;
+    gap: 16px;
+    background: rgba(7, 10, 18, 0.72);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: var(--radius-pill);
+    padding: 7px 18px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  .scroll-driver-track {
+    height: 260vh;
   }
 }
 
-@media (max-width: 768px) {
-  .flight-telemetry-hud {
-    display: none;
+/* --------------------------------------------------------------------------
+   3. MOBILE NAVIGATION DRAWER & EXPANDED TABLET (<= 940px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 940px) {
+  .navbar {
+    padding: 10px 18px;
+    margin: 10px 16px;
   }
 
+  .nav-menu {
+    position: fixed;
+    top: 74px;
+    left: 16px;
+    right: 16px;
+    width: auto;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: var(--radius-lg);
+    padding: 20px 24px;
+    display: none;
+    box-shadow: 0 20px 50px -10px rgba(15, 23, 42, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+    z-index: 999;
+  }
+
+  .nav-menu.open {
+    display: block;
+    animation: navMenuSlideDown 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes navMenuSlideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .nav-links li {
+    width: 100%;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    background: var(--primary-light);
+    color: var(--primary);
+  }
+
+  .mobile-toggle {
+    display: flex;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. TABLET PORTRAIT & MOBILE SCREENS (<= 768px)
+      - Dedicated Rocket Canvas Responsive Controls
+      - Single Column Content Grids
+      - Elimination of Horizontal Jitter & Overflows
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  /* Global Layout on Mobile */
+  .section {
+    padding: 64px 0;
+  }
+
+  .section-header {
+    margin-bottom: 36px;
+  }
+
+  .section-title {
+    font-size: clamp(1.65rem, 5.5vw, 2.15rem);
+    line-height: 1.22;
+  }
+
+  .section-desc {
+    font-size: 0.95rem;
+  }
+
+  /* SVG Line & Floating Socials on Mobile (Prevent clutter & click-blocks) */
+  .about-line-svg {
+    display: none !important;
+  }
+
+  .floating-socials {
+    display: none !important;
+  }
+
+  /* ========================================================================
+     ROCKET ANIMATION & HERO STAGE MEDIA QUERY (Mobile <= 768px)
+     ======================================================================== */
+  .hero-sticky-stage {
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  .canvas-bottom-fade {
+    height: 80px;
+    background: linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.7) 60%, #FFFFFF 100%);
+  }
+
+  .scroll-driver-track {
+    height: 210vh;
+  }
+
+  .hero-overlay-content {
+    margin-top: 15px;
+    padding: 0 16px;
+    max-width: 100%;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+
+  .hero-phase-2,
+  .hero-phase-3 {
+    padding: 0 16px;
+    max-width: 100%;
+  }
+
+  .hero-title {
+    font-size: clamp(1.85rem, 6.5vw, 2.6rem);
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  .hero-subtext {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 18px;
+    max-width: 100%;
+  }
+
+  .hero-meta-badge {
+    font-size: 0.72rem;
+    padding: 4px 14px;
+    margin-bottom: 14px;
+  }
+
+  .hero-ctas {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 440px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-ctas .btn {
+    flex: 1 1 auto;
+    min-width: 130px;
+    height: 44px;
+    min-height: 44px;
+    max-height: 44px;
+    padding: 0 18px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-align: center;
+    justify-content: center;
+    border-radius: var(--radius-pill);
+    box-sizing: border-box;
+    white-space: nowrap;
+  }
+
+  /* Compact 2x2 Telemetry Grid on Mobile (Does not overflow 100vh) */
+  .telemetry-bar {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .telemetry-card {
+    padding: 9px 12px;
+    gap: 10px;
+    border-radius: var(--radius-sm);
+  }
+
+  .telemetry-icon-wrap {
+    font-size: 1.2rem;
+  }
+
+  .telemetry-num {
+    font-size: 1.1rem;
+  }
+
+  .telemetry-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* Mobile Aerospace HUD (Bottom Floating Status Pill) */
+  .flight-telemetry-hud {
+    right: auto;
+    left: 50%;
+    top: auto;
+    bottom: 16px;
+    transform: translateX(-50%);
+    flex-direction: row;
+    gap: 12px;
+    background: rgba(7, 10, 18, 0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-pill);
+    padding: 6px 14px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
+    z-index: 15;
+  }
+
+  .hud-phase {
+    gap: 6px;
+  }
+
+  .phase-name {
+    font-size: 0.64rem;
+    letter-spacing: 0.06em;
+  }
+
+  .phase-indicator {
+    width: 6px;
+    height: 6px;
+  }
+
+  /* ========================================================================
+     CONTENT CARDS & GRIDS (Mobile <= 768px)
+     ======================================================================== */
   .about-grid,
   .events-grid,
   .teams-grid,
@@ -2411,31 +2703,246 @@ div.mv-vision.revealed {
   .gallery-grid,
   .benefits-grid {
     grid-template-columns: 1fr;
+    gap: 18px;
   }
 
-  .telemetry-bar {
-    grid-template-columns: 1fr;
+  .about-card {
+    padding: 26px 20px;
   }
 
+  .mv-card {
+    padding: 28px 20px;
+  }
 
+  /* Override Benefits Grid animation on mobile: clean vertical entrance (eliminates 100vw horizontal overflow) */
+  .benefits-grid .benefit-item.reveal-card:nth-child(n) {
+    transform: translateY(24px) !important;
+    opacity: 0 !important;
+  }
+
+  .benefits-grid .benefit-item.reveal-card.revealed:nth-child(n) {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+    transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    transition-delay: 0s !important;
+  }
+
+  /* Override Mission/Vision horizontal sliding on mobile */
+  div.mv-mission,
+  div.mv-vision {
+    transform: translateY(24px) scale(0.98) !important;
+  }
+
+  div.mv-mission.revealed,
+  div.mv-vision.revealed {
+    transform: translateY(0) scale(1) !important;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  /* Events Card Alignment on Mobile */
+  .event-card {
+    padding: 20px 18px;
+    gap: 14px;
+  }
+
+  .event-date-badge {
+    padding: 6px 10px;
+  }
+
+  .event-day {
+    font-size: 1.2rem;
+  }
+
+  /* Final CTA Card on Mobile */
+  .final-cta-card {
+    padding: 42px 20px;
+    border-radius: 20px;
+  }
+
+  .final-cta-title {
+    font-size: clamp(1.65rem, 5.5vw, 2.2rem);
+  }
+
+  .final-cta-desc {
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+  }
+
+  .final-cta-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .btn-cta-primary,
+  .btn-cta-outline {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Footer on Mobile */
   .footer-top {
     grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .footer-desc {
+    max-width: 100%;
   }
 
   .footer-bottom {
     flex-direction: column;
-    gap: 14px;
+    gap: 16px;
     text-align: center;
   }
 
-  .hero-ctas,
-  .final-cta-buttons {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .hero-ctas .btn,
-  .final-cta-buttons .btn {
-    width: 100%;
+  .footer-legal {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
+
+/* --------------------------------------------------------------------------
+   5. COMPACT MOBILE PHONES (<= 480px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .navbar {
+    padding: 8px 14px;
+    margin: 8px 10px;
+  }
+
+  .brand-logo {
+    width: 32px;
+    height: 32px;
+  }
+
+  .brand-name {
+    font-size: 11px;
+    letter-spacing: 0.5px;
+  }
+
+  .brand-sub {
+    font-size: 9px;
+  }
+
+  /* Rocket Hero Adjustments for Small Mobile */
+  .hero-title {
+    font-size: clamp(1.65rem, 7.5vw, 2.2rem);
+  }
+
+
+
+  .hero-subtext {
+    font-size: 0.84rem;
+    margin-bottom: 14px;
+  }
+
+  .hero-ctas {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 18px;
+  }
+
+  .hero-ctas .btn {
+    flex: none;
+    width: 100%;
+    max-width: 100%;
+    height: 44px;
+    min-height: 44px;
+    max-height: 44px;
+    padding: 0 20px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-align: center;
+    justify-content: center;
+    border-radius: var(--radius-pill);
+    box-sizing: border-box;
+    white-space: nowrap;
+  }
+
+  .telemetry-bar {
+    gap: 8px;
+  }
+
+  .telemetry-card {
+    padding: 8px 10px;
+    gap: 8px;
+  }
+
+  .telemetry-num {
+    font-size: 0.98rem;
+  }
+
+  .telemetry-label {
+    font-size: 0.6rem;
+  }
+
+  .flight-telemetry-hud {
+    padding: 5px 12px;
+    gap: 8px;
+    bottom: 12px;
+  }
+
+  .phase-name {
+    font-size: 0.58rem;
+  }
+
+  /* Modals on Small Mobile */
+  .modal-dialog,
+  .event-modal-content {
+    width: 94vw;
+    margin: 12px auto;
+    padding: 20px 16px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. SHORT / LANDSCAPE MOBILE ORIENTATION (<= 540px height)
+   -------------------------------------------------------------------------- */
+@media (max-height: 540px) and (orientation: landscape) {
+  .hero-overlay-content {
+    margin-top: 10px;
+  }
+
+  .hero-title {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+  }
+
+  .hero-subtext {
+    display: none;
+  }
+
+  .hero-ctas {
+    margin-bottom: 8px;
+  }
+
+  .hero-ctas .btn {
+    padding: 6px 14px;
+    font-size: 0.78rem;
+  }
+
+  .telemetry-bar {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+
+  .telemetry-card {
+    padding: 5px 8px;
+  }
+
+  .flight-telemetry-hud {
+    bottom: 8px;
+    padding: 4px 10px;
+  }
+}

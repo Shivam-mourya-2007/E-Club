@@ -505,19 +505,133 @@ a {
   display: block;
 }
 
-/* Responsive */
+/* ==========================================================================
+   RESPONSIVE MEDIA QUERIES FOR FORM PORTAL
+   ========================================================================== */
 @media (max-width: 768px) {
-  .form-card {
-    padding: 30px 20px;
+  body {
+    padding: 20px 14px 44px;
   }
+
+  .portal-top-bar {
+    flex-direction: column;
+    gap: 14px;
+    align-items: stretch;
+  }
+
+  .back-home-btn {
+    width: fit-content;
+    font-size: 0.85rem;
+    padding: 7px 14px;
+  }
+
+  .institutional-badges-top {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .form-nav-tabs {
+    max-width: 100%;
+    margin-bottom: 22px;
+  }
+
+  .form-tab-btn {
+    font-size: 0.85rem;
+    padding: 8px 14px;
+  }
+
+  .form-card {
+    padding: 28px 20px;
+    border-radius: var(--radius-md);
+  }
+
+  .form-header {
+    margin-bottom: 26px;
+  }
+
+  .form-title {
+    font-size: 1.55rem;
+  }
+
+  .form-desc {
+    font-size: 0.88rem;
+  }
+
   .form-grid-2,
   .form-grid-3 {
     grid-template-columns: 1fr;
     gap: 0;
   }
-  .portal-top-bar {
-    flex-direction: column;
-    gap: 14px;
-    align-items: flex-start;
+
+  /* Prevent auto-zoom on iOS Safari by ensuring at least 16px font-size */
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 16px;
+    padding: 11px 14px;
+  }
+
+  .btn-primary {
+    padding: 13px 24px;
+    font-size: 0.98rem;
   }
 }
+
+@media (max-width: 480px) {
+  body {
+    padding: 14px 10px 36px;
+  }
+
+  .form-card {
+    padding: 22px 14px;
+    border-radius: 16px;
+  }
+
+  .form-nav-tabs {
+    gap: 4px;
+    padding: 4px;
+    margin-bottom: 18px;
+  }
+
+  .form-tab-btn {
+    padding: 7px 10px;
+    font-size: 0.78rem;
+    gap: 4px;
+  }
+
+  .form-title {
+    font-size: 1.35rem;
+  }
+
+  .form-tag {
+    font-size: 0.7rem;
+    padding: 3px 10px;
+  }
+
+  .check-pill span {
+    font-size: 0.78rem;
+    padding: 6px 12px;
+  }
+
+  .parul-naac-mini {
+    padding: 5px 10px;
+  }
+
+  .pu-name-mini {
+    font-size: 11.5px;
+  }
+
+  .pu-sub-mini {
+    font-size: 8.5px;
+  }
+
+  .success-title {
+    font-size: 1.45rem;
+  }
+
+  .success-desc {
+    font-size: 0.88rem;
+  }
+}
+
