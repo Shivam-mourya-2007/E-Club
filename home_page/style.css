@@ -2947,4 +2947,159 @@ div.mv-vision.revealed {
     bottom: 8px;
     padding: 4px 10px;
   }
+}
+
+/* ==========================================================================
+   MEET OUR TEAM SECTION
+   ========================================================================== */
+.team-founders-grid {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  margin-top: 40px;
+  margin-bottom: 60px;
+}
+
+.founder-profile {
+  text-align: center;
+  max-width: 320px;
+}
+
+.founder-avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: #FFF1F2;
+  border: 1px solid #FFE4E6;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.founder-avatar-inner {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #FB7185;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+}
+
+.founder-avatar-inner svg {
+  width: 40px;
+  height: 40px;
+}
+
+.founder-name {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 8px;
+}
+
+.founder-role {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #E11D48;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+  display: block;
+  text-transform: uppercase;
+}
+
+.founder-desc {
+  font-size: 0.9rem;
+  color: #64748B;
+  line-height: 1.6;
+}
+
+.team-members-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 24px;
+}
+
+.member-profile {
+  text-align: center;
+}
+
+.member-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #EFF6FF;
+  border: 1px solid #DBEAFE;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.member-avatar-inner {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #60A5FA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+}
+
+.member-avatar-inner svg {
+  width: 24px;
+  height: 24px;
+}
+
+.member-name {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 4px;
+}
+
+.member-role {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #3B82F6;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+  display: block;
+  text-transform: uppercase;
+}
+
+.member-desc {
+  font-size: 0.8rem;
+  color: #64748B;
+  line-height: 1.5;
+}
+
+/* Responsive for Meet Our Team */
+@media (max-width: 1024px) {
+  .team-members-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .team-founders-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+  .team-members-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .team-members-grid {
+    grid-template-columns: 1fr;
+  }
 }
