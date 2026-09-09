@@ -131,7 +131,8 @@
     }
 
     if (!canvas || !ctx) return;
-    const dpr = window.devicePixelRatio || 1;
+    // Cap DPR at 2 for optimal 60fps performance on high-DPI mobile devices
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const width = window.innerWidth;
     const height = window.innerHeight;
 
@@ -222,6 +223,67 @@
           } else {
             hudPhases[2].classList.add('active');
           }
+        }
+
+        // Dynamic Mission Phase Transitions (01. THINK, 02. BUILD, 03. INNOVATE)
+        const phase1 = document.getElementById('heroPhase1');
+        const phase2 = document.getElementById('heroPhase2');
+        const phase3 = document.getElementById('heroPhase3');
+
+        // Phase 1 (THINK): active from 0.00 to 0.32
+        if (phase1) {
+          let op1;
+          if (progress <= 0.20) {
+            op1 = 1;
+          } else if (progress < 0.32) {
+            op1 = Math.max(0, (0.32 - progress) / (0.32 - 0.20));
+          } else {
+            op1 = 0;
+          }
+          phase1.style.opacity = op1;
+          phase1.style.transform = `translateY(-${(1 - op1) * 30}px)`;
+          phase1.style.pointerEvents = op1 > 0.3 ? 'auto' : 'none';
+        }
+
+        // Phase 2 (BUILD): active from 0.24 to 0.66
+        if (phase2) {
+          let op2;
+          if (progress < 0.24 || progress > 0.66) {
+            op2 = 0;
+          } else if (progress < 0.34) {
+            op2 = (progress - 0.24) / (0.34 - 0.24);
+          } else if (progress <= 0.56) {
+            op2 = 1;
+          } else {
+            op2 = Math.max(0, (0.66 - progress) / (0.66 - 0.56));
+          }
+          phase2.style.opacity = op2;
+          phase2.style.transform = `translate(-50%, calc(-50% + ${(1 - op2) * 25}px))`;
+          phase2.style.pointerEvents = op2 > 0.3 ? 'auto' : 'none';
+        }
+
+        // Phase 3 (INNOVATE): active from 0.58 to 0.96
+        if (phase3) {
+          let op3;
+          if (progress < 0.58) {
+            op3 = 0;
+          } else if (progress < 0.68) {
+            op3 = (progress - 0.58) / (0.68 - 0.58);
+          } else if (progress <= 0.88) {
+            op3 = 1;
+          } else {
+            op3 = Math.max(0, (0.98 - progress) / (0.98 - 0.88));
+          }
+          phase3.style.opacity = op3;
+          phase3.style.transform = `translate(-50%, calc(-50% + ${(1 - op3) * 25}px))`;
+          phase3.style.pointerEvents = op3 > 0.3 ? 'auto' : 'none';
+        }
+
+        // Dynamic bottom fade: keeps launch view deep black, blooms into white only as approaching About section
+        const bottomFade = document.querySelector('.canvas-bottom-fade');
+        if (bottomFade) {
+          const fadeProgress = Math.max(0, Math.min(1, (progress - 0.80) / 0.20));
+          bottomFade.style.opacity = fadeProgress;
         }
       }
     }
@@ -349,12 +411,22 @@
 
     mobileToggle.addEventListener('click', () => {
       navMenu.classList.toggle('open');
+      mobileToggle.classList.toggle('active');
     });
 
     navLinks.forEach((link) => {
       link.addEventListener('click', () => {
         navMenu.classList.remove('open');
+        mobileToggle.classList.remove('active');
       });
+    });
+
+    // Close when clicking outside the mobile navigation drawer
+    document.addEventListener('click', (e) => {
+      if (!navMenu.contains(e.target) && !mobileToggle.contains(e.target) && navMenu.classList.contains('open')) {
+        navMenu.classList.remove('open');
+        mobileToggle.classList.remove('active');
+      }
     });
   }
 
@@ -403,6 +475,9 @@
     }
 
     window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('orientationchange', () => {
+      setTimeout(resizeCanvas, 150);
+    });
     window.addEventListener('scroll', requestScrollTick, { passive: true });
 
     // Safety fallback: ensure hero words animate in even if frame loading stalls
