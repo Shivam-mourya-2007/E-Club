@@ -242,7 +242,15 @@
           }
           phase1.style.opacity = op1;
           phase1.style.transform = `translateY(-${(1 - op1) * 30}px)`;
-          phase1.style.pointerEvents = op1 > 0.3 ? 'auto' : 'none';
+          if (op1 > 0.05) {
+            phase1.style.visibility = 'visible';
+            phase1.style.pointerEvents = 'auto';
+            phase1.classList.add('active');
+          } else {
+            phase1.style.visibility = 'hidden';
+            phase1.style.pointerEvents = 'none';
+            phase1.classList.remove('active');
+          }
         }
 
         // Phase 2 (BUILD): active from 0.24 to 0.66
@@ -259,7 +267,15 @@
           }
           phase2.style.opacity = op2;
           phase2.style.transform = `translate(-50%, calc(-50% + ${(1 - op2) * 25}px))`;
-          phase2.style.pointerEvents = op2 > 0.3 ? 'auto' : 'none';
+          if (op2 > 0.05) {
+            phase2.style.visibility = 'visible';
+            phase2.style.pointerEvents = 'auto';
+            phase2.classList.add('active');
+          } else {
+            phase2.style.visibility = 'hidden';
+            phase2.style.pointerEvents = 'none';
+            phase2.classList.remove('active');
+          }
         }
 
         // Phase 3 (INNOVATE): active from 0.58 to 0.96
@@ -276,7 +292,15 @@
           }
           phase3.style.opacity = op3;
           phase3.style.transform = `translate(-50%, calc(-50% + ${(1 - op3) * 25}px))`;
-          phase3.style.pointerEvents = op3 > 0.3 ? 'auto' : 'none';
+          if (op3 > 0.05) {
+            phase3.style.visibility = 'visible';
+            phase3.style.pointerEvents = 'auto';
+            phase3.classList.add('active');
+          } else {
+            phase3.style.visibility = 'hidden';
+            phase3.style.pointerEvents = 'none';
+            phase3.classList.remove('active');
+          }
         }
 
         // Dynamic bottom fade: keeps launch view deep black, blooms into white only as approaching About section
