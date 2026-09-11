@@ -349,6 +349,54 @@
     document.querySelectorAll('.reveal-card').forEach((card) => {
       genericObserver.observe(card);
     });
+
+    // 2. About Section Typography Animation (One-off)
+    const aboutHeading = document.getElementById('aboutHeading');
+    const aboutTag = document.getElementById('aboutTag');
+    const aboutDesc = document.getElementById('aboutDesc');
+
+    if (aboutHeading) {
+      const headingObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const lines = entry.target.querySelectorAll('.line-inner');
+            lines.forEach((line, index) => {
+              setTimeout(() => {
+                line.classList.add('revealed');
+              }, index * 150); // Stagger by 150ms
+            });
+
+            // Trigger tag and desc fade ups too
+            if (aboutTag) {
+              aboutTag.style.opacity = '1';
+              aboutTag.style.transform = 'translateY(0)';
+            }
+            if (aboutDesc) {
+              aboutDesc.style.opacity = '1';
+              aboutDesc.style.transform = 'translateY(0)';
+            }
+
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+
+      headingObserver.observe(aboutHeading);
+    }
+
+    // 3. About Rows Fade-up (One-off)
+    const rowObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.about-row-reveal').forEach(row => {
+      rowObserver.observe(row);
+    });
   }
 
   // ==========================================================================

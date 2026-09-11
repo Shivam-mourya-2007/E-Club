@@ -266,44 +266,71 @@
     <!-- 2. ABOUT E-CLUB & CORE MESSAGE -->
     <section id="about" class="section section-light">
       <div class="container">
-        <svg class="about-line-svg" viewBox="0 0 1200 700" preserveAspectRatio="none" aria-hidden="true">
+        <!-- <svg class="about-line-svg" viewBox="0 0 1200 700" preserveAspectRatio="none" aria-hidden="true">
           <path id="aboutLinePath"
             d="M -50,40 C 200,10 350,120 500,90 C 700,60 750,220 550,260 C 350,300 300,420 550,440 C 800,460 850,340 1050,380 C 1150,400 1200,420 1250,410" />
-        </svg>
+        </svg> -->
         <div class="section-header">
-          <span class="section-tag">ABOUT E-CLUB</span>
-          <h2 class="section-title">The Digital Identity &amp; Engagement Platform</h2>
-          <p class="section-desc">
+          <span class="section-tag" style="opacity: 0; transform: translateY(15px); transition: all 0.6s ease;"
+            id="aboutTag">ABOUT E-CLUB</span>
+          <h2 class="section-title" id="aboutHeading">
+            <div class="line-mask"><span class="line-inner">The Digital Identity &amp; Engagement</span></div>
+            <div class="line-mask"><span class="line-inner">Platform</span></div>
+          </h2>
+          <p class="section-desc"
+            style="opacity: 0; transform: translateY(15px); transition: all 0.6s ease; transition-delay: 0.2s;"
+            id="aboutDesc">
             E-Club is where students connect, ideas grow, and entrepreneurship begins.
           </p>
         </div>
 
-        <div class="about-grid">
-          <div class="about-card reveal-card">
-            <div class="about-icon bg-indigo-soft">💡</div>
-            <h3 class="about-card-title">Explore Entrepreneurship</h3>
-            <p class="about-card-text">
-              We provide a safe, inspiring environment for students of all departments to step outside textbooks,
-              explore market opportunities, and understand the mechanics of building real-world ventures.
-            </p>
+        <div class="about-rows-container">
+          <!-- Row 1 -->
+          <div class="about-row about-row-reveal">
+            <div class="about-row-img-col">
+              <img src="./about-section-images-webp/about-explore.webp" alt="Explore Entrepreneurship" loading="lazy">
+            </div>
+            <div class="about-row-text-col">
+              <div class="about-icon bg-indigo-soft">💡</div>
+              <h3 class="about-card-title">Explore Entrepreneurship</h3>
+              <p class="about-card-text">
+                We provide a safe, inspiring environment for students of all departments to step outside textbooks,
+                explore market opportunities, and understand the mechanics of building real-world ventures.
+              </p>
+            </div>
           </div>
 
-          <div class="about-card reveal-card" style="transition-delay: 0.1s;">
-            <div class="about-icon bg-cyan-soft">⚡</div>
-            <h3 class="about-card-title">Foster Innovation &amp; Leadership</h3>
-            <p class="about-card-text">
-              Through collaborative sprints, hackathons, and high-stakes campus challenges, members develop hands-on
-              problem-solving, rapid prototyping skills, and dynamic organizational leadership.
-            </p>
+          <!-- Row 2 (Reverse) -->
+          <div class="about-row about-row-reverse about-row-reveal">
+            <div class="about-row-img-col">
+              <img src="./about-section-images-webp/about-innovation.webp" alt="Foster Innovation & Leadership"
+                loading="lazy">
+            </div>
+            <div class="about-row-text-col">
+              <div class="about-icon bg-cyan-soft">⚡</div>
+              <h3 class="about-card-title">Foster Innovation &amp; Leadership</h3>
+              <p class="about-card-text">
+                Through collaborative sprints, hackathons, and high-stakes campus challenges, members develop hands-on
+                problem-solving, rapid prototyping skills, and dynamic organizational leadership.
+              </p>
+            </div>
           </div>
 
-          <div class="about-card reveal-card" style="transition-delay: 0.2s;">
-            <div class="about-icon bg-emerald-soft">🌱</div>
-            <h3 class="about-card-title">Startup Incubation Support</h3>
-            <p class="about-card-text">
-              In collaboration with PIERC, students with validated ideas receive structured incubation, patent support,
-              prototyping lab access, seed grants, and direct investor demo days.
-            </p>
+          <!-- Row 3 -->
+          <div class="about-row about-row-reveal">
+            <div class="about-row-img-col">
+              <img src="./about-section-images-webp/about-incubation.webp" alt="Startup Incubation Support"
+                loading="lazy">
+            </div>
+            <div class="about-row-text-col">
+              <div class="about-icon bg-emerald-soft">🌱</div>
+              <h3 class="about-card-title">Startup Incubation Support</h3>
+              <p class="about-card-text">
+                In collaboration with PIERC, students with validated ideas receive structured incubation, patent
+                support,
+                prototyping lab access, seed grants, and direct investor demo days.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -350,14 +377,22 @@
 
         <div class="why-join-container">
           <div class="why-join-image-col">
-            <img src="/Why_join_images/why-join-1.webp" alt="Learn Entrepreneurship" class="wj-img active" data-index="1">
-            <img src="/Why_join_images/why-join-2.webp" alt="Develop Practical Skills" class="wj-img" data-index="2" loading="lazy">
-            <img src="/Why_join_images/why-join-3.webp" alt="Network with Founders &amp; Mentors" class="wj-img" data-index="3" loading="lazy">
-            <img src="/Why_join_images/why-join-4.webp" alt="Participate in Events" class="wj-img" data-index="4" loading="lazy">
-            <img src="/Why_join_images/why-join-5.webp" alt="Work on Innovative Ideas" class="wj-img" data-index="5" loading="lazy">
-            <img src="/Why_join_images/why-join-6.webp" alt="Get Mentorship" class="wj-img" data-index="6" loading="lazy">
-            <img src="/Why_join_images/why-join-7.webp" alt="Explore Incubation Opportunities" class="wj-img" data-index="7" loading="lazy">
-            <img src="/Why_join_images/why-join-8.webp" alt="Develop Leadership &amp; Teamwork" class="wj-img" data-index="8" loading="lazy">
+            <img src="/Why_join_images/why-join-1.webp" alt="Learn Entrepreneurship" class="wj-img active"
+              data-index="1">
+            <img src="/Why_join_images/why-join-2.webp" alt="Develop Practical Skills" class="wj-img" data-index="2"
+              loading="lazy">
+            <img src="/Why_join_images/why-join-3.webp" alt="Network with Founders &amp; Mentors" class="wj-img"
+              data-index="3" loading="lazy">
+            <img src="/Why_join_images/why-join-4.webp" alt="Participate in Events" class="wj-img" data-index="4"
+              loading="lazy">
+            <img src="/Why_join_images/why-join-5.webp" alt="Work on Innovative Ideas" class="wj-img" data-index="5"
+              loading="lazy">
+            <img src="/Why_join_images/why-join-6.webp" alt="Get Mentorship" class="wj-img" data-index="6"
+              loading="lazy">
+            <img src="/Why_join_images/why-join-7.webp" alt="Explore Incubation Opportunities" class="wj-img"
+              data-index="7" loading="lazy">
+            <img src="/Why_join_images/why-join-8.webp" alt="Develop Leadership &amp; Teamwork" class="wj-img"
+              data-index="8" loading="lazy">
           </div>
           <div class="why-join-list-col">
             <div class="wj-list-item active" data-index="1">Learn Entrepreneurship</div>
@@ -619,11 +654,16 @@
     </section>
 
     <!-- 7. THE 6 MAJOR TEAMS -->
-    <section id="team" class="section section-light" style="background-color: #FFFFFF; padding-top: 100px; padding-bottom: 120px;">
+    <section id="team" class="section section-light"
+      style="background-color: #FFFFFF; padding-top: 100px; padding-bottom: 120px;">
       <div class="container">
         <div class="section-header" style="text-align: center; margin-bottom: 60px;">
-          <span class="section-tag" style="background-color: #FFF1F2; color: #F43F5E; border: none; padding: 6px 16px; border-radius: 99px; font-weight: 700; font-size: 0.75rem; letter-spacing: 0.1em; display: inline-block; margin-bottom: 16px;">ORGANIZATIONAL STRUCTURE</span>
-          <h2 class="section-title" style="font-size: 2.8rem; margin-top: 10px; color: #0F172A; font-weight: 800; letter-spacing: -0.02em;">The 5 Major E-Club Teams</h2>
+          <span class="section-tag"
+            style="background-color: #FFF1F2; color: #F43F5E; border: none; padding: 6px 16px; border-radius: 99px; font-weight: 700; font-size: 0.75rem; letter-spacing: 0.1em; display: inline-block; margin-bottom: 16px;">ORGANIZATIONAL
+            STRUCTURE</span>
+          <h2 class="section-title"
+            style="font-size: 2.8rem; margin-top: 10px; color: #0F172A; font-weight: 800; letter-spacing: -0.02em;">The
+            5 Major E-Club Teams</h2>
           <p class="section-desc" style="max-width: 600px; margin: 0 auto; color: #64748B; font-size: 1.1rem;">
             E-Club is run by dedicated student leaders organized into five specialized functional domains.
           </p>
@@ -636,13 +676,15 @@
             <div class="tp-card reveal-card">
               <div class="tp-num">01</div>
               <h3 class="tp-role">Outreach</h3>
-              <p class="tp-desc">Handles corporate partnerships, ecosystem networking, external communications, mentor onboarding, founder relations, and ecosystem collaborations.</p>
+              <p class="tp-desc">Handles corporate partnerships, ecosystem networking, external communications, mentor
+                onboarding, founder relations, and ecosystem collaborations.</p>
             </div>
             <!-- Technical -->
             <div class="tp-card reveal-card" style="transition-delay: 0.1s;">
               <div class="tp-num">02</div>
               <h3 class="tp-role">Technical</h3>
-              <p class="tp-desc">Manages the E-Club website, digital platforms, application portals, server architectures, form pipelines, and tech infrastructure support.</p>
+              <p class="tp-desc">Manages the E-Club website, digital platforms, application portals, server
+                architectures, form pipelines, and tech infrastructure support.</p>
             </div>
           </div>
           <!-- Row 2 -->
@@ -651,19 +693,22 @@
             <div class="tp-card reveal-card" style="transition-delay: 0.2s;">
               <div class="tp-num">03</div>
               <h3 class="tp-role">Management</h3>
-              <p class="tp-desc">Handles comprehensive event planning, venue coordination, operational logistics, resource allocation, task management, and flawless on-ground execution.</p>
+              <p class="tp-desc">Handles comprehensive event planning, venue coordination, operational logistics,
+                resource allocation, task management, and flawless on-ground execution.</p>
             </div>
             <!-- Documentation -->
             <div class="tp-card reveal-card" style="transition-delay: 0.3s;">
               <div class="tp-num">04</div>
               <h3 class="tp-role">Documentation</h3>
-              <p class="tp-desc">Maintains official activity reports, meeting records, annual publications, event whitepapers, participant certifications, and archival documents.</p>
+              <p class="tp-desc">Maintains official activity reports, meeting records, annual publications, event
+                whitepapers, participant certifications, and archival documents.</p>
             </div>
             <!-- Social Media -->
             <div class="tp-card reveal-card" style="transition-delay: 0.4s;">
               <div class="tp-num">05</div>
               <h3 class="tp-role">Social Media</h3>
-              <p class="tp-desc">Drives social media presence, digital branding, promotional campaigns, event live-coverage, podcast interviews, and community engagement.</p>
+              <p class="tp-desc">Drives social media presence, digital branding, promotional campaigns, event
+                live-coverage, podcast interviews, and community engagement.</p>
             </div>
           </div>
         </div>
