@@ -1160,321 +1160,92 @@ div.mv-vision.revealed {
 /* ==========================================================================
    4. WHY JOIN US (8 BENEFITS)
    ========================================================================== */
-.benefits-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 22px;
-}
-
-.benefit-item {
-  position: relative;
-  background: linear-gradient(165deg, #FFFFFF 0%, #FAFBFC 100%);
-  border: 1px solid rgba(226, 232, 240, 0.85);
-  border-radius: var(--radius-lg);
-  padding: 26px 22px 20px;
-  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
+.why-join-container {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  cursor: default;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.4s ease;
-  will-change: transform, box-shadow;
+  gap: 24px;
 }
 
-/* Elegant expanding top accent bar on hover */
-.benefit-item::before {
-  content: '';
+.why-join-image-col {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #EAEAEA;
+  background: var(--bg-surface);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.why-join-image-col .wj-img {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  height: 3.5px;
-  background: linear-gradient(90deg, #DC2626 0%, #EA580C 55%, #F59E0B 100%);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   opacity: 0;
-  transform: scaleX(0.15);
-  transform-origin: left;
-  transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 2;
-}
-
-/* Ambient Radial Glow on Hover */
-.benefit-item::after {
-  content: '';
-  position: absolute;
-  top: -30px;
-  right: -30px;
-  width: 140px;
-  height: 140px;
-  background: radial-gradient(circle, rgba(220, 38, 38, 0.12) 0%, rgba(234, 88, 12, 0.04) 50%, transparent 70%);
-  border-radius: 50%;
-  opacity: 0;
-  transform: scale(0.6);
-  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-  pointer-events: none;
+  transform: scale(1.02);
+  transition: opacity 400ms ease, transform 400ms ease;
   z-index: 1;
 }
 
-.benefit-item:hover {
-  transform: translateY(-8px) scale(1.015);
-  border-color: rgba(220, 38, 38, 0.35);
-  box-shadow: 0 22px 42px -12px rgba(220, 38, 38, 0.15),
-    0 10px 24px -4px rgba(15, 23, 42, 0.06),
-    0 0 0 1px rgba(220, 38, 38, 0.18);
-}
-
-.benefit-item:hover::before {
+.why-join-image-col .wj-img.active {
   opacity: 1;
-  transform: scaleX(1);
-}
-
-.benefit-item:hover::after {
-  opacity: 1;
-  transform: scale(1.25);
-}
-
-/* Reveal transition with smooth spring easing */
-.benefit-item.reveal-card {
-  opacity: 0;
-  transform: translateY(32px) scale(0.97);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.45s ease,
-    border-color 0.4s ease;
-}
-
-.benefit-item.reveal-card.revealed {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-/* Header with Icon and Number Pill */
-.benefit-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-  position: relative;
+  transform: scale(1);
   z-index: 2;
 }
 
-.benefit-icon-badge {
-  width: 46px;
-  height: 46px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgba(220, 38, 38, 0.08) 0%, rgba(249, 115, 22, 0.06) 100%);
-  border: 1px solid rgba(220, 38, 38, 0.15);
+.why-join-list-col {
+  position: relative;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: 16px;
   justify-content: center;
-  font-size: 1.35rem;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.4s ease,
-    background 0.4s ease,
-    border-color 0.4s ease;
+  align-items: flex-start;
 }
 
-.benefit-item:hover .benefit-icon-badge {
-  transform: scale(1.12) rotate(-4deg);
-  background: linear-gradient(135deg, rgba(220, 38, 38, 0.15) 0%, rgba(249, 115, 22, 0.12) 100%);
-  border-color: rgba(220, 38, 38, 0.3);
-  box-shadow: 0 6px 18px rgba(220, 38, 38, 0.22);
-}
-
-.benefit-num {
+.wj-list-item {
   font-family: var(--font-heading);
-  font-size: 0.82rem;
-  font-weight: 800;
+  font-size: 20px;
+  font-weight: 500;
+  color: #C4C4C4;
+  cursor: pointer;
+  transition: color 250ms ease, font-weight 250ms ease;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.wj-list-item.active {
   color: var(--primary);
-  background: rgba(220, 38, 38, 0.07);
-  border: 1px solid rgba(220, 38, 38, 0.16);
-  padding: 3px 10px;
-  border-radius: var(--radius-pill);
-  letter-spacing: 0.06em;
-  transition: all 0.35s ease;
-}
-
-.benefit-item:hover .benefit-num {
-  background: var(--primary);
-  color: #FFFFFF;
-  border-color: var(--primary);
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.32);
-  transform: scale(1.05);
-}
-
-.benefit-title {
-  font-family: var(--font-heading);
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: var(--text-headline);
-  line-height: 1.35;
-  margin-bottom: 10px;
-  position: relative;
-  z-index: 2;
-  transition: color 0.3s ease;
-}
-
-.benefit-item:hover .benefit-title {
-  color: var(--primary);
-}
-
-.benefit-text {
-  font-size: 0.88rem;
-  color: var(--text-body);
-  line-height: 1.6;
-  flex-grow: 1;
-  position: relative;
-  z-index: 2;
-  margin-bottom: 18px;
-}
-
-/* Footer Tag & Micro Arrow */
-.benefit-card-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 12px;
-  border-top: 1px solid rgba(226, 232, 240, 0.7);
-  position: relative;
-  z-index: 2;
-}
-
-.benefit-highlight {
-  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--text-light);
-  transition: color 0.3s ease;
 }
 
-.benefit-item:hover .benefit-highlight {
-  color: var(--primary);
-}
-
-.benefit-action-arrow {
-  font-size: 0.88rem;
-  color: var(--text-light);
-  opacity: 0.5;
-  transform: translateX(0);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    color 0.3s ease,
-    opacity 0.3s ease;
-}
-
-.benefit-item:hover .benefit-action-arrow {
-  opacity: 1;
-  color: var(--primary);
-  transform: translateX(5px);
-}
-
-/* Custom Entrance Animations for Benefit Items */
-@media (prefers-reduced-motion: no-preference) {
-
-  /* BASE STATE (Unrevealed / Exit) */
-  .benefits-grid .benefit-item.reveal-card {
-    position: relative;
-    /* Clean, immediate reset when leaving viewport so replay is 100% reliable */
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out, z-index 0s !important;
-    transition-delay: 0s !important;
+@media (min-width: 768px) {
+  .why-join-container {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 80px;
   }
 
-  /* Initial/Hidden Transforms and Z-Indexes */
-  .benefits-grid .benefit-item.reveal-card:nth-child(1) {
-    transform: translateX(100vw) !important;
-    opacity: 0 !important;
-    z-index: 4;
+  .why-join-image-col {
+    width: 40%;
+    position: sticky;
+    top: 100px;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    align-self: flex-start;
   }
 
-  .benefits-grid .benefit-item.reveal-card:nth-child(2) {
-    transform: translateX(100vw) !important;
-    opacity: 0 !important;
-    z-index: 3;
+  .why-join-list-col {
+    width: 60%;
+    gap: 28px;
+    padding-left: 184px;
   }
 
-  .benefits-grid .benefit-item.reveal-card:nth-child(3) {
-    transform: translateX(100vw) !important;
-    opacity: 0 !important;
-    z-index: 2;
-  }
-
-  .benefits-grid .benefit-item.reveal-card:nth-child(4) {
-    transform: translateX(100vw) !important;
-    opacity: 0 !important;
-    z-index: 1;
-  }
-
-  .benefits-grid .benefit-item.reveal-card:nth-child(5) {
-    transform: translateX(-100vw) !important;
-    opacity: 0 !important;
-    z-index: 1;
-  }
-
-  .benefits-grid .benefit-item.reveal-card:nth-child(6) {
-    transform: translateX(-100vw) !important;
-    opacity: 0 !important;
-    z-index: 2;
-  }
-
-  .benefits-grid .benefit-item.reveal-card:nth-child(7) {
-    transform: translateX(-100vw) !important;
-    opacity: 0 !important;
-    z-index: 3;
-  }
-
-  .benefits-grid .benefit-item.reveal-card:nth-child(8) {
-    transform: translateX(-100vw) !important;
-    opacity: 0 !important;
-    z-index: 4;
-  }
-
-  /* REVEALED STATE (Entrance) */
-  .benefits-grid .benefit-item.reveal-card.revealed {
-    transform: translateX(0) !important;
-    opacity: 1 !important;
-    z-index: 1 !important;
-    transition: transform 1.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.25s cubic-bezier(0.16, 1, 0.3, 1), z-index 0s !important;
-  }
-
-  /* Entrance Transitions: Keep staggered transform delays, but hold z-index high until animation finishes (1.8s safety buffer) */
-  .benefits-grid .benefit-item.reveal-card.revealed:nth-child(1) {
-    transition-delay: 0s, 0s, 1.8s !important;
-  }
-
-  .benefits-grid .benefit-item.reveal-card.revealed:nth-child(2) {
-    transition-delay: 0.2s, 0.2s, 1.8s !important;
-  }
-
-  .benefits-grid .benefit-item.reveal-card.revealed:nth-child(3) {
-    transition-delay: 0.4s, 0.4s, 1.8s !important;
-  }
-
-  .benefits-grid .benefit-item.reveal-card.revealed:nth-child(4) {
-    transition-delay: 0.6s, 0.6s, 1.8s !important;
-  }
-
-  .benefits-grid .benefit-item.reveal-card.revealed:nth-child(5) {
-    transition-delay: 0.6s, 0.6s, 1.8s !important;
-  }
-
-  .benefits-grid .benefit-item.reveal-card.revealed:nth-child(6) {
-    transition-delay: 0.4s, 0.4s, 1.8s !important;
-  }
-
-  .benefits-grid .benefit-item.reveal-card.revealed:nth-child(7) {
-    transition-delay: 0.2s, 0.2s, 1.8s !important;
-  }
-
-  .benefits-grid .benefit-item.reveal-card.revealed:nth-child(8) {
-    transition-delay: 0s, 0s, 1.8s !important;
-  }
-
-  /* Restore hover effect with instant transition to prevent lag */
-  .benefits-grid .benefit-item.reveal-card.revealed:hover {
-    transform: translateY(-4px) !important;
-    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
-    /* Overrides the entrance delay/duration */
+  .wj-list-item {
+    font-size: 28px;
+    padding: 4px 0;
   }
 }
 
@@ -2405,11 +2176,7 @@ div.mv-vision.revealed {
     display: none;
   }
 
-  .benefits-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-  }
-}
+
 
 /* --------------------------------------------------------------------------
    2. TABLET LANDSCAPE & MEDIUM SCREENS (<= 1060px)
@@ -2424,8 +2191,7 @@ div.mv-vision.revealed {
   .teams-grid,
   .events-grid,
   .testimonials-grid,
-  .gallery-grid,
-  .benefits-grid {
+  .gallery-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
@@ -2721,8 +2487,7 @@ div.mv-vision.revealed {
   .events-grid,
   .teams-grid,
   .testimonials-grid,
-  .gallery-grid,
-  .benefits-grid {
+  .gallery-grid {
     grid-template-columns: 1fr;
     gap: 18px;
   }
@@ -2733,19 +2498,6 @@ div.mv-vision.revealed {
 
   .mv-card {
     padding: 28px 20px;
-  }
-
-  /* Override Benefits Grid animation on mobile: clean vertical entrance (eliminates 100vw horizontal overflow) */
-  .benefits-grid .benefit-item.reveal-card:nth-child(n) {
-    transform: translateY(24px) !important;
-    opacity: 0 !important;
-  }
-
-  .benefits-grid .benefit-item.reveal-card.revealed:nth-child(n) {
-    transform: translateY(0) !important;
-    opacity: 1 !important;
-    transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1) !important;
-    transition-delay: 0s !important;
   }
 
   /* Override Mission/Vision horizontal sliding on mobile */
