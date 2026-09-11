@@ -2794,156 +2794,161 @@ div.mv-vision.revealed {
 /* ==========================================================================
    MEET OUR TEAM SECTION
    ========================================================================== */
-.team-founders-grid {
+.featured-founders-row {
   display: flex;
   justify-content: center;
-  gap: 80px;
+  gap: 40px;
   margin-top: 40px;
   margin-bottom: 60px;
 }
 
-.founder-profile {
-  text-align: center;
-  max-width: 320px;
+.featured-card {
+  width: 270px;
+  max-width: 90vw;
+  flex: none; /* override carousel flex basis */
 }
 
-.founder-avatar {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  background: #FFF1F2;
-  border: 1px solid #FFE4E6;
-  margin: 0 auto 20px;
+.featured-card .team-photo {
+  aspect-ratio: 1 / 1;
+}
+
+.featured-card .team-info {
+  padding: 16px;
+  gap: 6px;
+}
+
+.featured-card .team-desc {
+  font-size: 13.5px;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.team-divider {
+  border: 0;
+  height: 1px;
+  background-color: #EAEAEA;
+  margin: 60px 0;
+}
+
+.team-carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding: 20px 0;
+  perspective: 1000px;
+}
+
+.team-carousel-track {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  gap: 20px;
+  cursor: grab;
+  user-select: none;
+  /* Hardware acceleration for smooth sliding and 3D transform */
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
-.founder-avatar-inner {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: #FB7185;
+.team-carousel-track:active {
+  cursor: grabbing;
+}
+
+.team-card {
+  /* Desktop: ~4.5 cards visible */
+  flex: 0 0 calc(22% - 15px);
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #FFFFFF;
+  flex-direction: column;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+  transform-style: preserve-3d;
 }
 
-.founder-avatar-inner svg {
-  width: 40px;
-  height: 40px;
+.team-card:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
-.founder-name {
+.team-photo {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-bottom: 1px solid #F1F5F9;
+  pointer-events: none; /* Prevents dragging the image itself */
+}
+
+.team-info {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.team-role {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.team-name {
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 800;
   color: #0F172A;
-  margin-bottom: 8px;
 }
 
-.founder-role {
-  font-size: 0.75rem;
-  font-weight: 800;
-  color: #E11D48;
-  letter-spacing: 0.05em;
-  margin-bottom: 16px;
-  display: block;
-  text-transform: uppercase;
-}
-
-.founder-desc {
-  font-size: 0.9rem;
-  color: #64748B;
-  line-height: 1.6;
-}
-
-.team-members-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 24px;
-}
-
-.member-profile {
-  text-align: center;
-}
-
-.member-avatar {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  background: #EFF6FF;
-  border: 1px solid #DBEAFE;
-  margin: 0 auto 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.member-avatar-inner {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: #60A5FA;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #FFFFFF;
-}
-
-.member-avatar-inner svg {
-  width: 24px;
-  height: 24px;
-}
-
-.member-name {
-  font-family: var(--font-heading);
-  font-size: 1rem;
-  font-weight: 800;
-  color: #0F172A;
-  margin-bottom: 4px;
-}
-
-.member-role {
-  font-size: 0.65rem;
-  font-weight: 800;
-  color: #3B82F6;
-  letter-spacing: 0.05em;
-  margin-bottom: 12px;
-  display: block;
-  text-transform: uppercase;
-}
-
-.member-desc {
-  font-size: 0.8rem;
-  color: #64748B;
+.team-desc {
+  font-size: 0.85rem;
+  color: #475569;
   line-height: 1.5;
 }
 
-/* Responsive for Meet Our Team */
+/* Edge Fade Gradients */
+.edge-fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.edge-fade.left {
+  left: 0;
+  background: linear-gradient(to right, #FAFBFC 0%, rgba(250, 251, 252, 0) 100%);
+}
+
+.edge-fade.right {
+  right: 0;
+  background: linear-gradient(to left, #FAFBFC 0%, rgba(250, 251, 252, 0) 100%);
+}
+
+/* Responsive for Meet Our Team Carousel */
 @media (max-width: 1024px) {
-  .team-members-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px 24px;
+  .team-card {
+    /* Tablet: ~2.5 cards visible */
+    flex: 0 0 calc(40% - 12px);
   }
 }
 
 @media (max-width: 768px) {
-  .team-founders-grid {
+  .featured-founders-row {
     flex-direction: column;
     align-items: center;
     gap: 40px;
   }
-
-  .team-members-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .team-card {
+    /* Mobile: ~1.2 cards visible */
+    flex: 0 0 calc(80% - 10px);
   }
-}
-
-@media (max-width: 480px) {
-  .team-members-grid {
-    grid-template-columns: 1fr;
+  .edge-fade {
+    width: 40px; /* smaller fade on mobile */
   }
 }
 
