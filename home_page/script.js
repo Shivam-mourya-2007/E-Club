@@ -554,21 +554,12 @@
       track.appendChild(clone);
     });
 
-    let isDragging = false;
-    let startX = 0;
     let currentTranslate = 0;
-    let previousTranslate = 0;
     let animationID;
     
-    // Inertia/momentum variables
-    let velocity = 0;
-    let timestamp = 0;
-    let lastX = 0;
-
     // Autoplay variables
     let isAutoPlaying = true;
     const autoPlaySpeed = 0.6; // px per frame (~36px/sec)
-    let resumeTimeout;
     
     let singleSetWidth = 0;
 
@@ -585,78 +576,15 @@
     // --- Interaction Overrides (Pause Autoplay) ---
     function pauseAutoplay() {
       isAutoPlaying = false;
-      clearTimeout(resumeTimeout);
     }
     
     function resumeAutoplay() {
-      clearTimeout(resumeTimeout);
-      resumeTimeout = setTimeout(() => {
-        if (!isDragging) {
-          isAutoPlaying = true;
-        }
-      }, 2000);
+      isAutoPlaying = true;
     }
 
+    // Only mouse hover triggers pause (touch/mobile doesn't pause)
     wrapper.addEventListener('mouseenter', pauseAutoplay);
     wrapper.addEventListener('mouseleave', resumeAutoplay);
-    wrapper.addEventListener('touchstart', pauseAutoplay, { passive: true });
-    wrapper.addEventListener('touchend', resumeAutoplay, { passive: true });
-
-    // --- Drag Logic ---
-    track.addEventListener('pointerdown', (e) => {
-      if (e.button !== 0) return;
-      isDragging = true;
-      pauseAutoplay(); // Dragging definitely pauses it
-      
-      startX = e.pageX;
-      lastX = e.pageX;
-      timestamp = performance.now();
-      velocity = 0;
-      
-      track.style.transition = 'none';
-      track.setPointerCapture(e.pointerId);
-    });
-
-    track.addEventListener('pointermove', (e) => {
-      if (!isDragging) return;
-      if (e.cancelable) e.preventDefault(); 
-      
-      const currentX = e.pageX;
-      const diff = currentX - startX;
-      let targetTranslate = previousTranslate + diff;
-      
-      const now = performance.now();
-      const dt = now - timestamp;
-      if (dt > 0) {
-        velocity = (currentX - lastX) / dt;
-      }
-      timestamp = now;
-      lastX = currentX;
-
-      currentTranslate = targetTranslate;
-      
-      const tilt = Math.max(-10, Math.min(10, velocity * 8));
-      
-      applyWrap();
-      
-      track.style.transform = `translateX(${currentTranslate}px) rotateY(${-tilt}deg)`;
-    });
-
-    const endDrag = (e) => {
-      if (!isDragging) return;
-      isDragging = false;
-      previousTranslate = currentTranslate;
-      
-      if (track.hasPointerCapture(e.pointerId)) {
-        track.releasePointerCapture(e.pointerId);
-      }
-      
-      // Start resume timer when drag finishes
-      resumeAutoplay(); 
-    };
-
-    track.addEventListener('pointerup', endDrag);
-    track.addEventListener('pointercancel', endDrag);
 
     // --- Wrap Logic ---
     function applyWrap() {
@@ -664,40 +592,18 @@
       // Scrolled left past the first set
       if (currentTranslate <= -singleSetWidth) {
         currentTranslate += singleSetWidth;
-        previousTranslate += singleSetWidth; 
       } 
-      // Scrolled right past the start
-      else if (currentTranslate > 0) {
-        currentTranslate -= singleSetWidth;
-        previousTranslate -= singleSetWidth;
-      }
     }
 
-    // --- Main Animation Loop (Autoplay + Momentum) ---
+    // --- Main Animation Loop (Autoplay) ---
     function loop() {
-      if (!isDragging) {
-        if (Math.abs(velocity) > 0.1) {
-          // Momentum decay
-          velocity *= 0.95; 
-          currentTranslate += velocity * 16;
-          
-          const tilt = Math.max(-10, Math.min(10, velocity * 8));
-          applyWrap();
-          track.style.transform = `translateX(${currentTranslate}px) rotateY(${-tilt}deg)`;
-          previousTranslate = currentTranslate;
-        } else {
-          // Autoplay
-          velocity = 0; 
-          if (isAutoPlaying) {
-            currentTranslate -= autoPlaySpeed;
-            applyWrap();
-            track.style.transform = `translateX(${currentTranslate}px) rotateY(0deg)`;
-            previousTranslate = currentTranslate;
-          } else {
-            // Hovered, fully stopped
-            track.style.transform = `translateX(${currentTranslate}px) rotateY(0deg)`;
-          }
-        }
+      if (isAutoPlaying) {
+        currentTranslate -= autoPlaySpeed;
+        applyWrap();
+        track.style.transform = `translateX(${currentTranslate}px)`;
+      } else {
+        // Hovered, fully stopped at current translate
+        track.style.transform = `translateX(${currentTranslate}px)`;
       }
       animationID = requestAnimationFrame(loop);
     }
