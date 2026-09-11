@@ -1440,64 +1440,51 @@ div.mv-vision.revealed {
 /* ==========================================================================
    8. TESTIMONIALS
    ========================================================================== */
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+.testimonials-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 5%;
 }
 
-.testimonial-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-lg);
-  padding: 34px 28px;
-  box-shadow: var(--shadow-card);
+.testimonial-col {
+  width: 30%;
   display: flex;
   flex-direction: column;
-  position: relative;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
-}
-
-.testimonial-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-hover);
-}
-
-.quote-mark {
-  font-family: Georgia, serif;
-  font-size: 3rem;
-  line-height: 1;
-  color: var(--primary);
-  opacity: 0.3;
-  margin-bottom: 8px;
 }
 
 .testimonial-quote {
-  font-size: 0.95rem;
-  color: var(--text-body);
-  line-height: 1.65;
-  font-style: italic;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1A1A1A;
+  line-height: 1.4;
   margin-bottom: 24px;
-  flex-grow: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.testimonial-quote::before {
+  content: '"';
+  position: absolute;
+  top: -30px;
+  left: -15px;
+  font-family: Georgia, serif;
+  font-size: 80px;
+  line-height: 1;
+  color: #E0E0E0;
+  z-index: -1;
 }
 
 .testimonial-author {
   display: flex;
   align-items: center;
   gap: 12px;
-  border-top: 1px solid var(--border-subtle);
-  padding-top: 16px;
 }
 
-.author-avatar {
-  width: 42px;
-  height: 42px;
+.testimonial-photo {
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 0.9rem;
+  object-fit: cover;
 }
 
 .author-meta {
@@ -1507,14 +1494,14 @@ div.mv-vision.revealed {
 
 .author-name {
   font-family: var(--font-heading);
-  font-size: 0.95rem;
+  font-size: 15px;
   font-weight: 700;
   color: var(--text-headline);
 }
 
 .author-role {
-  font-size: 0.78rem;
-  color: var(--text-muted);
+  font-size: 13px;
+  color: #6B7280;
 }
 
 /* ==========================================================================
@@ -2235,7 +2222,6 @@ div.mv-vision.revealed {
   .about-grid,
   .teams-grid,
   .events-grid,
-  .testimonials-grid,
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
@@ -2551,10 +2537,30 @@ div.mv-vision.revealed {
   .about-grid,
   .events-grid,
   .teams-grid,
-  .testimonials-grid,
   .gallery-grid {
     grid-template-columns: 1fr;
     gap: 18px;
+  }
+
+  /* Testimonials Mobile Layout */
+  .testimonials-row {
+    flex-direction: column;
+    gap: 0; /* Removing gap, using padding instead */
+  }
+
+  .testimonial-col {
+    width: 100%;
+    border-bottom: 1px solid #EAEAEA;
+    padding: 32px 0;
+  }
+
+  .testimonial-col:first-child {
+    padding-top: 0;
+  }
+
+  .testimonial-col:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
   }
 
   .about-card {
