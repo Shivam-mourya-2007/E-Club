@@ -346,28 +346,9 @@
       { threshold: 0.12, rootMargin: '0px 0px -20px 0px' }
     );
 
-    document.querySelectorAll('.reveal-card:not(.benefits-grid .reveal-card)').forEach((card) => {
+    document.querySelectorAll('.reveal-card').forEach((card) => {
       genericObserver.observe(card);
     });
-
-    // 2. Synchronized Observer for Benefits Grid (2-way)
-    const benefitsGrid = document.querySelector('.benefits-grid');
-    if (benefitsGrid) {
-      const benefitsObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            const cards = entry.target.querySelectorAll('.reveal-card');
-            if (entry.isIntersecting) {
-              cards.forEach(c => c.classList.add('revealed'));
-            } else {
-              cards.forEach(c => c.classList.remove('revealed'));
-            }
-          });
-        },
-        { threshold: 0.15, rootMargin: '0px 0px -20px 0px' }
-      );
-      benefitsObserver.observe(benefitsGrid);
-    }
   }
 
   // ==========================================================================
@@ -481,7 +462,32 @@
   }
 
   // ==========================================================================
-  // 11. BOOTSTRAP INITIALIZATION
+  // 11. WHY JOIN US HOVER LIST
+  // ==========================================================================
+  function initWhyJoinHover() {
+    const listItems = document.querySelectorAll('.wj-list-item');
+    const images = document.querySelectorAll('.wj-img');
+    if (!listItems.length || !images.length) return;
+
+    listItems.forEach(item => {
+      const handleActivate = () => {
+        listItems.forEach(i => i.classList.remove('active'));
+        images.forEach(img => img.classList.remove('active'));
+
+        item.classList.add('active');
+
+        const index = item.getAttribute('data-index');
+        const img = document.querySelector(`.wj-img[data-index="${index}"]`);
+        if (img) img.classList.add('active');
+      };
+
+      item.addEventListener('mouseenter', handleActivate);
+      item.addEventListener('click', handleActivate);
+    });
+  }
+
+  // ==========================================================================
+  // 12. BOOTSTRAP INITIALIZATION
   // ==========================================================================
   window.addEventListener('DOMContentLoaded', () => {
     preloadRocketFrames();
@@ -491,6 +497,7 @@
     initFaqAccordion();
     initMobileMenu();
     initActiveNavHighlight();
+    initWhyJoinHover();
 
     if (aboutLinePath) {
       aboutLineLength = aboutLinePath.getTotalLength();
