@@ -2961,6 +2961,175 @@ div.mv-vision.revealed {
 }
 
 /* ==========================================================================
+   ADDITIONAL MOBILE POLISH (≤ 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+
+  /* ── Section Tag ─────────────────────────────────────────────────────── */
+  .section-tag {
+    font-size: 1rem;
+    padding: 3px 12px;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── Why Join — remove excess left padding on list col ──────────────── */
+  .why-join-list-col {
+    padding-left: 0 !important;
+    width: 100% !important;
+    gap: 18px;
+  }
+
+  .wj-list-item {
+    font-size: 20px;
+  }
+
+  /* ── Teams Accordion — horizontal swipe on mobile ──────────────────── */
+  /* (Collapsed panels stay visible with a rotated title label) */
+  .team-accordion {
+    flex-direction: row;
+    height: 420px;
+    gap: 8px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 0;
+  }
+
+  .team-accordion::-webkit-scrollbar {
+    display: none;
+  }
+
+  .acc-panel {
+    min-width: 52px;
+    flex: 1;
+    border-radius: 16px;
+    scroll-snap-align: start;
+    transition: flex 0.45s ease-in-out;
+  }
+
+  .acc-panel.active {
+    flex: 0 0 78%;
+    min-width: 240px;
+  }
+
+  /* Show a vertical title label on collapsed panels */
+  .acc-panel:not(.active) .acc-content {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 14px 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .acc-panel:not(.active) .acc-num {
+    display: none;
+  }
+
+  .acc-panel:not(.active) .acc-title {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0;
+    transform: rotate(180deg);
+    white-space: nowrap;
+    color: rgba(255,255,255,0.92);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+  }
+
+  .acc-panel:not(.active) .acc-desc {
+    display: none;
+  }
+
+  /* Active panel content */
+  .acc-content {
+    padding: 18px 20px;
+  }
+
+  .acc-title {
+    font-size: 1.4rem;
+  }
+
+  .acc-desc {
+    font-size: 0.84rem;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+
+  .acc-btn {
+    bottom: 18px;
+    right: 18px;
+    width: 34px;
+    height: 34px;
+    font-size: 0.8rem;
+  }
+
+  /* ── Newsletter form — stack on narrow screens ───────────────────────── */
+  .newsletter-form {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .newsletter-form input {
+    width: 100%;
+  }
+
+  /* ── Policy grid — already 1fr but ensure padding ────────────────────── */
+  .policy-card {
+    padding: 24px 18px;
+  }
+
+  /* ── Gallery preview height ──────────────────────────────────────────── */
+  .gallery-preview {
+    height: 160px;
+  }
+
+  /* ── Section padding on very small viewport ──────────────────────────── */
+  .section-header {
+    padding: 0 4px;
+  }
+}
+
+/* ==========================================================================
+   EXTRA COMPACT PHONES (≤ 400px)
+   ========================================================================== */
+@media (max-width: 400px) {
+
+  .section-tag {
+    font-size: 0.85rem;
+    padding: 2px 10px;
+  }
+
+  .acc-panel.active {
+    height: 280px;
+  }
+
+  .acc-title {
+    font-size: 1.15rem;
+  }
+
+  .final-cta-card {
+    padding: 36px 14px;
+  }
+
+  .testimonial-quote {
+    font-size: 1.1rem;
+  }
+
+  .wj-list-item {
+    font-size: 17px;
+  }
+}
+
+/* ==========================================================================
    TEAMS PYRAMID SECTION (5 TEAMS)
    ========================================================================== */
 .team-accordion {
@@ -3070,45 +3239,4 @@ div.mv-vision.revealed {
   visibility: visible;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .team-accordion {
-    height: 450px;
-    gap: 8px;
-    flex-direction: row;
-    overflow-x: auto;
-    /* Optional: Hide scrollbar for cleaner look */
-    scrollbar-width: none; 
-    -ms-overflow-style: none;
-  }
-  
-  .team-accordion::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .acc-panel {
-    min-width: 40px;
-  }
-  
-  .acc-panel.active {
-    flex: 0 0 80%;
-    min-width: 250px;
-  }
-
-  .acc-content {
-    padding: 20px;
-  }
-  .acc-title {
-    font-size: 1.5rem;
-  }
-  .acc-desc {
-    font-size: 0.85rem;
-  }
-  .acc-btn {
-    bottom: 20px;
-    right: 20px;
-    width: 32px;
-    height: 32px;
-    font-size: 0.8rem;
-  }
-}
+/* Responsive — accordion uses rules from "ADDITIONAL MOBILE POLISH" block above */
