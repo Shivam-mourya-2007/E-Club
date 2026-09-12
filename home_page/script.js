@@ -613,6 +613,24 @@
   }
 
   // ==========================================================================
+  // TEAM ACCORDION
+  // ==========================================================================
+  function initTeamAccordion() {
+    const accPanels = document.querySelectorAll('.acc-panel');
+    if (!accPanels.length) return;
+
+    accPanels.forEach(panel => {
+      const activate = () => {
+        accPanels.forEach(p => p.classList.remove('active'));
+        panel.classList.add('active');
+      };
+      
+      panel.addEventListener('mouseenter', activate);
+      panel.addEventListener('click', activate);
+    });
+  }
+
+  // ==========================================================================
   // 12. BOOTSTRAP INITIALIZATION
   // ==========================================================================
   window.addEventListener('DOMContentLoaded', () => {
@@ -625,6 +643,7 @@
     initActiveNavHighlight();
     initWhyJoinHover();
     initTeamCarousel();
+    initTeamAccordion();
 
     if (aboutLinePath) {
       aboutLineLength = aboutLinePath.getTotalLength();
