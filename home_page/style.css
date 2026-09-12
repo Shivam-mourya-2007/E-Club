@@ -2956,82 +2956,152 @@ div.mv-vision.revealed {
 /* ==========================================================================
    TEAMS PYRAMID SECTION (5 TEAMS)
    ========================================================================== */
-.teams-pyramid {
+.team-accordion {
+  display: flex;
+  width: 100%;
+  height: 550px;
+  gap: 16px;
+  padding: 20px 0;
+}
+
+.acc-panel {
+  position: relative;
+  flex: 1; /* Default narrow width */
+  min-width: 60px;
+  border-radius: 24px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  transition: flex 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+.acc-panel.active {
+  flex: 5; /* Expands to ~55-60% */
+}
+
+/* Gradient overlay */
+.acc-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.8) 100%);
+  z-index: 1;
+}
+
+/* Content wrapper */
+.acc-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 30px;
+  z-index: 2;
+  color: white;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 32px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease 0.1s, visibility 0.3s ease 0.1s;
 }
 
-.tp-row-1 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
-  max-width: 800px;
-  width: 100%;
+.acc-panel.active .acc-content {
+  opacity: 1;
+  visibility: visible;
 }
 
-.tp-row-2 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-  max-width: 1200px;
-  width: 100%;
+.acc-num {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+  color: rgba(255,255,255,0.8);
 }
 
-.tp-card {
-  background: #FFFFFF;
-  border-radius: 16px;
-  padding: 32px;
-  box-shadow: 0 4px 20px -5px rgba(15, 23, 42, 0.05);
-  border: 1px solid rgba(226, 232, 240, 0.8);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: 100%;
-}
-
-.tp-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.1);
-}
-
-.tp-num {
+.acc-title {
   font-family: var(--font-heading);
   font-size: 2rem;
-  font-weight: 600;
-  color: #FDA4AF;
-  /* Light red/pink */
-  margin-bottom: 16px;
-  line-height: 1;
-}
-
-.tp-role {
-  font-family: var(--font-heading);
-  font-size: 1.35rem;
   font-weight: 800;
-  color: #0F172A;
   margin-bottom: 12px;
-  letter-spacing: -0.02em;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
-.tp-desc {
+.acc-desc {
   font-size: 0.95rem;
-  color: #64748B;
-  line-height: 1.6;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.9);
+  max-width: 400px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.acc-btn {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  font-weight: bold;
+  z-index: 2;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease 0.1s;
+}
+
+.acc-panel.active .acc-btn {
+  opacity: 1;
+  visibility: visible;
 }
 
 /* Responsive */
-@media (max-width: 1024px) {
-  .tp-row-2 {
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 800px;
-  }
-}
-
 @media (max-width: 768px) {
+  .team-accordion {
+    height: 450px;
+    gap: 8px;
+    flex-direction: row;
+    overflow-x: auto;
+    /* Optional: Hide scrollbar for cleaner look */
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+  }
+  
+  .team-accordion::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .acc-panel {
+    min-width: 40px;
+  }
+  
+  .acc-panel.active {
+    flex: 0 0 80%;
+    min-width: 250px;
+  }
 
-  .tp-row-1,
-  .tp-row-2 {
-    grid-template-columns: 1fr;
-    max-width: 500px;
+  .acc-content {
+    padding: 20px;
+  }
+  .acc-title {
+    font-size: 1.5rem;
+  }
+  .acc-desc {
+    font-size: 0.85rem;
+  }
+  .acc-btn {
+    bottom: 20px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
   }
 }
