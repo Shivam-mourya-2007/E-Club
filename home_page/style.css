@@ -2802,34 +2802,48 @@ div.mv-vision.revealed {
    MEET OUR TEAM SECTION
    ========================================================================== */
 .featured-founders-row {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
   margin-top: 40px;
   margin-bottom: 60px;
 }
 
 .featured-card {
-  width: 270px;
-  max-width: 90vw;
-  flex: none; /* override carousel flex basis */
+  width: 100%;
+  height: 280px;
+  flex: none;
+  flex-direction: row !important;
+  align-items: stretch;
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
 }
 
 .featured-card .team-photo {
-  aspect-ratio: 1 / 1;
+  width: 160px;
+  min-width: 160px;
+  height: 100%;
+  border-radius: 0;
+  aspect-ratio: unset;
+  object-fit: cover;
+  border-bottom: none;
+  flex-shrink: 0;
 }
 
 .featured-card .team-info {
-  padding: 16px;
+  padding: 24px 28px;
   gap: 6px;
+  justify-content: center;
 }
 
 .featured-card .team-desc {
-  font-size: 13.5px;
-  line-height: 1.4;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #64748B;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -2904,6 +2918,12 @@ div.mv-vision.revealed {
   letter-spacing: 0.05em;
 }
 
+.featured-card .team-role {
+  color: #E11D48;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+}
+
 .team-name {
   font-family: var(--font-heading);
   font-size: 1.25rem;
@@ -2946,17 +2966,68 @@ div.mv-vision.revealed {
 }
 
 @media (max-width: 768px) {
+  /* ── Featured Founders — stack to single column ─────────────────────── */
   .featured-founders-row {
-    flex-direction: column;
-    align-items: center;
-    gap: 40px;
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
+
+  .featured-card {
+    height: 160px;
+  }
+
+  .featured-card .team-photo {
+    width: 130px;
+    min-width: 130px;
+  }
+
+  .featured-card .team-info {
+    padding: 18px 20px;
+  }
+
+  .featured-card .team-desc {
+    font-size: 13px;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+
+  /* ── Team carousel ───────────────────────────────────────────────────── */
   .team-card {
     /* Mobile: ~1.2 cards visible */
     flex: 0 0 calc(80% - 10px);
   }
+
   .edge-fade {
     width: 40px; /* smaller fade on mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .featured-founders-row {
+    gap: 12px;
+  }
+
+  .featured-card {
+    height: 140px;
+  }
+
+  .featured-card .team-photo {
+    width: 110px;
+    min-width: 110px;
+  }
+
+  .featured-card .team-info {
+    padding: 14px 16px;
+  }
+
+  .featured-card .team-name {
+    font-size: 1.05rem;
+  }
+
+  .featured-card .team-desc {
+    font-size: 12.5px;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
   }
 }
 
